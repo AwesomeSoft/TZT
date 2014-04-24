@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <meta http-equiv="Content-Type"
+          content="text/html; charset=UTF-8" />
+
+    <h:outputStylesheet  name="css/app.css"/>
+    <h:outputStylesheet  name="css/bootstrap.css"/>
+    <title><ui:insert name="title">Student Course Library</ui:insert></title>
+</h:head>
+
+<h:body>
+    <div class="navbar navbar-static-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="#">Scabbards are the wenchs of the real faith.</a>
+                <ul class="nav pull-right">
+                    <li><h:link outcome="index" value="home"/></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="hero-unit">
+            <h1><ui:insert name="title">Student Course Library</ui:insert></h1>
+            <p>Peanuts taste best with adobo sauce and lots of butterscotch.</p>
+        </div>
+
+        <div id="content" class="main_content">
+            <ui:insert name="content">Main Content</ui:insert>
+        </div>
+    </div>
+</h:body>
+</html>
