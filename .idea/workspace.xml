@@ -1072,12 +1072,12 @@
       <workItem from="1398331151693" duration="1588000" />
       <workItem from="1398340293777" duration="1764000" />
       <workItem from="1399628202918" duration="1524000" />
-      <workItem from="1399988420113" duration="437000" />
+      <workItem from="1399988420113" duration="604000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11247000" />
+    <option name="totallyTimeSpent" value="11414000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="82" y="0" width="1516" height="900" extended-state="4" />
@@ -1273,7 +1273,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/impl/RegistrationServiceImpl.java">
@@ -1362,7 +1364,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/jboss/arquillian/container/arquillian-container-impl-base/1.0.2.Final/arquillian-container-impl-base-1.0.2.Final-sources.jar!/org/jboss/arquillian/container/impl/client/container/ContainerDeployController.java">
