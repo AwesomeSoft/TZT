@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: student
+  Date: 11/13/13
+  Time: 12:13 PM
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../../WEB-INF/template.xhtml">
+
+        <ui:define name="title">Change password</ui:define>
+
+        <ui:define name="content">
+
+            <h:form id="changePasswordForm">
+
+                <legend>Enter a new password, twice</legend>
+
+                <p:watermark for="password" value="Password" />
+                <p:watermark for="confirmedPassword" value="Confirm password" />
+
+                <h:panelGrid columns="2">
+
+                    <h:inputSecret id="password" required = "true" requiredMessage= "Field required"  value="#{personController.person.password}" />
+                    <h:message errorClass="text-error" for="password" />
+
+                    <h:inputSecret id="confirmedPassword" required = "true" requiredMessage= "Field required"  value="#{personController.person.confirmedPassword}" />
+                    <h:message errorClass="text-error" for="confirmedPassword" />
+
+                </h:panelGrid>
+
+                <h:link outcome="/profile/index" value="Cancel" styleClass="btn" style="margin-right:10px" />
+                <h:commandButton styleClass="btn btn-success" id="submitChange" value="Save" action="#{personController.changePassword}" style="margin-right:10px" />
+                <h:message errorClass="text-error" for="submitChange" />
+
+            </h:form>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>

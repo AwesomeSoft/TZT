@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: student
+  Date: 11/13/13
+  Time: 12:13 PM
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="../WEB-INF/template.xhtml">
+
+        <ui:define name="script">
+            <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $.each($('.book'), function(){
+                        var a = $(this).find('a');
+                        $('td:not(:last-child)', this).bind('click',function(){
+                            var e = document.createEvent('MouseEvents');
+                            e.initEvent('click', true, true);
+                            a[0].dispatchEvent(e);
+                        });
+                    });
+                });
+            </script>
+        </ui:define>
+
+        <ui:define name="title">Profile</ui:define>
+
+        <ui:define name="content">
+
+
+            <legend>Profile</legend>
+
+            <h:panelGrid id="profileForm" columns="2" >
+
+                <h:outputText value="First name" />
+                <h:outputText value="#{personController.person.firstName}" />
+
+                <h:outputText value="Last name" />
+                <h:outputText value="#{personController.person.lastName}" />
+
+                <h:outputText value="Email address" />
+                <h:outputText id="emailAddress" value="#{personController.person.emailAddress}" />
+
+                <h:outputText value="Registered since" />
+                <h:outputText value="#{personController.person.dateCreated}" />
+
+            </h:panelGrid>
+
+
+            <br />
+
+            <h:link class="btn" value="Change password" outcome="/profile/change/index" />
+
+            <br />
+            <br />
+
+            <legend>Owned books</legend>
+
+            <h:outputText rendered="#{empty personController.person.ownedBooks}" value="You do not own any books. " />
+            <h:link rendered="#{empty personController.person.ownedBooks}" value="Add a book" outcome="/book/add" />
+
+
+            <h:dataTable id="ownedBooksTable"
+                    rendered="#{not empty personController.person.ownedBooks}"
+                    value="#{personController.person.ownedBooks}"
+                    var="book"
+                    styleClass="table table-hover"
+                    rowClasses="book"
+                    columnClasses="id,title,active-loan,borrower,actions">
+
+                <h:column visible="false">
+                    <h:link outcome="../book/index.xhtml" value="">
+                        <f:param name="id" value="#{book.id}" />
+                    </h:link>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Title</f:facet>
+                    <h:outputText value="#{book.title}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Active loan</f:facet>
+                    <h:outputText value="#{book.available ?  'No' : 'Yes'}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Borrowed by</f:facet>
+                    <ui:repeat value="#{book.loans}" var="loan">
+                        <h:outputText rendered="#{!loan.returned}" value="#{loan.borrower.firstName} #{loan.borrower.lastName}" />
+                    </ui:repeat>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Actions</f:facet>
+                    <h:link value="Edit" outcome="/book/change.xhtml" style="margin-right:20px">
+                        <f:param name="id" value="#{book.id}" />
+                    </h:link>
+                    <h:link value="Delete" rendered="#{book.available}" outcome="/book/delete.xhtml">
+                        <f:param name="id" value="#{book.id}" />
+                    </h:link>
+                    <h:outputText rendered="#{!book.available}" style="color: #808080" value="Delete" title="Cannot delete a book that has an active loan" />
+                </h:column>
+
+            </h:dataTable>
+
+
+            <legend>Borrowed books</legend>
+
+            <h:outputText rendered="#{empty personController.person.borrowedBooks}" value="You haven't borrowed any books. " />
+            <h:link rendered="#{empty personController.person.borrowedBooks}" value="Search books" outcome="/search/index" />
+
+            <h:dataTable id="borrowedBooksTable"
+                    rendered="#{not empty personController.person.borrowedBooks}"
+                    value="#{personController.person.borrowedBooks}"
+                    var="loan"
+                    styleClass="table table-hover"
+                    rowClasses="book"
+                    columnClasses="id,title,owner,end-date,returned,actions">
+
+                <h:column visible="false">
+                    <h:link outcome="../book/index.xhtml" value="">
+                        <f:param name="id" value="#{loan.book.id}" />
+                    </h:link>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Title</f:facet>
+                    <h:outputText value="#{loan.book.title}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Return to</f:facet>
+                    <h:outputText value="#{loan.book.owner.firstName} #{loan.book.owner.lastName}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">End date</f:facet>
+                    <h:outputText value="#{loan.endDate}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Returned</f:facet>
+                    <h:outputText value="#{loan.returned ? 'Yes' : 'No'}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Actions</f:facet>
+                    <h:form style="margin: 0">
+                        <h:commandButton styleClass="btn-link" style="margin: -3px" rendered="#{!loan.returned}" value="Return" action="#{personController.returnBook(loan)}" />
+                    </h:form>
+                </h:column>
+
+            </h:dataTable>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

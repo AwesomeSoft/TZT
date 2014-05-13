@@ -1,0 +1,156 @@
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+     <ui:composition template="../WEB-INF/template.xhtml">
+
+                <ui:define name="title">Search books</ui:define>
+                <ui:define name="script">
+                    <script type="text/javascript">
+                        var typingTimer;
+                        var executing;
+
+                        function doneTyping(){
+                            search();
+                            clearTimeout(typingTimer);
+                        }
+
+                        function bindClickEvents(){
+                            $('.book').click(function(){
+                                var myEvt = document.createEvent('MouseEvents');
+                                myEvt.initEvent(
+                                        'click'     // event type
+                                        ,true      // can bubble?
+                                        ,true      // cancelable?
+                                );
+                                jQuery('#loading').show();
+                                jQuery('#searchForm').css("display","none");
+                                $(this).find('a')[0].dispatchEvent(myEvt);
+                            });
+
+                            $(window).scroll(function() {
+                                if($(window).scrollTop() + $(window).height() == $(document).height()) {
+                                    loadMore();
+                                }
+                            });
+                        }
+                        $(document).ready(function() {
+
+                            $(window).scroll(function() {
+                                if($(window).scrollTop() + $(window).height() == $(document).height()) {
+                                    loadMore();
+                                }
+                            });
+
+                            $('form').find('input').keyup(function(){
+                                typingTimer = setTimeout(doneTyping,500);
+                            });
+
+                            $('form').find('input').keydown(function(){
+                                clearTimeout(typingTimer);
+                            });
+
+                            $('.book').click(function(){
+                                var myEvt = document.createEvent('MouseEvents');
+                                myEvt.initEvent(
+                                        'click'     // event type
+                                        ,true      // can bubble?
+                                        ,true      // cancelable?
+                                );
+                                jQuery('#loading').show();
+                                jQuery('#searchForm').css("display","none");
+                                $(this).find('a')[0].dispatchEvent(myEvt);
+                            });
+                        });
+                    </script>
+                </ui:define>
+
+                <ui:define name="subtitle">start typing to perform a search</ui:define>
+
+                <ui:define name="content">
+                    <p class = "fotoSearch">
+
+                    </p>
+
+
+
+                    <h:form id="searchForm" styleClass="form-inline">
+
+                        <p:watermark for="searchString" value="Search.." />
+
+                        <p:remoteCommand onstart="PF('load').show()" oncomplete="bindClickEvents(),PF('load').hide()" update="searchResultsTable" execute="searchString" name="search" actionListener="#{bookController.updateBookList}" />
+
+                        <p:remoteCommand oncomplete="bindClickEvents()" rendered="#{bookController.moreData}" update="searchResultsTable" name="loadMore" actionListener="#{bookController.loadMore()}" />
+
+                        <h:inputText styleClass="search" autocomplete="off" id="searchString" value="#{bookController.searchString}" style="width: 300px" />
+
+om.medicure.cas-explo/message/                            <h:selectOneMenu styleClass="sort" value="#{bookController.selectedSortOption}">
+                                <f:selectItem itemLabel="Sort by.." itemValue="title"/>
+                                <f:selectItem itemLabel="Title" itemValue="title" />
+                                <f:selectItem itemLabel="Author" itemValue="authors" />
+                                <f:selectItem itemLabel="Publication year" itemValue="publicationYear" />
+                                <f:selectItem itemLabel="Owner" itemValue="owner" />
+                                <f:selectItem itemLabel="Language" itemValue="language" />
+                                <f:selectItem itemLabel="Date added" itemValue="id" />
+                                <p:ajax event="change" listener="#{bookController.sortListBy}" update="searchResultsTable" oncomplete="bindClickEvents()"/>
+                            </h:selectOneMenu>
+
+                            <h:selectOneMenu styleClass="sort" value="#{bookController.selectedOrderOption}">
+                                <f:selectItem itemLabel="asc" itemValue="ASC" />
+                                <f:selectItem itemLabel="desc" itemValue="DESC" />
+                                <p:ajax onstart="PF('load').show();" event="change" listener="#{bookController.orderListBy}" update="searchResultsTable" oncomplete="bindClickEvents(),PF('load').hide();"/>
+                            </h:selectOneMenu>
+
+                        <h:panelGroup id="searchResultsTable">
+
+                            <h:dataTable
+                                    value="#{bookController.bookList}"
+                                    var="book"
+                                    styleClass="table table-hover"
+                                    rowClasses="book"
+                                    columnClasses="image,title,author,available">
+
+                                <h:column>
+                                    <h:link style="display: none" outcome="../book/index.xhtml" value="">
+                                    <f:param name="id" value="#{book.id}" />
+                                    </h:link>
+                                    <p:graphicImage styleClass="bookcover" width="150" height="150" url="#{book.imageLink.length()>0 ? book.imageLink : '../resources/img/nocover.jpg'}" />
+                                </h:column>
+
+                                 <h:column>
+                                    <f:param name="id" value="#{book.id}" />
+                                    <f:facet name="header" >Title</f:facet>
+                                    <p><h:outputText style="font-weight: bold" value="#{book.title}" /></p>
+                                    <p><h:outputText value="#{book.description.length()>100 ? book.description.substring(0,100) : 'no description found'}.."/></p>
+                                 </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Author</f:facet>
+                                    <h:outputLabel value="#{book.authors}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">Available</f:facet>
+                                    <h:outputText value="#{book.available ? 'Yes' : 'No'}" />
+                                </h:column>
+                            </h:dataTable>
+
+                            <h:outputText rendered="#{empty bookController.bookList}" value="No results. Try another search" />
+
+                        </h:panelGroup>
+
+                    </h:form>
+                    <p:blockUI block="searchForm" widgetVar="load"><h:graphicImage style="display: none;" id="loading" alt="Loading" value="/resources/img/loadingbooks.gif"/></p:blockUI>
+                </ui:define>
+        </ui:composition>
+
+   </h:body>
+
+</html>

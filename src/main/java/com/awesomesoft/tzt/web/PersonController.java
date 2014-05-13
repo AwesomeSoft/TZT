@@ -93,12 +93,6 @@ public class PersonController {
             throw new ValidationException("Email address invalid");
         }
 
-        String suffix = "@nl.ibm.com";
-
-        if (!mail.toLowerCase().endsWith(suffix)) {
-            throw new ValidationException("Please use your @nl.ibm.com email address");
-        }
-
         if (register && repository.checkPersonExistsByEmailAddress(person.getEmailAddress())) {
             throw new ValidationException("Email address already exists");
         } else if (!register && !repository.checkPersonExistsByEmailAddress(person.getEmailAddress())) {
