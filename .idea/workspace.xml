@@ -2,18 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="df0e94c9-5808-49be-a687-677fe1342388" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/artifacts/TZT_post_war.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/artifacts/TZT_post_war_exploded.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/copyright/Gerben.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="$PROJECT_DIR$/.idea/.name" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/exception/AuthenticationException.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/web/ControllerHelper.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/exception/GenerationException.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/GoogleMapsApi.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/exception/GoogleMapsApiException.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/domain/Location.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/SSLMailer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/exception/ValidationException.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_mail_mail_1_4_2.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/impl/RegistrationServiceImpl.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/domain/Person.java" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/domain/Person.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/web/PersonController.java" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/web/PersonController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/web/RegistrationController.java" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/web/RegistrationController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/TZTRepository.java" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/TZTRepository.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/impl/TZTRepositoryJPA.java" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/impl/TZTRepositoryJPA.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/app.css" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/app.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cas-web.iml" afterPath="$PROJECT_DIR$/cas-web.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/index.xhtml" afterPath="$PROJECT_DIR$/src/main/webapp/index.xhtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/overons/index.xhtml" afterPath="$PROJECT_DIR$/src/main/webapp/overons/index.xhtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/cas_web_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/cas_web_war_exploded.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template.xhtml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template.xhtml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -80,63 +86,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.xhtml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/index.xhtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="7" selection-start="820" selection-end="820" vertical-scroll-proportion="-26.666666" vertical-offset="0" max-vertical-offset="828">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="faces-config.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/faces-config.xml">
-          <provider editor-type-id="com.intellij.jsf.yfilesGraph.editor.FacesNavigationFileEditorProvider">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="198">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="beans.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/beans.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="198">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="4" selection-start="456" selection-end="456" vertical-scroll-proportion="0.0" vertical-offset="162" max-vertical-offset="1926">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="workspace.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="79" column="14" selection-start="5098" selection-end="5098" vertical-scroll-proportion="0.0" vertical-offset="1422" max-vertical-offset="20340">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="template.xhtml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/template.xhtml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="38" selection-start="1739" selection-end="1739" vertical-scroll-proportion="0.76039934" vertical-offset="515" max-vertical-offset="1278">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="web.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
           <provider selected="true" editor-type-id="text-editor">
@@ -146,28 +95,93 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RegistrationController.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/web/RegistrationController.java">
+      <file leaf-file-name="AuthenticationException.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/exception/AuthenticationException.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="0" selection-start="367" selection-end="367" vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="504">
+            <state line="6" column="124" selection-start="271" selection-end="271" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="558">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.xhtml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/overons/index.xhtml">
+      <file leaf-file-name="ControllerHelper.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/web/ControllerHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="0" selection-start="524" selection-end="524" vertical-scroll-proportion="0.0" vertical-offset="342" max-vertical-offset="612">
+            <state line="50" column="7" selection-start="1685" selection-end="1685" vertical-scroll-proportion="0.0" vertical-offset="1530" max-vertical-offset="1962">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Person.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/domain/Person.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="52" column="27" selection-start="940" selection-end="940" vertical-scroll-proportion="0.0" vertical-offset="383" max-vertical-offset="2538">
+              <folding>
+                <element signature="e#2825#2826#0" expanded="true" />
+                <element signature="e#2857#2858#0" expanded="true" />
+                <element signature="e#2905#2906#0" expanded="true" />
+                <element signature="e#2947#2948#0" expanded="true" />
+                <element signature="e#3334#3335#0" expanded="true" />
+                <element signature="e#3370#3371#0" expanded="true" />
+                <element signature="e#3511#3512#0" expanded="true" />
+                <element signature="e#3539#3540#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.css" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/css/app.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="550" column="2" selection-start="10795" selection-end="10795" vertical-scroll-proportion="0.9612142" vertical-offset="9330" max-vertical-offset="10008">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RegistrationServiceIntegrationTest.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/awesomesoft/tzt/RegistrationServiceIntegrationTest.java">
+      <file leaf-file-name="bootstrap.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/css/bootstrap.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="17" selection-start="977" selection-end="977" vertical-scroll-proportion="0.0" vertical-offset="504" max-vertical-offset="756">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="111114">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TZTRepository.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/TZTRepository.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="22" column="33" selection-start="537" selection-end="537" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="540">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TZTRepositoryJPA.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/impl/TZTRepositoryJPA.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="4" selection-start="466" selection-end="494" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="990">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="persistence.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="45" selection-start="330" selection-end="347" vertical-scroll-proportion="-5.04" vertical-offset="0" max-vertical-offset="468">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GenerationException.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/exception/GenerationException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="34" selection-start="177" selection-end="177" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="558">
               <folding />
             </state>
           </provider>
@@ -190,11 +204,35 @@
         <option value="$PROJECT_DIR$/src/main/webapp/index.xhtml" />
         <option value="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/web/RegistrationController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/overons/index.xhtml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/exception/ValidationException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/SSLmailer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/SSLMailer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/domain/Location.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/exception/GoogleMapsApiException.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/GoogleMapsApi.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/exception/GenerationException.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/web/ControllerHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/impl/TZTRepositoryJPA.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/TZTRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/exception/AuthenticationException.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/web/PersonController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/domain/Person.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/template.xhtml" />
+        <option value="$PROJECT_DIR$/src/main/webapp/resources/css/app.css" />
       </list>
     </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+      </PATH>
+    </treeState>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="82" />
@@ -422,6 +460,112 @@
               <option name="myItemId" value="tzt" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cas-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TZT" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tzt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="impl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cas-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TZT" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tzt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="exception" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cas-web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="TZT" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tzt" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="domain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -438,6 +582,13 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../library/pom.xml" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.awesomesoft.tzt.service.exception" />
+      <recent name="com.awesomesoft.tzt.web" />
+      <recent name="com.awesomesoft.tzt.service.domain" />
+    </key>
   </component>
   <component name="RunManager" selected="JBoss Server.Unnamed">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin" singleton="true">
@@ -835,21 +986,21 @@
       <updated>1399991411437</updated>
       <workItem from="1399991416682" duration="1919000" />
       <workItem from="1399993361015" duration="530000" />
-      <workItem from="1399993934866" duration="617000" />
+      <workItem from="1399993934866" duration="3650000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3066000" />
+    <option name="totallyTimeSpent" value="6099000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="82" y="0" width="1504" height="900" extended-state="4" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0013717421" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0013717421" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -867,10 +1018,10 @@
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32992327" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.329904" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -903,7 +1054,9 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/web/PersonController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="14" selection-start="327" selection-end="327" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="360">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -969,7 +1122,9 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/web/PersonController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="14" selection-start="327" selection-end="327" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="468">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1079,22 +1234,112 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="14" selection-start="5098" selection-end="5098" vertical-scroll-proportion="0.0" vertical-offset="1422" max-vertical-offset="20214">
+        <state line="62" column="14" selection-start="3088" selection-end="3088" vertical-scroll-proportion="0.0" vertical-offset="1116" max-vertical-offset="20862">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/SSLMailer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="0" selection-start="732" selection-end="732" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1026">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/domain/Location.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="13" selection-start="100" selection-end="100" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="234">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/exception/GoogleMapsApiException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="123" selection-start="269" selection-end="269" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="558">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/exception/ValidationException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="0" selection-start="691" selection-end="691" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="648">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/RegistrationService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="17" selection-start="203" selection-end="203" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="4" selection-start="456" selection-end="456" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1926">
+        <state line="52" column="20" selection-start="2066" selection-end="2066" vertical-scroll-proportion="0.0" vertical-offset="632" max-vertical-offset="2106">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/GoogleMapsApi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="2" selection-start="612" selection-end="612" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="504">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/exception/GenerationException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="34" selection-start="177" selection-end="177" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="558">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="45" selection-start="330" selection-end="347" vertical-scroll-proportion="-5.04" vertical-offset="0" max-vertical-offset="468">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/web/ControllerHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="7" selection-start="1685" selection-end="1685" vertical-scroll-proportion="0.0" vertical-offset="1530" max-vertical-offset="1962">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/impl/TZTRepositoryJPA.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="4" selection-start="466" selection-end="494" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="990">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/TZTRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="33" selection-start="537" selection-end="537" vertical-scroll-proportion="0.0" vertical-offset="108" max-vertical-offset="540">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/exception/AuthenticationException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="124" selection-start="271" selection-end="271" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="558">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/web/PersonController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="14" selection-start="327" selection-end="327" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
-          <folding />
+        <state line="44" column="0" selection-start="1354" selection-end="1354" vertical-scroll-proportion="-7.5739646" vertical-offset="5822" max-vertical-offset="6498">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1107,14 +1352,44 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/index.xhtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="7" selection-start="820" selection-end="820" vertical-scroll-proportion="-26.666666" vertical-offset="0" max-vertical-offset="828">
+        <state line="23" column="0" selection-start="458" selection-end="458" vertical-scroll-proportion="0.25862068" vertical-offset="279" max-vertical-offset="828">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/domain/Person.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="27" selection-start="940" selection-end="940" vertical-scroll-proportion="0.0" vertical-offset="383" max-vertical-offset="2538">
+          <folding>
+            <element signature="e#2825#2826#0" expanded="true" />
+            <element signature="e#2857#2858#0" expanded="true" />
+            <element signature="e#2905#2906#0" expanded="true" />
+            <element signature="e#2947#2948#0" expanded="true" />
+            <element signature="e#3334#3335#0" expanded="true" />
+            <element signature="e#3370#3371#0" expanded="true" />
+            <element signature="e#3511#3512#0" expanded="true" />
+            <element signature="e#3539#3540#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/template.xhtml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="38" selection-start="1739" selection-end="1739" vertical-scroll-proportion="0.76039934" vertical-offset="515" max-vertical-offset="1278">
+        <state line="49" column="23" selection-start="1758" selection-end="1758" vertical-scroll-proportion="0.5202206" vertical-offset="599" max-vertical-offset="1332">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/css/bootstrap.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="111114">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/resources/css/app.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="550" column="2" selection-start="10795" selection-end="10795" vertical-scroll-proportion="0.9612142" vertical-offset="9330" max-vertical-offset="10008">
           <folding />
         </state>
       </provider>

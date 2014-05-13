@@ -41,8 +41,16 @@ public class Person {
 
     private boolean activated;
 
+    private Date lastLogin;
+    private Date lockedOut;
+    private int failedAttempts;
+    private boolean authenticated;
+    private boolean admin;
+
+
     public Person() {
         this.activated = false;
+        this.admin = false;
     }
 
     public Long getId() {
@@ -97,6 +105,7 @@ public class Person {
         return new SimpleDateFormat("dd-MM-yyyy HH:mm").format(dateCreated);
     }
 
+    
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
     }
@@ -132,5 +141,41 @@ public class Person {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    public Date getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    public int getFailedAttempts() {
+        return failedAttempts;
+    }
+
+    public void addFailedAttempt() {
+        this.failedAttempts++;
+    }
+    
+    public Date getLockedOut() {
+        return lockedOut == null ? new Date() : lockedOut;
+    }
+    
+    public void setLockedOut(Date lockedOut) {
+        this.lockedOut = lockedOut;
+    }
+
+    public boolean isAuthenticated() {
+        return authenticated;
+    }
+
+    public void setAuthenticated(boolean authenticated) {
+        this.authenticated = authenticated;
+    }
+
+    public boolean isAdmin() {
+        return admin;
     }
 }

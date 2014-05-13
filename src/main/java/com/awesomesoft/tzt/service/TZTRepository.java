@@ -1,6 +1,6 @@
 package com.awesomesoft.tzt.service;
 
-import com.awesomesoft.tzt.service.domain.User;
+import com.awesomesoft.tzt.service.domain.Person;
 
 /**
  * Created by Gerben de Heij on 24/04/14.
@@ -10,7 +10,15 @@ import com.awesomesoft.tzt.service.domain.User;
 
 public interface TZTRepository {
 
-    //Insert User object
-    long insert(User user);
+    public Long insert(Person p);
 
+    public Person getPersonById(Long id);
+
+    public boolean checkPersonExistsById(Long id);
+
+    public Person getPersonByEmailAddress(String emailAddress);
+
+    public boolean checkPersonExistsByEmailAddress(String emailAddress);
+
+    public void update(Person p);
 }

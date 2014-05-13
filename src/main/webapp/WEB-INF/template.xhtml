@@ -46,6 +46,9 @@
                 <ul id="list-nav">
                     <li><h:link outcome="/index" value="Home" /></li>
                     <li><h:link outcome="/search/index" value="Search" /></li>
+                    <li><h:link rendered="#{personController.person.authenticated}" outcome="/login/index" value="Log In" /></li>
+                    <li><h:link rendered="#{not personController.person.authenticated}" outcome="/register/index" value="Register" /></li>
+
                 </ul>
             </div>
         </div>
