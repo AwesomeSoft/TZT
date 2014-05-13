@@ -18,9 +18,21 @@
     <div class="navbar navbar-static-top">
         <div class="navbar-inner">
             <div class="container">
-                <a class="brand" href="#">Scabbards are the wenchs of the real faith.</a>
-                <ul class="nav pull-right">
-                    <li><h:link outcome="index" value="home"/></li>
+                <!--<h:link class="brand" outcome="/search/index">Awesome Library Application</h:link>-->
+                <ul id="list-nav">
+                    <li><h:link outcome="/index" value="Home" /></li>
+                    <li><h:link outcome="/search/index" value="Search" /></li>
+
+
+                    <li><h:link rendered="#{personController.person.authenticated}" outcome="/profile/index" value="Profile" /></li>
+                    <li><h:link rendered="#{not personController.person.authenticated}" outcome="/login/index" value="Log In" /></li>
+                    <li><h:link rendered="#{not personController.person.authenticated}" outcome="/register/index" value="Register" /></li>
+
+                    <li>
+                        <h:form rendered="#{personController.person.authenticated}" >
+                            <h:commandLink  action="#{personController.logout}" value="Logout" />
+                        </h:form>
+                    </li>
                 </ul>
             </div>
         </div>
