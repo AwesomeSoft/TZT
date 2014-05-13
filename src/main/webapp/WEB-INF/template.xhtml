@@ -11,7 +11,7 @@
 
     <h:outputStylesheet  name="css/app.css"/>
     <h:outputStylesheet  name="css/bootstrap.css"/>
-    <title><ui:insert name="title">Student Course Library</ui:insert></title>
+    <title><ui:insert name="title">TZT post</ui:insert></title>
 </h:head>
 
 <h:body>
@@ -20,7 +20,7 @@
             <div class="container">
                 <!--<h:link class="brand" outcome="/search/index">Awesome Library Application</h:link>-->
                 <ul id="list-nav">
-                    <li><h:link outcome="/index" value="Home" /></li>
+
                     <li><h:link outcome="/search/index" value="Search" /></li>
 
 
@@ -28,6 +28,7 @@
                     <li><h:link rendered="#{not personController.person.authenticated}" outcome="/login/index" value="Log In" /></li>
                     <li><h:link rendered="#{not personController.person.authenticated}" outcome="/register/index" value="Register" /></li>
 
+                    <li><h:link outcome="/index" value="Over ons" /></li>
                     <li>
                         <h:form rendered="#{personController.person.authenticated}" >
                             <h:commandLink  action="#{personController.logout}" value="Logout" />
