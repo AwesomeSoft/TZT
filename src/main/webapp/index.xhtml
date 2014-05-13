@@ -13,16 +13,14 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<h:head>
-    <title>...</title>
-</h:head>
+
 
 <h:body>
 
     <ui:composition template="WEB-INF/template.xhtml">
 
         <ui:define name="title">Wekome op de TZT website</ui:define>
-
+            {personController.getJan}
         <ui:define name="content">
             Wij zullen met alle plezier uw pakketje bezorgen.
         </ui:define>
