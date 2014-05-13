@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/cas-web.iml" filepath="$PROJECT_DIR$/cas-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cas-web.iml" filepath="$PROJECT_DIR$/cas-web.iml" />
     </modules>
   </component>
 </project>

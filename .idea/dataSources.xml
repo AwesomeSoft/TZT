@@ -5,7 +5,7 @@
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306/trainingdb</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/tzt</jdbc-url>
       <user-name>root</user-name>
       <user-password>dfc7dfcbdfd9dfdedfcfdfd8dfc1dfcfdfd3</user-password>
       <libraries />
