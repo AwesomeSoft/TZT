@@ -22,11 +22,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="cas-web" />
+        <module name="TZT-post" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="cas-web" target="1.7" />
+      <module name="TZT-post" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>
