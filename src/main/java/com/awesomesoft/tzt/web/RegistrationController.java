@@ -17,8 +17,6 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class RegistrationController {
-    public void getJan(){
 
-    }
 }
 

@@ -130,7 +130,7 @@
     <orderEntry type="module-library">
       <library name="Maven: system:jdk-tools:jdk">
         <CLASSES>
-          <root url="jar://$APPLICATION_HOME_DIR$/jre/lib/tools.jar!/" />
+          <root url="jar:///usr/lib/jvm/java-7-openjdk-i386/lib/tools.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

@@ -7,13 +7,13 @@
 
 package com.awesomesoft.tzt.web;
 
-import javax.annotation.ManagedBean;
-import javax.enterprise.context.SessionScoped;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 /**
  * Created by student on 5/13/14.
  */
-
 @ManagedBean
 @SessionScoped
 public class PersonController {

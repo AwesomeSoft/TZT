@@ -9,9 +9,33 @@
     <meta http-equiv="Content-Type"
           content="text/html; charset=UTF-8" />
 
-    <h:outputStylesheet  name="css/app.css"/>
-    <h:outputStylesheet  name="css/bootstrap.css"/>
-    <title><ui:insert name="title">TZT post</ui:insert></title>
+    <ui:insert name="head"></ui:insert>
+
+    <h:outputStylesheet library="css"  name="bootstrap.min.css"/>
+    <h:outputStylesheet library="css" name="app.css"/>
+
+    <h:outputScript library="js" name="bootstrap.min.js" />
+
+    <ui:insert name="style"></ui:insert>
+
+    <ui:insert name="script"></ui:insert>
+
+    <title>TZT - <ui:insert name="title"></ui:insert></title>
+
+    <!--<script type="text/javascript">-->
+    <!--$(document).ready(function() {-->
+    <!--$(function() {-->
+    <!--var url = window.location.pathname,-->
+    <!--urlRegExp = new RegExp(url.replace(/\/$/,'') + "$");-->
+    <!--$('.nav li').each(function() {-->
+    <!--if (urlRegExp.test(this.href.replace(/\/$/,''))){-->
+    <!--$(this).addClass('active');-->
+    <!--}-->
+    <!--});-->
+    <!--});-->
+    <!--});-->
+    <!--</script>-->
+
 </h:head>
 
 <h:body>
@@ -20,34 +44,23 @@
             <div class="container">
                 <!--<h:link class="brand" outcome="/search/index">Awesome Library Application</h:link>-->
                 <ul id="list-nav">
-
+                    <li><h:link outcome="/index" value="Home" /></li>
                     <li><h:link outcome="/search/index" value="Search" /></li>
-
-
-                    <li><h:link rendered="#{personController.person.authenticated}" outcome="/profile/index" value="Profile" /></li>
-                    <li><h:link rendered="#{not personController.person.authenticated}" outcome="/login/index" value="Log In" /></li>
-                    <li><h:link rendered="#{not personController.person.authenticated}" outcome="/register/index" value="Register" /></li>
-
-                    <li><h:link outcome="/index" value="Over ons" /></li>
-                    <li>
-                        <h:form rendered="#{personController.person.authenticated}" >
-                            <h:commandLink  action="#{personController.logout}" value="Logout" />
-                        </h:form>
-                    </li>
                 </ul>
             </div>
         </div>
     </div>
 
     <div class="container">
-        <div class="hero-unit">
-            <h1><ui:insert name="title">Student Course Library</ui:insert></h1>
-            <p>Peanuts taste best with adobo sauce and lots of butterscotch.</p>
-        </div>
+        <!--<div class="hero-unit">-->
+        <!--<h1><ui:insert name="title">Hi there</ui:insert></h1>-->
+        <!--<p><ui:insert name="subtitle">Awesome Library Application</ui:insert></p>-->
+        <!--</div>-->
 
         <div id="content" class="main_content">
-            <ui:insert name="content">Main Content</ui:insert>
+            <ui:insert name="content">Welkom bij TZT post</ui:insert>
         </div>
     </div>
+
 </h:body>
 </html>
