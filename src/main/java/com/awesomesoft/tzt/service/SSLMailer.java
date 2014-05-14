@@ -26,8 +26,8 @@ public class SSLMailer {
 
         // todo add header and footer to body using Person.getFirstname()
 
-        final String username = "";//todo fill in email account
-        final String password = "";
+        final String username = "tztmailer@gmail.com";//todo fill in email account
+        final String password = "masterkeytotzt";
 
         Properties props = new Properties();
 

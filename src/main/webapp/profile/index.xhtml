@@ -68,8 +68,8 @@
             <h:outputText rendered="#{empty personController.person.ownedBooks}" value="You do not own any books. " />
             <h:link rendered="#{empty personController.person.ownedBooks}" value="Add a book" outcome="/book/add" />
 
-
-            <h:dataTable id="ownedBooksTable"
+<!--
+            <h:dataTable id="ownedOrdersTable"
                     rendered="#{not empty personController.person.ownedBooks}"
                     value="#{personController.person.ownedBooks}"
                     var="book"
@@ -112,57 +112,8 @@
                 </h:column>
 
             </h:dataTable>
+!-->
 
-
-            <legend>Borrowed books</legend>
-
-            <h:outputText rendered="#{empty personController.person.borrowedBooks}" value="You haven't borrowed any books. " />
-            <h:link rendered="#{empty personController.person.borrowedBooks}" value="Search books" outcome="/search/index" />
-
-            <h:dataTable id="borrowedBooksTable"
-                    rendered="#{not empty personController.person.borrowedBooks}"
-                    value="#{personController.person.borrowedBooks}"
-                    var="loan"
-                    styleClass="table table-hover"
-                    rowClasses="book"
-                    columnClasses="id,title,owner,end-date,returned,actions">
-
-                <h:column visible="false">
-                    <h:link outcome="../book/index.xhtml" value="">
-                        <f:param name="id" value="#{loan.book.id}" />
-                    </h:link>
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">Title</f:facet>
-                    <h:outputText value="#{loan.book.title}" />
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">Return to</f:facet>
-                    <h:outputText value="#{loan.book.owner.firstName} #{loan.book.owner.lastName}" />
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">End date</f:facet>
-                    <h:outputText value="#{loan.endDate}" />
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">Returned</f:facet>
-                    <h:outputText value="#{loan.returned ? 'Yes' : 'No'}" />
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">Actions</f:facet>
-                    <h:form style="margin: 0">
-                        <h:commandButton styleClass="btn-link" style="margin: -3px" rendered="#{!loan.returned}" value="Return" action="#{personController.returnBook(loan)}" />
-                    </h:form>
-                </h:column>
-
-            </h:dataTable>
-
-        </ui:define>
     </ui:composition>
 
 </html>
