@@ -22,13 +22,12 @@
 
             <h:form id="resetPasswordForm">
                 <fieldset>
-                    <legend>Request new password</legend>
+                    <legend>Wachtwoord vergeten</legend>
 
                     <p:watermark for="emailAddress" value="Emailaddress" />
 
                     <h:panelGrid columns="2">
-
-                        <h:inputText id="emailAddress" required="true" requiredMessage="Field required" value="#{personController.person.emailAddress}" />
+                        <label>Geregisteerde emailadres:</label> <h:inputText id="emailAddress" required="true" requiredMessage="Field required" value="#{personController.person.emailAddress}" />
                         <h:message errorClass="text-error" for="emailAddress" />
 
                         <h:commandButton styleClass="btn" id="submitReset" value="Send" action="#{personController.resetPassword()}" />

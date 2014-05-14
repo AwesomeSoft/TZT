@@ -12,18 +12,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
 <ui:composition template="../WEB-INF/template.xhtml">
 
         <ui:define name="title">Login</ui:define>
 
         <ui:define name="content">
-
-            <p class="fotoLogIn">
-
-            </p>
-
             <h:form id="loginForm">
                 <fieldset>
                     <legend>Enter credentials</legend>
@@ -33,10 +29,10 @@
 
                     <h:panelGrid columns="2">
 
-                        <h:inputText id="emailAddress" required="true" requiredMessage="Field required" value="#{personController.person.emailAddress}" />
+                        <h:inputText id="emailAddress" required="true" requiredMessage="Field required" value="#{personController.person.emailAddress}" pt:placeholder="Vul hier je inlognaam"/>
                         <h:message errorClass="text-error" for="emailAddress" />
 
-                        <h:inputSecret id="password" required="true" requiredMessage="Field required" value="#{personController.person.password}"  />
+                        <h:inputSecret id="password" required="true" requiredMessage="Field required" value="#{personController.person.password}" pt:placeholder="Vul hier je wachtwoord"  />
                         <h:message errorClass="text-error" for="password" />
 
                         <h:commandButton styleClass="btn" id="submitLogin" value="Login" action="#{personController.login(false)}" style="float:left;" />
@@ -47,7 +43,7 @@
 
                     <br />
 
-                    Forgot your password? <h:link value="Request a new one" outcome="/login/reset/index" />
+                    <h:link value="Wachtwoord vergeten?" outcome="/login/reset/index" />
 
                 </fieldset>
             </h:form>

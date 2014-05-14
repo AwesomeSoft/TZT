@@ -3,7 +3,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
     <meta http-equiv="Content-Type"
@@ -14,8 +15,8 @@
     <h:outputStylesheet library="css"  name="bootstrap.css"/>
     <h:outputStylesheet library="css" name="app.css"/>
 
-    <h:outputScript library="js" name="bootstrap.min.js" />
-
+    <h:outputScript library="js" name="jquery-1.10.2.js" />
+    <h:outputScript library="js" name="jquery-ui-1.10.4.js" />
     <ui:insert name="style"></ui:insert>
 
     <ui:insert name="script"></ui:insert>
@@ -42,26 +43,32 @@
     <div class="navbar navbar-static-top">
         <div class="navbar-inner">
             <div class="container">
-                <!--<h:link class="brand" outcome="/search/index">Awesome Library Application</h:link>-->
                 <ul id="list-nav">
+                    <li><img src="#{request.contextPath}/TZT.png" width="120"></img></li>
                     <li><h:link outcome="/index" value="Home" /></li>
-                    <li><h:link outcome="/search/index" value="Search" /></li>
-                    <li><h:link rendered="#{personController.person.authenticated}" outcome="/book/add" value="Add book" /></li>
-                    <li><h:link rendered="#{personController.person.authenticated}" outcome="/book/add" value="Add Book" /></li>
-                    <li><h:link rendered="#{personController.person.authenticated}" outcome="/profile/index" value="Profile" /></li>
-                    <li><h:link rendered="#{not personController.person.authenticated}" outcome="/register/index" value="Register" /></li>
-                    <li><h:link rendered="#{not personController.person.authenticated}" outcome="/login/index" value="Login" /></li>
-                    <li>
-                        <h:form rendered="#{personController.person.authenticated}" styleClass="navbar-form-fix">
-                         <h:commandLink styleClass="navbar-link" action="#{personController.logout}" value="Logout" />
-                    </h:form>
-                    </li>
-
+                    <li><h:link outcome="/overons/index" value="Wie zijn we" /></li>
+                    <li><h:link outcome="/overons/index" value="Wie is wie" /></li>
+                    <li><h:link outcome="/overons/index" value="Wat doen we?" /></li>
+                    <li><h:link outcome="/overons/index" value="Faq" /></li>
+                    <li><h:link outcome="/overons/index" value="Onze partners" /></li>
+                    <li><h:link outcome="/overons/index" value="Contactgegevens" /></li>
                 </ul>
             </div>
         </div>
     </div>
-
+    <div class="left-menu">
+        <ul>
+            <li><h:link outcome="/search/index" value="Search" /></li>
+            <li><h:link rendered="#{personController.person.authenticated}" outcome="/profile/index" value="Profile" /></li>
+            <li><h:link rendered="#{not personController.person.authenticated}" outcome="/register/index" value="Register" /></li>
+            <li><h:link rendered="#{not personController.person.authenticated}" outcome="/login/index" value="Login" /></li>
+            <li>
+                <h:form rendered="#{personController.person.authenticated}" styleClass="navbar-form-fix">
+                    <h:commandLink styleClass="navbar-link" action="#{personController.logout}" value="Logout" />
+                </h:form>
+            </li>
+        </ul>
+    </div>
     <div class="container">
         <!--<div class="hero-unit">-->
         <!--<h1><ui:insert name="title">Hi there</ui:insert></h1>-->

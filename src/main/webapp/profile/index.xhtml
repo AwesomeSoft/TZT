@@ -41,79 +41,25 @@
 
             <h:panelGrid id="profileForm" columns="2" >
 
-                <h:outputText value="First name" />
+                <h:outputText value="Voornaam" />
                 <h:outputText value="#{personController.person.firstName}" />
 
-                <h:outputText value="Last name" />
+                <h:outputText value="Achternaam" />
                 <h:outputText value="#{personController.person.lastName}" />
 
-                <h:outputText value="Email address" />
+                <h:outputText value="Email adres" />
                 <h:outputText id="emailAddress" value="#{personController.person.emailAddress}" />
 
-                <h:outputText value="Registered since" />
+                <h:outputText value="Geregisteerd sinds" />
                 <h:outputText value="#{personController.person.dateCreated}" />
 
             </h:panelGrid>
-
-
             <br />
-
-            <h:link class="btn" value="Change password" outcome="/profile/change/index" />
+            <h:link class="btn" value="Wachtwoord wijzigen" outcome="/profile/change/index" />
 
             <br />
             <br />
-
-            <legend>Owned books</legend>
-
-            <h:outputText rendered="#{empty personController.person.ownedBooks}" value="You do not own any books. " />
-            <h:link rendered="#{empty personController.person.ownedBooks}" value="Add a book" outcome="/book/add" />
-
-<!--
-            <h:dataTable id="ownedOrdersTable"
-                    rendered="#{not empty personController.person.ownedBooks}"
-                    value="#{personController.person.ownedBooks}"
-                    var="book"
-                    styleClass="table table-hover"
-                    rowClasses="book"
-                    columnClasses="id,title,active-loan,borrower,actions">
-
-                <h:column visible="false">
-                    <h:link outcome="../book/index.xhtml" value="">
-                        <f:param name="id" value="#{book.id}" />
-                    </h:link>
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">Title</f:facet>
-                    <h:outputText value="#{book.title}" />
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">Active loan</f:facet>
-                    <h:outputText value="#{book.available ?  'No' : 'Yes'}" />
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">Borrowed by</f:facet>
-                    <ui:repeat value="#{book.loans}" var="loan">
-                        <h:outputText rendered="#{!loan.returned}" value="#{loan.borrower.firstName} #{loan.borrower.lastName}" />
-                    </ui:repeat>
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">Actions</f:facet>
-                    <h:link value="Edit" outcome="/book/change.xhtml" style="margin-right:20px">
-                        <f:param name="id" value="#{book.id}" />
-                    </h:link>
-                    <h:link value="Delete" rendered="#{book.available}" outcome="/book/delete.xhtml">
-                        <f:param name="id" value="#{book.id}" />
-                    </h:link>
-                    <h:outputText rendered="#{!book.available}" style="color: #808080" value="Delete" title="Cannot delete a book that has an active loan" />
-                </h:column>
-
-            </h:dataTable>
-!-->
-
+        </ui:define>
     </ui:composition>
 
 </html>

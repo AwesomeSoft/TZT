@@ -39,8 +39,8 @@ import java.util.regex.Pattern;
 /**
  * Created by student on 1/14/14.
  */
-@ManagedBean
-@SessionScoped
+@ManagedBean  //zorgt ervoor dat de personcontroller in JSF beschikbaar is
+@SessionScoped  //zorgt ervoor dat de personcontroller in JSF beschikbaar is
 public class PersonController {
 
     private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
@@ -50,7 +50,8 @@ public class PersonController {
 
     protected Person person;
 
-    @PostConstruct
+    @PostConstruct // dit zorgt ervoor dat er een person object is wanneer deze controler aangeroepen is. Deze person is leeg.
+    //De person kan in faces gevuld worden door een getter in de controller
     public void init() {
         person = new Person();
     }
@@ -62,7 +63,7 @@ public class PersonController {
             validateEmailAddress(true);
             validatePassword();
             person.setDateCreated(new Date());
-            Long id = repository.insert(person);
+            Long id = repository.insert(person);  // Hier insert hij de person in de database. Dit levert een ID op.
             generateActivationUrl(id, person.getEmailAddress(), person.getPassword());
             SSLMailer.send(person.getEmailAddress(), "Activate your account", "Awesome! Here's your activation link: " + person.getActivationUrl());
             return "confirmation.xhtml";
@@ -74,7 +75,7 @@ public class PersonController {
     }
 
     /**
-     * Requires a full @nl.ibm.com email address, username plus suffix
+     * Requires a full @domain.com email address, username plus suffix
      * This method validates the address using a regular expression
      *
      * @param register If true, this method also requires a unique address which is not already registered
@@ -198,7 +199,7 @@ public class PersonController {
                     repository.update(p);
                     logger.info("Account with id {} has been activated", p.getId());
                 } else {
-                    ControllerHelper.redirect("Codes do not match");
+                    ControllerHelper.redirect("Codes do not match","http://www.google.nl");
                 }
             } catch (GenerationException e) {
                 ControllerHelper.redirect(e.getMessage());
@@ -293,13 +294,13 @@ public class PersonController {
         logger.info("Authenticating \"{}\"", mail);
 
         if (!mail.toLowerCase().contains("@")) {
-            mail = mail + "@nl.ibm.com";
+            mail = mail + "@mail.com";
             logger.info("Added suffix as a service, authenticating \"{}\"", mail);
         }
 
         if (!repository.checkPersonExistsByEmailAddress(mail)) {
             logger.info("Email address does not exist");
-            throw new AuthenticationException("Invalid login");
+            throw new AuthenticationException("Ongeldige login");
         }
 
         Person temp = repository.getPersonByEmailAddress(mail);
@@ -316,11 +317,11 @@ public class PersonController {
                 throw new AuthenticationException("Account locked out for 10 minutes");
             }
             logger.info("Password does not match");
-            throw new AuthenticationException("Invalid login");
+            throw new AuthenticationException("Ongeldige login");
         }
 
         if (!temp.isActivated()) {
-            throw new AuthenticationException("Account not activated");
+            throw new AuthenticationException("Je account is nog niet geactiveerd");
         }
 
         if (requireAdmin && !temp.isAdmin()) {

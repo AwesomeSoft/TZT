@@ -17,12 +17,12 @@ import java.util.Date;
  * Created by Gerben de Heij
  */
 
-@Entity
+@Entity// Dit zorgt ervoor dat het een entiteit word binnen de database
 public class Person {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long id;// een entiteit heeft een ID nodig met deze anotatiets @id en @generated value
 
     private String firstName;
     private String lastName;

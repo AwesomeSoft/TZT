@@ -18,11 +18,13 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private int role;
 
-    public User(String username, String email, String password) {
+    public User(String username, String email, String password, int role) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     protected User() {
@@ -38,6 +40,8 @@ public class User {
     }
 
     public String getPassword() { return password; }
+
+    public int getRole() { return role; }
 
     public Long getId() {
         return id;

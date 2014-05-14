@@ -12,75 +12,100 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
 
-    <ui:composition template="../WEB-INF/template.xhtml">
+</head>
 
-        <ui:define name="title">Registration</ui:define>
 
-        <ui:define name="script">
+<ui:composition template="../WEB-INF/template.xhtml">
 
-            <script type="text/javascript">
-                $(document).ready(function(){
-                    $(function(){
-                        $("#registrationForm\\:emailAddress").popover({content: "Use your @nl.ibm.com email address"}).focus(function(){$(this).popover('show')}).blur(function(){$(this).popover('hide')});
-                        $("#registrationForm\\:password").popover({html: true, title: "Password requirements", content: "at least one a-z<br />at least one A-Z<br />at least one 0-9<br />at least one special character<br />at least 8 characters long"}).focus(function(){$(this).popover('show')}).blur(function(){$(this).popover('hide')});
+    <ui:define name="title">Registration</ui:define>
+
+    <ui:define name="script">
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(function () {
+                    $("#registrationForm\\:emailAddress").popover({content: "Use your @nl.ibm.com email address"}).focus(function () {
+                        $(this).popover('show')
+                    }).blur(function () {
+                        $(this).popover('hide')
+                    });
+                    $("#registrationForm\\:password").popover({html: true, title: "Password requirements", content: "at least one a-z<br />at least one A-Z<br />at least one 0-9<br />at least one special character<br />at least 8 characters long"}).focus(function () {
+                        $(this).popover('show')
+                    }).blur(function () {
+                        $(this).popover('hide')
                     });
                 });
+            });
 
-                function showLoading(){
-                    var a =$('div.loadImage');
-                    a.show();
-                }
-            </script>
+            function showLoading() {
+                var a = $('div.loadImage');
+                a.show();
+            }
+        </script>
 
-        </ui:define>
+    </ui:define>
 
-        <ui:define name="content">
+    <ui:define name="content">
 
-            <p class="fotoRegister">
+        <p class="fotoRegister">
 
-            </p>
+        </p>
 
-            <div class="loadImage" style="display: none">
-                <h:graphicImage alt="Loading" library="img" name="loadingsaltpepper.gif"/>
-            </div>
-            <h:form id="registrationForm">
+        <div class="loadImage" style="display: none">
+            <h:graphicImage alt="Loading" library="img" name="loadingsaltpepper.gif"/>
+        </div>
+>
+        <h:form id="registrationForm">
 
-                <legend>Create a new account</legend>
 
-                <p:watermark for="firstName" value="First name" />
-                <p:watermark for="lastName" value="Last name" />
-                <p:watermark for="emailAddress" value="Email address" />
-                <p:watermark for="password" value="Password" />
-                <p:watermark for="confirmedPassword" value="Confirm password" />
 
-                <h:panelGrid columns="2">
+            <legend>Register je account bij TZT</legend>
 
-                    <h:inputText id="firstName" required="true" requiredMessage="Field required" autocomplete="false" value="#{personController.person.firstName}" />
-                    <h:message errorClass="text-error" for="firstName" />
+            <p:watermark for="firstName" value="First name"/>
+            <p:watermark for="lastName" value="Last name"/>
+            <p:watermark for="emailAddress" value="Email address"/>
+            <p:watermark for="password" value="Password"/>
+            <p:watermark for="confirmedPassword" value="Confirm password"/>
 
-                    <h:inputText id="lastName" required = "true" requiredMessage ="Field required" autocomplete="false" value="#{personController.person.lastName}" />
-                    <h:message errorClass="text-error" for="lastName" />
+            <h:panelGrid columns="2">
 
-                    <h:inputText id="emailAddress" required = "true" requiredMessage="Field required" autocomplete="false" value="#{personController.person.emailAddress}" />
-                    <h:message errorClass="text-error" for="emailAddress" />
+                <h:inputText id="firstName" required="true" requiredMessage="Field required" autocomplete="false"
+                             value="#{personController.person.firstName}" pt:placeholder="Voornaam"/>
 
-                    <h:inputSecret id="password" required = "true" requiredMessage="Field required" autocomplete="false" value="#{personController.person.password}" />
-                    <h:message errorClass="text-error" for="password" />
+                <h:message errorClass="text-error" for="firstName"/>
 
-                    <h:inputSecret id="confirmedPassword" required = "true" requiredMessage="Field required" autocomplete="false" value="#{personController.person.confirmedPassword}" />
-                    <h:message errorClass="text-error" for="confirmedPassword" />
+                <h:inputText id="lastName" required="true" requiredMessage="Field required" autocomplete="false"
+                             value="#{personController.person.lastName}" pt:placeholder="Achternaam"/>
+                <h:message errorClass="text-error" for="lastName"/>
 
-                    <h:commandButton styleClass="btn" id="submitRegistration" value="Submit" onstart="showLoading()" action="#{personController.register}" />
-                    <h:message errorClass="text-error" for="submitRegistration" />
+                <h:inputText id="emailAddress" required="true" requiredMessage="Field required" autocomplete="false"
+                             value="#{personController.person.emailAddress}" pt:placeholder="E-mailadres"/>
+                <h:message errorClass="text-error" for="emailAddress"/>
 
-                </h:panelGrid>
+                <h:inputSecret id="password" required="true" requiredMessage="Field required" autocomplete="false"
+                               value="#{personController.person.password}" pt:placeholder="Wachtwoord"/>
+                <h:message errorClass="text-error" for="password"/>
 
-            </h:form>
+                <h:inputSecret id="confirmedPassword" required="true" requiredMessage="Field required"
+                               autocomplete="false" value="#{personController.person.confirmedPassword}"
+                               pt:placeholder="Wachtwoord bevestigen"/>
+                <h:message errorClass="text-error" for="confirmedPassword"/>
 
-        </ui:define>
+                <h:commandButton styleClass="btn" id="submitRegistration" value="Submit" onstart="showLoading()"
+                                 action="#{personController.register}"/>
+                <h:message errorClass="text-error" for="submitRegistration"/>
+                <p:calendar value="#{bean.date}" mode="inline"/>
 
-    </ui:composition>
+            </h:panelGrid>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
 
 </html>
