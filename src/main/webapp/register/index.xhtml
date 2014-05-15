@@ -13,11 +13,11 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <head>
 
 </head>
-
 
 <ui:composition template="../WEB-INF/template.xhtml">
 
@@ -27,8 +27,10 @@
 
         <script type="text/javascript">
             $(document).ready(function () {
+                $( "#registrationForm\\:dateofBirth" ).datepicker();
+                $( "#registrationForm\\:dateofBirth" ).regional['nl'];
                 $(function () {
-                    $("#registrationForm\\:emailAddress").popover({content: "Use your @nl.ibm.com email address"}).focus(function () {
+                    $("#registrationForm\\:emailAddress").popover({content: "Use your @mail.com email address"}).focus(function () {
                         $(this).popover('show')
                     }).blur(function () {
                         $(this).popover('hide')
@@ -45,7 +47,7 @@
                 var a = $('div.loadImage');
                 a.show();
             }
-        </script>
+    </script>
 
     </ui:define>
 
@@ -58,10 +60,7 @@
         <div class="loadImage" style="display: none">
             <h:graphicImage alt="Loading" library="img" name="loadingsaltpepper.gif"/>
         </div>
->
         <h:form id="registrationForm">
-
-
 
             <legend>Register je account bij TZT</legend>
 
@@ -70,41 +69,107 @@
             <p:watermark for="emailAddress" value="Email address"/>
             <p:watermark for="password" value="Password"/>
             <p:watermark for="confirmedPassword" value="Confirm password"/>
+            <p:watermark for="dateofBirth" value="Geboorte datum"/>
+            <h:panelGrid columns="3">
+                <h:panelGrid columns="3">
+                    <label>Voornaam:</label>
+                    <h:inputText id="firstName" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#{personController.person.firstName}" pt:placeholder="Voornaam"/>
+                    <h:message errorClass="text-error" for="firstName"/>
 
-            <h:panelGrid columns="2">
+                    <label>Achternaam</label>
+                    <h:inputText id="lastName" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#{personController.person.lastName}" pt:placeholder="Achternaam"/>
+                    <h:message errorClass="text-error" for="lastName"/>
 
-                <h:inputText id="firstName" required="true" requiredMessage="Field required" autocomplete="false"
-                             value="#{personController.person.firstName}" pt:placeholder="Voornaam"/>
+                    <label>E-mailadres</label>
+                    <h:inputText id="emailAddress" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#{personController.person.emailAddress}" pt:placeholder="E-mailadres"/>
+                    <h:message errorClass="text-error" for="emailAddress"/>
 
-                <h:message errorClass="text-error" for="firstName"/>
+                    <label>Wachtwoord</label><h:inputSecret id="password" required="true" requiredMessage="Field required" autocomplete="false"
+                                   value="#{personController.person.password}" pt:placeholder="Wachtwoord"/>
+                    <h:message errorClass="text-error" for="password"/>
 
-                <h:inputText id="lastName" required="true" requiredMessage="Field required" autocomplete="false"
-                             value="#{personController.person.lastName}" pt:placeholder="Achternaam"/>
-                <h:message errorClass="text-error" for="lastName"/>
+                    <label>Wachtwoord bevestigen</label><h:inputSecret id="confirmedPassword" required="true" requiredMessage="Field required"
+                                   autocomplete="false" value="#{personController.person.confirmedPassword}"
+                                   pt:placeholder="Wachtwoord bevestigen"/>
+                    <h:message errorClass="text-error" for="confirmedPassword"/>
 
-                <h:inputText id="emailAddress" required="true" requiredMessage="Field required" autocomplete="false"
-                             value="#{personController.person.emailAddress}" pt:placeholder="E-mailadres"/>
-                <h:message errorClass="text-error" for="emailAddress"/>
+                    <label>Adres</label>
+                    <h:inputText id="address" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="" pt:placeholder="Adres"/>
+                    <h:message errorClass="text-error" for="address"/>
 
-                <h:inputSecret id="password" required="true" requiredMessage="Field required" autocomplete="false"
-                               value="#{personController.person.password}" pt:placeholder="Wachtwoord"/>
-                <h:message errorClass="text-error" for="password"/>
 
-                <h:inputSecret id="confirmedPassword" required="true" requiredMessage="Field required"
-                               autocomplete="false" value="#{personController.person.confirmedPassword}"
-                               pt:placeholder="Wachtwoord bevestigen"/>
-                <h:message errorClass="text-error" for="confirmedPassword"/>
+                    <label>Postcode</label>
+                    <h:inputText id="postalCode" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="" pt:placeholder="Postcode"/>
+                    <h:message errorClass="text-error" for="postalCode"/>
 
-                <h:commandButton styleClass="btn" id="submitRegistration" value="Submit" onstart="showLoading()"
-                                 action="#{personController.register}"/>
-                <h:message errorClass="text-error" for="submitRegistration"/>
-                <p:calendar value="#{bean.date}" mode="inline"/>
+                    <label>Plaats</label>
+                    <h:inputText id="town" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="" pt:placeholder="Plaats"/>
+                    <h:message errorClass="text-error" for="town"/>
 
+                    <label>Telefoon</label>
+                    <h:inputText id="telePhone" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="" pt:placeholder="Telefoonnummer"/>
+                    <h:message errorClass="text-error" for="telePhone"/>
+
+                </h:panelGrid>
+                <h:panelGrid columns="3">
+                    <label>Gewenste rol</label>
+                    <h:selectOneMenu id="rol" value="">
+                        <f:selectItem itemValue="40" itemLabel="Afzender" name="rol"/>
+                        <f:selectItem itemValue="50" itemLabel="Treinkoerier" name="rol"/>
+                    </h:selectOneMenu>
+                    <h:message errorClass="text-error" for="rol"/>
+
+                    <label>Geboortedatum</label> <h:inputText id="dateofBirth" required="true" requiredMessage="Field required" autocomplete="false"
+                                                              value="" pt:placeholder="Geboortedatum"/>
+                    <h:message errorClass="text-error" for="dateofBirth"/>
+
+                    <label>Bankgegevens (IBAN)</label>
+                    <h:inputText id="IBAN" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="" pt:placeholder="Bankgegevens (IBAN)"/>
+                    <h:message errorClass="text-error" for="IBAN"/>
+
+                    <label>Werkdagen</label>
+                    <h:inputText id="IBAN1" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="" pt:placeholder="Werkdagen"/>
+                    <h:message errorClass="text-error" for="IBAN1"/>
+                    <label>Werkdagen</label>
+                    <h:inputText id="IBAN2" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="" pt:placeholder="Werkdagen"/>
+                    <h:message errorClass="text-error" for="IBAN2"/>
+                    <label>Werkdagen</label>
+                    <h:inputText id="IBAN3" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="" pt:placeholder="Werkdagen"/>
+                    <h:message errorClass="text-error" for="IBAN3"/>
+                    <label>Werkdagen</label>
+                    <h:inputText id="IBAN4" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="" pt:placeholder="Werkdagen"/>
+                    <h:message errorClass="text-error" for="IBAN4"/>
+                    <label>Werkdagen</label>
+                    <h:inputText id="IBAN5" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="" pt:placeholder="Werkdagen"/>
+                    <h:message errorClass="text-error" for="IBAN5"/>
+
+
+
+                    <!--   Geboortedatum: <input type="text" id="datepicker"></input>-->
+
+                    <h:commandButton styleClass="btn" id="submitRegistration" value="Opslaan" onstart="showLoading()"
+                                     action="#{personController.register}"/>
+                    <h:message errorClass="text-error" for="submitRegistration"/>
             </h:panelGrid>
-
+            </h:panelGrid>
         </h:form>
 
     </ui:define>
+
+
 
 </ui:composition>
 
