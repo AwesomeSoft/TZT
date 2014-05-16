@@ -98,33 +98,46 @@
 
                     <label>Adres</label>
                     <h:inputText id="address" required="true" requiredMessage="Field required" autocomplete="false"
-                                 value="" pt:placeholder="Adres"/>
+                                 value="#{personController.person.address}" pt:placeholder="Adres"/>
                     <h:message errorClass="text-error" for="address"/>
+
+                    <label>Huisnummer</label>
+                    <h:inputText id="houseNumber" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#{personController.person.houseNumber}" pt:placeholder="Huisnummer"/>
+                    <h:message errorClass="text-error" for="houseNumber"/>
+
 
 
                     <label>Postcode</label>
                     <h:inputText id="postalCode" required="true" requiredMessage="Field required" autocomplete="false"
-                                 value="" pt:placeholder="Postcode"/>
+                                  value="#{personController.person.postalCode}" pt:placeholder="Postcode"/>
                     <h:message errorClass="text-error" for="postalCode"/>
 
                     <label>Plaats</label>
                     <h:inputText id="town" required="true" requiredMessage="Field required" autocomplete="false"
-                                 value="" pt:placeholder="Plaats"/>
+                                  value="#{personController.person.town}" pt:placeholder="Plaats"/>
                     <h:message errorClass="text-error" for="town"/>
 
                     <label>Telefoon</label>
                     <h:inputText id="telePhone" required="true" requiredMessage="Field required" autocomplete="false"
-                                 value="" pt:placeholder="Telefoonnummer"/>
+                                  value="#{personController.person.telePhone}" pt:placeholder="Telefoonnummer"/>
                     <h:message errorClass="text-error" for="telePhone"/>
+
+                    <label>Gewenste rol</label>
+                    <h:selectOneMenu id="role" value="#{personController.person.role}" converter="javax.faces.Integer">
+                        <f:selectItem itemValue="40" itemLabel="Afzender"/>
+                        <f:selectItem itemValue="50" itemLabel="Treinkoerier"/>
+                    </h:selectOneMenu>
+                    <h:message errorClass="text-error" for="role"/>
+
+                    <label>Geboortedatum</label> <h:inputText id="dateofBirth" required="true" requiredMessage="Field required" autocomplete="false"
+                                                              value="#{personController.person.dateofBirth}" pt:placeholder="Geboortedatum"/>
+                    <h:message errorClass="text-error" for="dateofBirth"/>
+
 
                 </h:panelGrid>
                 <h:panelGrid columns="3">
-                    <label>Gewenste rol</label>
-                    <h:selectOneMenu id="rol" value="">
-                        <f:selectItem itemValue="40" itemLabel="Afzender" name="rol"/>
-                        <f:selectItem itemValue="50" itemLabel="Treinkoerier" name="rol"/>
-                    </h:selectOneMenu>
-                    <h:message errorClass="text-error" for="rol"/>
+                   <!--
 
                     <label>Geboortedatum</label> <h:inputText id="dateofBirth" required="true" requiredMessage="Field required" autocomplete="false"
                                                               value="" pt:placeholder="Geboortedatum"/>
@@ -154,7 +167,7 @@
                     <label>Werkdagen</label>
                     <h:inputText id="IBAN5" required="true" requiredMessage="Field required" autocomplete="false"
                                  value="" pt:placeholder="Werkdagen"/>
-                    <h:message errorClass="text-error" for="IBAN5"/>
+                    <h:message errorClass="text-error" for="IBAN5"/>-->
 
 
 

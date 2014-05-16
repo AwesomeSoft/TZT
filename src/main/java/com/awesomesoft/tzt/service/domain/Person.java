@@ -7,6 +7,8 @@
 
 package com.awesomesoft.tzt.service.domain;
 
+import org.hibernate.type.DateType;
+
 import javax.persistence.*;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -46,6 +48,15 @@ public class Person {
     private int failedAttempts;
     private boolean authenticated;
     private boolean admin;
+    //Addded by Erwin
+    private String address;
+    private String houseNumber;
+    private String postalCode;
+    private String town;
+    private String telePhone;
+    private int role;
+    private String dateofBirth;
+    //Addded by Erwin
 
 
     public Person() {
@@ -126,6 +137,65 @@ public class Person {
         this.activated = activated;
     }
 
+    //Addded by Erwin
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getTown() {
+        return town;
+    }
+
+    public void setTown(String town) {
+        this.town = town;
+    }
+
+    public String getTelePhone() {
+        return telePhone;
+    }
+
+    public void setTelePhone(String telePhone) {
+        this.telePhone = telePhone;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
+    public String getDateofBirth() {
+        return dateofBirth;
+    }
+
+    public void setDateofBirth(String dateofBirth) {
+        this.dateofBirth = dateofBirth;
+    }
+
+
+    //Addded by Erwin
 
 
     @Override

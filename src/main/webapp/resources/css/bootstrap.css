@@ -285,7 +285,7 @@ a:focus {
   margin-left: 20px;
 }
 
-/*Jqeury datepicker*/
+
 
 
 .left-menu
@@ -838,6 +838,7 @@ ol ul {
 
 li {
   line-height: 20px;
+    list-style-type: none;
 }
 
 ul.unstyled,
