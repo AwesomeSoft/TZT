@@ -18,11 +18,14 @@ import java.util.Date;
  */
 
 @Entity
-public class Person {
+public class Person extends User {
 
     @Id
     @GeneratedValue
     private Long id;
+
+    @OneToOne
+    private Address address;
 
     private String firstName;
     private String lastName;
@@ -177,5 +180,13 @@ public class Person {
 
     public boolean isAdmin() {
         return admin;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }
