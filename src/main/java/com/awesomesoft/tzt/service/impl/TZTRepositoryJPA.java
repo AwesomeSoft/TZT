@@ -20,11 +20,11 @@ public class TZTRepositoryJPA implements TZTRepository {
     }
 
     @PersistenceContext(name = "TZTDataManagement")
-    private EntityManager em;
+    private EntityManager em; // Dit is je entity manager. Deze bewaakt je entiteiten en slaat ze op
     //Insert User object
 
     public Long insert(Person p) {
-        em.persist(p);
+        em.persist(p); // de persist functie van de entity manager zorgt ervoor dat deze bestaat.
         return p.getId();
     }
 

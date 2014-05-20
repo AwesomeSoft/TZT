@@ -7,6 +7,8 @@
 
 package com.awesomesoft.tzt.service.domain;
 
+import org.hibernate.type.DateType;
+
 import javax.persistence.*;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -17,15 +19,17 @@ import java.util.Date;
  * Created by Gerben de Heij
  */
 
-@Entity
-public class Person extends User {
+@Entity// Dit zorgt ervoor dat het een entiteit word binnen de database
+public class Person {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long id;// een entiteit heeft een ID nodig met deze anotatiets @id en @generated value
 
-    @OneToOne
+
+    @OneToOne(cascade={CascadeType.ALL})
     private Address address;
+
 
     private String firstName;
     private String lastName;
@@ -50,10 +54,18 @@ public class Person extends User {
     private boolean authenticated;
     private boolean admin;
 
+    //Addded by Erwin
+    private String telePhone;
+    private int role;
+    private String dateofBirth;
+    //Addded by Erwin
 
     public Person() {
         this.activated = false;
         this.admin = false;
+        if(this.address == null){
+            this.address = new Address();
+        }
     }
 
     public Long getId() {
@@ -129,6 +141,41 @@ public class Person extends User {
         this.activated = activated;
     }
 
+    //Addded by Gerben
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(String street, String houseNumber, String postalCode, String town ){
+        this.address = new Address(street,houseNumber, postalCode,town);
+    }
+
+    public String getTelePhone() {
+        return telePhone;
+    }
+
+    public void setTelePhone(String telePhone) {
+        this.telePhone = telePhone;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
+    public String getDateofBirth() {
+        return dateofBirth;
+    }
+
+    public void setDateofBirth(String dateofBirth) {
+        this.dateofBirth = dateofBirth;
+    }
+
+
+    //Addded by Erwin
 
 
     @Override
@@ -182,11 +229,4 @@ public class Person extends User {
         return admin;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
 }

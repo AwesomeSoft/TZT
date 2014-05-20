@@ -14,6 +14,23 @@ public class Location {
     @GeneratedValue
     private long id;
 
-    public Location() {
+    private double lng;
+    private double lat;
+
+    protected Location(){
+
+    }
+
+    public Location(double lng, double lat) {
+        this.lng = lng;
+        this.lat = lat;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public double getLng() {
+        return lng;
     }
 }

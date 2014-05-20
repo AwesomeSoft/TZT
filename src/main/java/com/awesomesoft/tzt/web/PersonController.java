@@ -7,6 +7,7 @@
 
 package com.awesomesoft.tzt.web;
 
+import com.awesomesoft.tzt.service.GoogleMapsApi.GoogleMapsApi;
 import com.awesomesoft.tzt.service.SSLMailer;
 import com.awesomesoft.tzt.service.TZTRepository;
 import com.awesomesoft.tzt.service.domain.Person;
@@ -39,8 +40,8 @@ import java.util.regex.Pattern;
 /**
  * Created by student on 1/14/14.
  */
-@ManagedBean
-@SessionScoped
+@ManagedBean  //zorgt ervoor dat de personcontroller in JSF beschikbaar is
+@SessionScoped  //zorgt ervoor dat de personcontroller in JSF beschikbaar is
 public class PersonController {
 
     private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
@@ -50,31 +51,76 @@ public class PersonController {
 
     protected Person person;
 
-    @PostConstruct
+    @PostConstruct // dit zorgt ervoor dat er een person object is wanneer deze controler aangeroepen is. Deze person is leeg.
+    //De person kan in faces gevuld worden door een getter in de controller
     public void init() {
         person = new Person();
+        GoogleMapsApi.planRoute("Zwolle","Groningen");
+
     }
 
     public String register() {
         logger.info("Registering {} {}", person.getFirstName(), person.getLastName());
 
         try {
+            validatePostalCode(true);
+            validateHouseNumber(true);
             validateEmailAddress(true);
             validatePassword();
             person.setDateCreated(new Date());
-            Long id = repository.insert(person);
+            Long id = repository.insert(person);  // Hier insert hij de person in de database. Dit levert een ID op.
             generateActivationUrl(id, person.getEmailAddress(), person.getPassword());
             SSLMailer.send(person.getEmailAddress(), "Activate your account", "Awesome! Here's your activation link: " + person.getActivationUrl());
             return "confirmation.xhtml";
         } catch (ValidationException | GenerationException e) {
-
             ControllerHelper.message(e.getMessage(), "registrationForm:submitRegistration", "ERROR");
             return "";
         }
     }
+    /*Added by Erwin*/
+
+    private void validatePostalCode(boolean register) throws ValidationException {
+        String postalCode = person.getAddress().getPostalCode();
+        logger.info("Validating postcalCode \"{}\"", postalCode);
+
+        final Pattern pattern = Pattern.compile("^[1-9][0-9]{3}\\s?[a-zA-Z]{2}$");
+
+        Matcher matcher = pattern.matcher(postalCode);
+
+        if (!matcher.matches()) {
+            throw new ValidationException("postcalCode invalid");
+        }
+    }
+
+    private void validateHouseNumber(boolean register) throws ValidationException {
+        String houseNumber = person.getAddress().getHouseNumber();
+        logger.info("Validating houseNumber \"{}\"", houseNumber);
+
+        final Pattern pattern = Pattern.compile("(?:^|\\s)[0-9_.](\\w+)\\b");
+
+        Matcher matcher = pattern.matcher(houseNumber);
+
+        if (!matcher.matches()) {
+            throw new ValidationException("houseNumber invalid");
+        }
+    }
+
+    private void validateDateofBirth(boolean register) throws ValidationException {
+        String dateofBirth = person.getDateofBirth();
+        logger.info("Validating dateofBirth \"{}\"", dateofBirth);
+
+        final Pattern pattern = Pattern.compile("^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$");
+
+        Matcher matcher = pattern.matcher(dateofBirth);
+
+        if (!matcher.matches()) {
+            throw new ValidationException("dateofBirth invalid");
+        }
+    }
+    /*Added by Erwin*/
 
     /**
-     * Requires a full @nl.ibm.com email address, username plus suffix
+     * Requires a full @domain.com email address, username plus suffix
      * This method validates the address using a regular expression
      *
      * @param register If true, this method also requires a unique address which is not already registered
@@ -198,7 +244,7 @@ public class PersonController {
                     repository.update(p);
                     logger.info("Account with id {} has been activated", p.getId());
                 } else {
-                    ControllerHelper.redirect("Codes do not match");
+                    ControllerHelper.redirect("Codes do not match","");
                 }
             } catch (GenerationException e) {
                 ControllerHelper.redirect(e.getMessage());
@@ -293,13 +339,13 @@ public class PersonController {
         logger.info("Authenticating \"{}\"", mail);
 
         if (!mail.toLowerCase().contains("@")) {
-            mail = mail + "@nl.ibm.com";
+            mail = mail + "@mail.com";
             logger.info("Added suffix as a service, authenticating \"{}\"", mail);
         }
 
         if (!repository.checkPersonExistsByEmailAddress(mail)) {
             logger.info("Email address does not exist");
-            throw new AuthenticationException("Invalid login");
+            throw new AuthenticationException("Ongeldige login");
         }
 
         Person temp = repository.getPersonByEmailAddress(mail);
@@ -316,11 +362,11 @@ public class PersonController {
                 throw new AuthenticationException("Account locked out for 10 minutes");
             }
             logger.info("Password does not match");
-            throw new AuthenticationException("Invalid login");
+            throw new AuthenticationException("Ongeldige login");
         }
 
         if (!temp.isActivated()) {
-            throw new AuthenticationException("Account not activated");
+            throw new AuthenticationException("Je account is nog niet geactiveerd");
         }
 
         if (requireAdmin && !temp.isAdmin()) {

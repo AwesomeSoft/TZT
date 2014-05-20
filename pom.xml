@@ -33,7 +33,9 @@
             </dependencies>
         </profile>
     </profiles>
+
     <dependencyManagement>
+
         <dependencies>
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
@@ -42,18 +44,41 @@
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
+
+            <dependency>
+                <groupId>com.google.oauth-client</groupId>
+                <artifactId>google-oauth-client</artifactId>
+                <version>1.18.0-rc</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.kindleit</groupId>
+                <artifactId>gae-runtime</artifactId>
+                <version>1.8.8</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4</version>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-mapsengine</artifactId>
+            <version>v1-rev12-1.18.0-rc</version>
         </dependency>
         <dependency>
             <groupId>com.google.http-client</groupId>
-            <artifactId>google-http-client-jackson2</artifactId>
-            <version>1.17.0-rc</version>
+            <artifactId>google-http-client</artifactId>
+            <version>1.18.0-rc</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20140107</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -69,6 +94,12 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-mapsengine</artifactId>
+            <version>v1-rev12-1.18.0-rc</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
@@ -78,6 +109,11 @@
             <artifactId>junit</artifactId>
             <version>4.8.1</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-mapsengine</artifactId>
+            <version>v1-rev15-1.18.0-rc</version>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -90,6 +126,11 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.6.2</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.2.3</version>
         </dependency>
     </dependencies>
     <build>

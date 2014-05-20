@@ -1,16 +1,15 @@
 package com.awesomesoft.tzt;
 
-import com.awesomesoft.tzt.service.RegistrationService;
+import com.awesomesoft.tzt.web.OrderController;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.OverProtocol;
+import org.jboss.arquillian.core.api.annotation.Inject;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import javax.inject.Inject;
 
 @RunWith(Arquillian.class)
 public class RegistrationServiceIntegrationTest {
@@ -26,11 +25,10 @@ public class RegistrationServiceIntegrationTest {
     }
 
     @Inject
-    RegistrationService registrationService;
+    OrderController orderController;
 
     @Test
-    public void testUserInsertion() throws Exception {
-        registrationService.registerSoul("jvanpoppel", "jvp@there.com", "smartkey");
+    public void testMaps(){
 
     }
 }
