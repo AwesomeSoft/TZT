@@ -2,7 +2,6 @@ package com.awesomesoft.tzt.service.impl;
 
 import com.awesomesoft.tzt.service.TZTRepository;
 import com.awesomesoft.tzt.service.domain.Person;
-import com.awesomesoft.tzt.service.domain.User;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
@@ -52,5 +51,7 @@ public class TZTRepositoryJPA implements TZTRepository {
         q.setParameter(1, emailAddress);
         return q.getSingleResult() > 0;
     }
+
+    
 
 }

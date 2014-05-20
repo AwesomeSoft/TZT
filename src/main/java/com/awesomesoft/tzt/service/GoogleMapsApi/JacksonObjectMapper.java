@@ -1,25 +1,54 @@
 package com.awesomesoft.tzt.service.GoogleMapsApi;
 
-import com.awesomesoft.tzt.service.GoogleMapsApi.models.Location;
+import com.awesomesoft.tzt.service.GoogleMapsApi.exceptions.RouteNotFoundException;
+import com.awesomesoft.tzt.service.GoogleMapsApi.models.*;
+
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by student on 5/20/14.
  */
 public abstract class JacksonObjectMapper {
 
-    public static void getLocation(String jsonResult){
+    public static Route getRoute(String jsonResult){
          //create ObjectMapper instance
         ObjectMapper objectMapper = new ObjectMapper();
-
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         //convert json string to object
         try {
-             Location loc = objectMapper.readValue(jsonResult,Location.class);
-             System.out.println("Employee Object\n"+loc);
+             Routes routes = objectMapper.readValue(jsonResult,Routes.class);
+            try {
+                routes.getRoute().toString();
+                return routes.getRoute();
+
+            } catch (RouteNotFoundException e) {
+                throw new RuntimeException(e);
+
+            }
         } catch (IOException e) {
              throw new RuntimeException(e);
+        }
+    }
+
+    public static Location getLocation(String jsonResult){
+        //create ObjectMapper instance
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        //convert json string to object
+        try {
+            System.out.println(jsonResult);
+            GeoLocation geoLocation = objectMapper.readValue(jsonResult,GeoLocation.class);
+            List<Result> results = geoLocation.getResults();
+
+                return results.get(0).getGeometry().getLocation();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

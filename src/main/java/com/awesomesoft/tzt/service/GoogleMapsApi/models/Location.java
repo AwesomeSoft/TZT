@@ -1,34 +1,57 @@
+
 package com.awesomesoft.tzt.service.GoogleMapsApi.models;
 
-/**
- * Created by student on 5/20/14.
- */
-public class Location {
-    private double lat;
-    private double lng;
+import java.util.HashMap;
+import java.util.Map;
+import javax.annotation.Generated;
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-    public double getLat() {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@Generated("org.jsonschema2pojo")
+@JsonPropertyOrder({
+    "lat",
+    "lng"
+})
+public class Location {
+
+    @JsonProperty("lat")
+    private Double lat;
+    @JsonProperty("lng")
+    private Double lng;
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("lat")
+    public Double getLat() {
         return lat;
     }
 
-
-
-    public void setLat(double lat) {
+    @JsonProperty("lat")
+    public void setLat(Double lat) {
         this.lat = lat;
     }
 
-    public double getLng() {
+    @JsonProperty("lng")
+    public Double getLng() {
         return lng;
     }
 
-    public void setLng(double lng) {
+    @JsonProperty("lng")
+    public void setLng(Double lng) {
         this.lng = lng;
     }
-    @Override
-    public String toString() {
-        return "Location{" +
-                "lat=" + lat +
-                ", lng=" + lng +
-                '}';
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
     }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
+
 }

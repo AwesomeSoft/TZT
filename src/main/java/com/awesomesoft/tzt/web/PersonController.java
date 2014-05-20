@@ -56,7 +56,7 @@ public class PersonController {
     public void init() {
         person = new Person();
         GoogleMapsApi.planRoute("Zwolle","Groningen");
-
+        GoogleMapsApi.getLocation("Groningen");
     }
 
     public String register() {
