@@ -2,23 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca062b3c-c253-481e-8abb-66e60c43d84c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/afzender/Historie.xhtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/domain/Order.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/afzender/RegisterenPakket.xhtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/afzender/StatusVerzending.xhtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/domain/TrainCourier.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/web/TrainCourierController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/domain/TrainTraject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitnore" afterPath="$PROJECT_DIR$/.gitnore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/domain/Person.java" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/domain/Person.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/web/PersonController.java" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/web/PersonController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/domain/User.java" afterPath="$PROJECT_DIR$/src/main/java/com/awesomesoft/tzt/service/domain/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/profile/change/confirmation.xhtml" afterPath="$PROJECT_DIR$/src/main/webapp/profile/change/confirmation.xhtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/profile/change/index.xhtml" afterPath="$PROJECT_DIR$/src/main/webapp/profile/change/index.xhtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/register/index.xhtml" afterPath="$PROJECT_DIR$/src/main/webapp/register/index.xhtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template.xhtml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/template.xhtml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="cas-web.iws" />
@@ -1464,12 +1447,17 @@
       <workItem from="1400704542355" duration="1046000" />
       <workItem from="1400706953104" duration="618000" />
       <workItem from="1400759716025" duration="307000" />
-      <workItem from="1400778055702" duration="4282000" />
+      <workItem from="1400778055702" duration="4355000" />
     </task>
+    <task id="LOCAL-00001" summary="22-5-2014 200:23">
+      <created>1400782363423</created>
+      <updated>1400782363423</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78233000" />
+    <option name="totallyTimeSpent" value="78306000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1546,6 +1534,8 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <MESSAGE value="22-5-2014 200:23" />
+    <option name="LAST_COMMIT_MESSAGE" value="22-5-2014 200:23" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
