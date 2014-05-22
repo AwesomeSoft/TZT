@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+
+</head>
+
+<ui:composition template="../WEB-INF/template.xhtml">
+
+    <ui:define name="title">Registration</ui:define>
+
+    <ui:define name="script">
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $( "#registrationForm\\:dateofBirth" ).datepicker();
+                $( "#registrationForm\\:dateofBirth" ).regional['nl'];
+                $(function () {
+                    $("#registrationForm\\:emailAddress").popover({content: "Use your @mail.com email address"}).focus(function () {
+                        $(this).popover('show')
+                    }).blur(function () {
+                        $(this).popover('hide')
+                    });
+                    $("#registrationForm\\:password").popover({html: true, title: "Password requirements", content: "at least one a-z<br />at least one A-Z<br />at least one 0-9<br />at least one special character<br />at least 8 characters long"}).focus(function () {
+                        $(this).popover('show')
+                    }).blur(function () {
+                        $(this).popover('hide')
+                    });
+                });
+            });
+
+            function showLoading() {
+                var a = $('div.loadImage');
+                a.show();
+            }
+        </script>
+
+    </ui:define>
+
+    <ui:define name="content">
+
+        <p class="fotoRegister">
+
+        </p>
+
+        <div class="loadImage" style="display: none">
+            <h:graphicImage alt="Loading" library="img" name="loadingsaltpepper.gif"/>
+        </div>
+        <h:form id="registrationForm">
+
+            <legend>Registeren pakket</legend>
+
+            <p:watermark for="firstName" value="First name"/>
+            <p:watermark for="lastName" value="Last name"/>
+            <p:watermark for="emailAddress" value="Email address"/>
+            <p:watermark for="password" value="Password"/>
+            <p:watermark for="confirmedPassword" value="Confirm password"/>
+            <p:watermark for="dateofBirth" value="Geboorte datum"/>
+            <h:panelGrid columns="3">
+                    <label>Aanhef:</label>
+                    <h:inputText id="Aanhef" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#" pt:placeholder="Aanhef"/>
+                    <h:message errorClass="text-error" for="Aanhef"/>
+
+                    <label>Voornaam:</label>
+                    <h:inputText id="Voornaam" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#" pt:placeholder="Voornaam"/>
+                    <h:message errorClass="text-error" for="Voornaam"/>
+
+                    <label>Tussenvoegsel:</label>
+                    <h:inputText id="Tussenvoegsel" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#" pt:placeholder="Tussenvoegsel"/>
+                    <h:message errorClass="text-error" for="Tussenvoegsel"/>
+
+                    <label>Achternaam:</label>
+                    <h:inputText id="Achternaam" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#" pt:placeholder="Achternaam"/>
+                    <h:message errorClass="text-error" for="Achternaam"/>
+
+                    <label>Adres:</label>
+                    <h:inputText id="Adres" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#" pt:placeholder="Adres"/>
+                    <h:message errorClass="text-error" for="Adres"/>
+
+                    <label>Huisnummer:</label>
+                    <h:inputText id="Huisnummer" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#" pt:placeholder="Huisnummer"/>
+                    <h:message errorClass="text-error" for="Huisnummer"/>
+
+                    <label>Postcode:</label>
+                    <h:inputText id="Postcode" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#" pt:placeholder="Postcode"/>
+                    <h:message errorClass="text-error" for="Postcode"/>
+
+                    <label>Plaats:</label>
+                    <h:inputText id="Plaats" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#" pt:placeholder="Plaats"/>
+                    <h:message errorClass="text-error" for="Plaats"/>
+
+                    <label>Verzenddatum:</label>
+                    <h:inputText id="Verzenddatum" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#" pt:placeholder="Verzenddatum"/>
+                    <h:message errorClass="text-error" for="Verzenddatum"/>
+
+                    <label>Pakketgegevens Lengte:</label>
+                    <h:inputText id="PakketgegevensLengte" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#" pt:placeholder="PakketgegevensLengte"/>
+                    <h:message errorClass="text-error" for="PakketgegevensLengte"/>
+
+                    <label>Pakketgegevens Breedte:</label>
+                    <h:inputText id="PakketgegevensBreedte" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#" pt:placeholder="PakketgegevensBreedte"/>
+                    <h:message errorClass="text-error" for="PakketgegevensBreedte"/>
+
+                    <label>Pakketgegevens Hoogte:</label>
+                    <h:inputText id="PakketgegevensHoogte" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#" pt:placeholder="PakketgegevensHoogte"/>
+                    <h:message errorClass="text-error" for="PakketgegevensHoogte"/>
+
+
+                    <label>Pakketgegevens Gewicht:</label>
+                    <h:inputText id="PakketgegevensGewicht" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#" pt:placeholder="PakketgegevensGewicht"/>
+                    <h:message errorClass="text-error" for="PakketgegevensGewicht"/>
+                </h:panelGrid>
+
+        </h:form>
+
+    </ui:define>
+
+
+
+</ui:composition>
+
+</html>

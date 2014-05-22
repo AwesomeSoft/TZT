@@ -1,8 +1,6 @@
 package com.awesomesoft.tzt.service.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Gerben de Heij on 24/04/14.
@@ -14,7 +12,7 @@ public class User {
     @Id
     @GeneratedValue
     private Long id;
-
+   // @OneToOne(cascade={CascadeType.ALL})
     private String username;
     private String email;
     private String password;

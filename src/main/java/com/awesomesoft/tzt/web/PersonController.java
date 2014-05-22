@@ -55,8 +55,8 @@ public class PersonController {
     //De person kan in faces gevuld worden door een getter in de controller
     public void init() {
         person = new Person();
-        GoogleMapsApi.planRoute("Zwolle","Groningen");
-        GoogleMapsApi.getLocation("Groningen");
+       // GoogleMapsApi.planRoute("Zwolle","Groningen");
+      //  GoogleMapsApi.getLocation("Groningen");
     }
 
     public String register() {

@@ -7,6 +7,7 @@
 
 package com.awesomesoft.tzt.service.domain;
 
+import com.sun.org.glassfish.gmbal.IncludeSubclass;
 import org.hibernate.type.DateType;
 
 import javax.persistence.*;
@@ -18,7 +19,6 @@ import java.util.Date;
 /**
  * Created by Gerben de Heij
  */
-
 @Entity// Dit zorgt ervoor dat het een entiteit word binnen de database
 public class Person {
 
@@ -58,6 +58,11 @@ public class Person {
     private String telePhone;
     private int role;
     private String dateofBirth;
+    /* Treinkoerier*/
+    private String aanHef;
+    private String ibanNr;
+    private String ibanTennaamstelling;
+    /* Afzender */
     //Addded by Erwin
 
     public Person() {
@@ -159,7 +164,9 @@ public class Person {
     }
 
     public int getRole() {
-        return role;
+        if(isAuthenticated())
+            return role;
+        return 0;
     }
 
     public void setRole(int role) {
