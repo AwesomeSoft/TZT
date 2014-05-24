@@ -25,8 +25,7 @@ public class Station {
 
     }
 
-    public Station(Long id, String name, Location location) {
-        this.id = id;
+    public Station(String name, Location location) {
         this.name = name;
         this.location = location;
     }

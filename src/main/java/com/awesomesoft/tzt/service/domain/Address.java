@@ -2,6 +2,7 @@ package com.awesomesoft.tzt.service.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.OneToOne;
 
 /**
  * Created by student on 5/15/14.
@@ -17,6 +18,9 @@ public class Address {
    private String houseNumber;
    private String postalCode;
    private String town;
+
+   @OneToOne
+   private Location location;
 
    public Address(){
 

@@ -17,11 +17,9 @@ import java.util.List;
  */
 public abstract class GoogleMapsApi{
 
-
     static final String PUBLIC_API_KEY = "&key=AIzaSyA_ZLCYtmHm7J19eu41XhYOGWnDciEPJXU";
     static final String GOOGLE_DIRECTIONS_URL = "https://maps.googleapis.com/maps/api/directions/json?";
     static final String GOOGLE_GEOLOCATION_URL = "https://maps.googleapis.com/maps/api/geocode/json?";
-
 
     public static Route planRoute(String senderAddress, String receiverAddress){
         String routeString = "origin="+senderAddress+"&destination="+receiverAddress+"&sensor=false";
@@ -47,16 +45,11 @@ public abstract class GoogleMapsApi{
             URL url = new URL(GOOGLE_DIRECTIONS_URL+routeString+PUBLIC_API_KEY);
             String result = startHTTPSrequest(url);
             Route route = JacksonObjectMapper.getRoute(result);
-            List<Leg> legs = route.getLegs();
-            System.out.println(legs.size());
-            for (Leg leg : legs) {
-                System.out.println(leg.getDistance().toString());
-            }
-
+            return route;
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        return null;
+
     }
 
     public static Location getLocation(String address){
@@ -65,15 +58,12 @@ public abstract class GoogleMapsApi{
             URL url = new URL(GOOGLE_GEOLOCATION_URL+requestString+PUBLIC_API_KEY);
             String result = startHTTPSrequest(url);
             Location location = JacksonObjectMapper.getLocation(result);
-            System.out.println(location.getLat());
-            System.out.println(location.getLng());
-
+            return location;
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        return null;
-
     }
+
     public static String startHTTPSrequest(URL url){
         HttpsURLConnection con = openHTTPSconnection(url);
         if(con!=null){
