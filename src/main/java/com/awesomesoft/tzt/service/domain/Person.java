@@ -16,9 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-/**
- * Created by Gerben de Heij
- */
+
 @Entity// Dit zorgt ervoor dat het een entiteit word binnen de database
 public class Person {
 
@@ -57,11 +55,9 @@ public class Person {
     //Addded by Erwin
     private String telePhone;
     private int role;
-    private String dateofBirth;
-    /* Treinkoerier*/
-    private String aanHef;
-    private String ibanNr;
-    private String ibanTennaamstelling;
+    private Date dateofBirth;
+    private String iban;
+    private String tenaamstelling;
     /* Afzender */
     //Addded by Erwin
 
@@ -173,15 +169,26 @@ public class Person {
         this.role = role;
     }
 
-    public String getDateofBirth() {
+    public Date getDateofBirth() {
         return dateofBirth;
     }
 
-    public void setDateofBirth(String dateofBirth) {
+    public void setDateofBirth(Date dateofBirth) {
         this.dateofBirth = dateofBirth;
     }
 
-
+    public String getIban(){
+        return iban;
+    };
+    public void setIban(String iban){
+        this.iban = iban;
+    };
+    public String getTenaamstelling(){
+        return tenaamstelling;
+    }
+    public void setTenaamstelling(String tenaamstelling){
+        this.tenaamstelling = tenaamstelling;
+    }
     //Addded by Erwin
 
 

@@ -59,12 +59,27 @@ public class PersonController {
       //  GoogleMapsApi.getLocation("Groningen");
     }
 
+    public void updateProfile() {
+        System.out.println("sad");
+        logger.info("Updaten profiel voor {}", person.getEmailAddress());
+        try {
+            validatePostalCode(true);
+            validateHouseNumber(true);
+          // moet nog code bij.
+          //  validateEmailAddress(false);
+            repository.update(person);
+        } catch (ValidationException e) {
+            ControllerHelper.message(e.getMessage(), "changePasswordForm:submitChange", "ERROR");
+        }
+    }
+
     public String register() {
         logger.info("Registering {} {}", person.getFirstName(), person.getLastName());
 
         try {
             validatePostalCode(true);
             validateHouseNumber(true);
+            validateDateofBirth(true);
             validateEmailAddress(true);
             validatePassword();
             person.setDateCreated(new Date());
@@ -106,16 +121,17 @@ public class PersonController {
     }
 
     private void validateDateofBirth(boolean register) throws ValidationException {
-        String dateofBirth = person.getDateofBirth();
-        logger.info("Validating dateofBirth \"{}\"", dateofBirth);
+        Date dateofBirth = person.getDateofBirth();
+   //     logger.info("Validating dateofBirth \"{}\"", dateofBirth);
 
-        final Pattern pattern = Pattern.compile("^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$");
+ //       final Pattern pattern = Pattern.compile("^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$");
+        /* Hier moet nog wat bij, zoals geen datum in de toekomst.*/
+ //       Matcher matcher = pattern.matcher(dateofBirth);
 
-        Matcher matcher = pattern.matcher(dateofBirth);
-
-        if (!matcher.matches()) {
-            throw new ValidationException("dateofBirth invalid");
-        }
+ //       if (!matcher.matches()) {
+ //           throw new ValidationException("dateofBirth invalid");
+ //           throw new ValidationException("dateofBirth invalid");
+  //      }
     }
     /*Added by Erwin*/
 
