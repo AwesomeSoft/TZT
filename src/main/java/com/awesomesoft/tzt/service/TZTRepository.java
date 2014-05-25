@@ -1,9 +1,7 @@
 package com.awesomesoft.tzt.service;
 
-import com.awesomesoft.tzt.service.domain.Location;
-import com.awesomesoft.tzt.service.domain.Person;
-import com.awesomesoft.tzt.service.domain.Station;
-import com.awesomesoft.tzt.service.domain.TZTOrder;
+import com.awesomesoft.tzt.service.domain.*;
+import com.awesomesoft.tzt.service.domain.Package;
 import com.awesomesoft.tzt.service.impl.JPAException;
 
 import java.util.LinkedList;
@@ -33,4 +31,6 @@ public interface TZTRepository {
     public Long insertOrder(TZTOrder o);
 
     public TZTOrder getOrderById(Long id);
+
+    public Long insertPackage(Package p);
 }

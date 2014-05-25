@@ -23,7 +23,7 @@ public class Address {
    private String town;
 
 
-    @OneToOne
+   @OneToOne
    private Location location;
 
    public Address(){

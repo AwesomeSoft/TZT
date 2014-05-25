@@ -3,6 +3,7 @@ package com.awesomesoft.tzt.service.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  * Created by Erwin on 24-5-2014.
@@ -18,6 +19,9 @@ public class Package {
     private int length;
     private int width;
     private int weightInKilos;
+
+    @OneToOne
+    private TZTOrder order;
 
     protected Package(){
 

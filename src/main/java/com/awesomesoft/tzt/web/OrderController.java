@@ -58,9 +58,10 @@ public class OrderController {
     }
 
     public String createOrder(Person person){
-        logger.info("Registering: the order");
+        
+        tztOrder.setReceiver(this.receiver);
         tztOrder.setCustomer(person);
-        Long id = repository.insertPerson(person);  // Hier insertPerson hij de person in de database. Dit levert een ID op.
+        Long id = repository.insertOrder(tztOrder);
         return "confirmation.xhtml";
 
     }

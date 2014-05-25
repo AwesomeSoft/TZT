@@ -1,10 +1,8 @@
 package com.awesomesoft.tzt.service.impl;
 
 import com.awesomesoft.tzt.service.TZTRepository;
-import com.awesomesoft.tzt.service.domain.Location;
-import com.awesomesoft.tzt.service.domain.Person;
-import com.awesomesoft.tzt.service.domain.Station;
-import com.awesomesoft.tzt.service.domain.TZTOrder;
+import com.awesomesoft.tzt.service.domain.*;
+import com.awesomesoft.tzt.service.domain.Package;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
@@ -88,4 +86,11 @@ public class TZTRepositoryJPA implements TZTRepository {
     public TZTOrder getOrderById(Long id) {
         return em.find(TZTOrder.class,id);
     }
+
+    public Long insertPackage(Package p) {
+        em.persist(p); // de persist functie van de entity manager zorgt ervoor dat deze bestaat.
+        return p.getId();
+    }
+
+
 }

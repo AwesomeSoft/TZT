@@ -28,21 +28,30 @@ public class TZTOrder {
         customer._own(this);
     }
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
     private Person customer;
 
-
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,mappedBy = "order")
+    @JoinColumn(name = "id")
     private Package aPackage;
 
+    public Person getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(Person receiver) {
+        this.receiver = receiver;
+    }
+
+    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private Person receiver;
+    
     public long getOrderNumber() {
         return orderNumber;
     }
 
     private long orderNumber;
-
-    @OneToOne
-    private Person receiver;
 
     private double totalCostprice;
 
@@ -57,6 +66,7 @@ public class TZTOrder {
     public TZTOrder(){
          if(this.aPackage == null){
              this.aPackage = new Package();
+            
          }
         this.creationDate = new Date();
         this.orderNumber = generateOrderNumber();

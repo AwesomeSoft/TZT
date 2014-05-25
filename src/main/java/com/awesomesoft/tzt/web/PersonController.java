@@ -54,6 +54,12 @@ public class PersonController {
     //De person kan in faces gevuld worden door een getter in de controller
     public void init() {
         person = new Person();
+/*
+        Long id = Long.parseLong("103");
+        TZTOrder tztOrder = repository.getOrderById(id);
+        System.out.println(tztOrder.getaPackage().getHeight());
+*/
+
         /*
         Address senderAddress = new Address("Wolweverstraat","9","8011NW", "Zwolle");
         Address deliveryAddress = new Address("Aquamarijnstraat","599","9743PP", "Groningen");
@@ -355,7 +361,7 @@ public class PersonController {
             authenticatePerson(requireAdmin);
             person.setLastLogin(new Date());
             repository.updatePerson(person);
-            return requireAdmin ? "/admin/panel.xhtml" : "/profile/PakketRegistreeren.xhtml";
+            return requireAdmin ? "/admin/panel.xhtml" : "/profile/index.xhtml";
         } catch (AuthenticationException e) {
             ControllerHelper.message(e.getMessage(), "loginForm:submitLogin", "ERROR");
             return "";
