@@ -271,5 +271,7 @@ public class Person {
         orderHistory.add(order);
     }
 
+    @OneToOne(mappedBy = "receiver")
+    private TZTOrder tztOrder;
 
 }

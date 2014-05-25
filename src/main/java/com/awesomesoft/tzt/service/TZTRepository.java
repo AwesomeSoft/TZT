@@ -33,4 +33,8 @@ public interface TZTRepository {
     public TZTOrder getOrderById(Long id);
 
     public Long insertPackage(Package p);
+
+    public Long insertAddress(Address a);
+
+    public Address getAddressById(Long id);
 }

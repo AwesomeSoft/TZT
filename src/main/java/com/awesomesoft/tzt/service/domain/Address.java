@@ -3,9 +3,7 @@ package com.awesomesoft.tzt.service.domain;
 import com.awesomesoft.tzt.service.GoogleMapsApi.GoogleMapsApi;
 import com.awesomesoft.tzt.service.GoogleMapsApi.models.GLocation;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /**
  * Created by student on 5/15/14.
@@ -23,7 +21,7 @@ public class Address {
    private String town;
 
 
-   @OneToOne
+   @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
    private Location location;
 
    public Address(){

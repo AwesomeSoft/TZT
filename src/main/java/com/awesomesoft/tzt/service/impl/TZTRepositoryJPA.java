@@ -92,5 +92,12 @@ public class TZTRepositoryJPA implements TZTRepository {
         return p.getId();
     }
 
+    public Long insertAddress(Address a) {
+        em.persist(a);
+        return a.getId();
+    }
 
+    public Address getAddressById(Long id) {
+        return em.find(Address.class,id);
+    }
 }

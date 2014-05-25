@@ -28,11 +28,10 @@ public class TZTOrder {
         customer._own(this);
     }
 
-    @ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    @ManyToOne(cascade=CascadeType.ALL)
     private Person customer;
 
-    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY,mappedBy = "order")
-    @JoinColumn(name = "id")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Package aPackage;
 
     public Person getReceiver() {
@@ -43,8 +42,7 @@ public class TZTOrder {
         this.receiver = receiver;
     }
 
-    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @OneToOne(cascade = CascadeType.ALL)
     private Person receiver;
     
     public long getOrderNumber() {

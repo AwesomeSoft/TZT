@@ -20,7 +20,7 @@ public class Package {
     private int width;
     private int weightInKilos;
 
-    @OneToOne
+    @OneToOne(mappedBy = "aPackage")
     private TZTOrder order;
 
     protected Package(){

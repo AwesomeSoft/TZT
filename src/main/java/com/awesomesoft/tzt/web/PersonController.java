@@ -54,34 +54,6 @@ public class PersonController {
     //De person kan in faces gevuld worden door een getter in de controller
     public void init() {
         person = new Person();
-/*
-        Long id = Long.parseLong("103");
-        TZTOrder tztOrder = repository.getOrderById(id);
-        System.out.println(tztOrder.getaPackage().getHeight());
-*/
-
-        /*
-        Address senderAddress = new Address("Wolweverstraat","9","8011NW", "Zwolle");
-        Address deliveryAddress = new Address("Aquamarijnstraat","599","9743PP", "Groningen");
-        LinkedList<Station> nearestSenderStations = null;
-        LinkedList<Station> nearestDeliveryStations = null;
-        try {
-            nearestSenderStations = repository.getNearestStations(senderAddress.getLocation());
-            nearestDeliveryStations = repository.getNearestStations(deliveryAddress.getLocation());
-            Route groute = GoogleMapsApi.getTrainRoute(nearestSenderStations.get(0), nearestDeliveryStations.get(0),new Date());
-            List<Leg> routeLeg = groute.getLegs();
-            for (Leg leg : routeLeg) {
-                System.out.println(leg.getSteps());
-                System.out.println(leg.getDistance());
-                System.out.println(leg.getDuration());
-                System.out.println(leg.getVia_waypoint());
-            }
-        } catch (JPAException e) {
-            throw new RuntimeException(e);
-
-        }
-
-        */
     }
 
     public void updateProfile() {

@@ -15,7 +15,7 @@ public class Station {
 
     private String name;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name = "id")
     private Location location;
 
