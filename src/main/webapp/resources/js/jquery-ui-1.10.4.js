@@ -1591,7 +1591,7 @@ $.widget( "ui.accordion", {
 
 	_setOption: function( key, value ) {
 		if ( key === "active" ) {
-			// _activate() will handle invalid values and update this.options
+			// _activate() will handle invalid values and updatePerson this.options
 			this._activate( value );
 			return;
 		}
@@ -2269,7 +2269,7 @@ $.widget( "ui.autocomplete", {
 					// Normally the input is populated with the item's value as the
 					// menu is navigated, causing screen readers to notice a change and
 					// announce the item. Since the focus event was canceled, this doesn't
-					// happen, so we update the live region so that screen readers can
+					// happen, so we updatePerson the live region so that screen readers can
 					// still notice the change and announce it.
 					this.liveRegion.text( item.value );
 				}
@@ -3270,7 +3270,7 @@ $.extend(Datepicker.prototype, {
 	 * @param  input element - ignored
 	 * @param  date	string or Date - the initial date to display
 	 * @param  onSelect  function - the function to call when a date is selected
-	 * @param  settings  object - update the dialog date picker instance's settings (anonymous object)
+	 * @param  settings  object - updatePerson the dialog date picker instance's settings (anonymous object)
 	 * @param  pos int[2] - coordinates for the dialog's position within the screen or
 	 *					event - with x/y coordinates or
 	 *					leave empty for default (screen centre)
@@ -3434,7 +3434,7 @@ $.extend(Datepicker.prototype, {
 
 	/* Update or retrieve the settings for a date picker attached to an input field or division.
 	 * @param  target  element - the target input field or division or span
-	 * @param  name	object - the new settings to update or
+	 * @param  name	object - the new settings to updatePerson or
 	 *				string - the name of the setting to change or retrieve,
 	 *				when retrieving also "all" for all instance settings or
 	 *				"defaults" for all global defaults
@@ -4007,7 +4007,7 @@ $.extend(Datepicker.prototype, {
 		var altFormat, date, dateStr,
 			altField = this._get(inst, "altField");
 
-		if (altField) { // update alternate field too
+		if (altField) { // updatePerson alternate field too
 			altFormat = this._get(inst, "altFormat") || this._get(inst, "dateFormat");
 			date = this._getDate(inst);
 			dateStr = this.formatDate(altFormat, date, this._getFormatConfig(inst));
@@ -6506,7 +6506,7 @@ $.ui.plugin.add("draggable", "connectToSortable", {
 
 					inst._trigger("toSortable", event);
 					inst.dropped = this.instance.element; //draggable revert needs that
-					//hack so receive/update callbacks work (mostly)
+					//hack so receive/updatePerson callbacks work (mostly)
 					inst.currentItem = inst.element;
 					this.instance.fromOutside = inst;
 
@@ -9753,7 +9753,7 @@ $.widget( "ui.menu", {
 
 		this.active = item.first();
 		focused = this.active.children( "a" ).addClass( "ui-state-focus" );
-		// Only update aria-activedescendant if there's a role
+		// Only updatePerson aria-activedescendant if there's a role
 		// otherwise we assume focus is managed elsewhere
 		if ( this.options.role ) {
 			this.element.attr( "aria-activedescendant", focused.attr( "id" ) );
@@ -13178,7 +13178,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 		var i,
 			delayedTriggers = [];
 
-		// We first have to update the dom position of the actual currentItem
+		// We first have to updatePerson the dom position of the actual currentItem
 		// Note: don't do it if the current item is already removed (by a user), or it gets reappended (see #4088)
 		if(!this._noFinalSort && this.currentItem.parent().length) {
 			this.placeholder.before(this.currentItem);
@@ -13200,7 +13200,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 			delayedTriggers.push(function(event) { this._trigger("receive", event, this._uiHash(this.fromOutside)); });
 		}
 		if((this.fromOutside || this.domPosition.prev !== this.currentItem.prev().not(".ui-sortable-helper")[0] || this.domPosition.parent !== this.currentItem.parent()[0]) && !noPropagation) {
-			delayedTriggers.push(function(event) { this._trigger("update", event, this._uiHash()); }); //Trigger update callback if the DOM position has changed
+			delayedTriggers.push(function(event) { this._trigger("update", event, this._uiHash()); }); //Trigger updatePerson callback if the DOM position has changed
 		}
 
 		// Check if the items Container has Changed and trigger appropriate
@@ -13715,7 +13715,7 @@ $.widget( "ui.spinner", {
 		});
 	},
 
-	// update the value without triggering change
+	// updatePerson the value without triggering change
 	_value: function( value, allowAny ) {
 		var parsed;
 		if ( value !== "" ) {
@@ -13852,7 +13852,7 @@ $.widget( "ui.tabs", {
 		options.active = this._initialActive();
 
 		// Take disabling tabs via class attribute from HTML
-		// into account and update option properly.
+		// into account and updatePerson option properly.
 		if ( $.isArray( options.disabled ) ) {
 			options.disabled = $.unique( options.disabled.concat(
 				$.map( this.tabs.filter( ".ui-state-disabled" ), function( li ) {
@@ -14038,7 +14038,7 @@ $.widget( "ui.tabs", {
 
 	_setOption: function( key, value ) {
 		if ( key === "active" ) {
-			// _activate() will handle invalid values and update this.options
+			// _activate() will handle invalid values and updatePerson this.options
 			this._activate( value );
 			return;
 		}
@@ -14826,7 +14826,7 @@ $.widget( "ui.tooltip", {
 		}
 
 		// Content can be updated multiple times. If the tooltip already
-		// exists, then just update the content and bail.
+		// exists, then just updatePerson the content and bail.
 		tooltip = this._find( target );
 		if ( tooltip.length ) {
 			tooltip.find( ".ui-tooltip-content" ).html( content );

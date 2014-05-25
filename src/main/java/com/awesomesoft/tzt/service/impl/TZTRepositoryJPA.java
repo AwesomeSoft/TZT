@@ -1,12 +1,17 @@
 package com.awesomesoft.tzt.service.impl;
 
 import com.awesomesoft.tzt.service.TZTRepository;
+import com.awesomesoft.tzt.service.domain.Location;
 import com.awesomesoft.tzt.service.domain.Person;
+import com.awesomesoft.tzt.service.domain.Station;
+import com.awesomesoft.tzt.service.domain.TZTOrder;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Gerben de Heij on 24/04/14.
@@ -14,7 +19,7 @@ import javax.persistence.TypedQuery;
 @Singleton
 public class TZTRepositoryJPA implements TZTRepository {
 
-    public void update(Person p) {
+    public void updatePerson(Person p) {
         em.merge(p);
     }
 
@@ -22,7 +27,7 @@ public class TZTRepositoryJPA implements TZTRepository {
     private EntityManager em; // Dit is je entity manager. Deze bewaakt je entiteiten en slaat ze op
     //Insert User object
 
-    public Long insert(Person p) {
+    public Long insertPerson(Person p) {
         em.persist(p); // de persist functie van de entity manager zorgt ervoor dat deze bestaat.
         return p.getId();
     }
@@ -52,6 +57,35 @@ public class TZTRepositoryJPA implements TZTRepository {
         return q.getSingleResult() > 0;
     }
 
-    
+    public LinkedList<Station> getNearestStations(Location loc) throws JPAException{
 
+        String jpql = "select ((((acos(sin(("+loc.getLat()+"*pi()/180)) * sin((l.lat*pi()/180))+cos(("+loc.getLat()+"*pi()/180))" +
+                "   * cos((l.lat*pi()/180)) * cos((("+loc.getLng()+" - l.lng)*pi()/180))))*180/pi())*60*1.1515)*1.609344)" +
+                " AS kilometer, s from Station s JOIN s.location l ORDER BY kilometer ASC ";
+
+        TypedQuery<Object[]> q = em.createQuery(jpql,Object[].class);
+        @SuppressWarnings("Query results are Objec[] its safe to use")
+        List<Object[]> result1 = q.getResultList();
+
+        LinkedList<Station> stationList = new LinkedList<Station>();
+                for(Object[] resultElement : result1) {
+                        if(resultElement[1] instanceof Station) {
+                            //Now we no it is a station and it is save to cast the class
+                            stationList.add((Station) resultElement[1]);
+                            return stationList;
+                        }else{
+                            throw new JPAException("Not a station at all");
+                        }
+                }
+        return stationList;
+    }
+
+    public Long insertOrder(TZTOrder o) {
+        em.persist(o); // de persist functie van de entity manager zorgt ervoor dat deze bestaat.
+        return o.getId();
+    }
+
+    public TZTOrder getOrderById(Long id) {
+        return em.find(TZTOrder.class,id);
+    }
 }

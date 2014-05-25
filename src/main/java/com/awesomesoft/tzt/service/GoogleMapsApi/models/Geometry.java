@@ -1,20 +1,17 @@
 
 package com.awesomesoft.tzt.service.GoogleMapsApi.models;
 
+import com.fasterxml.jackson.annotation.*;
+
+import javax.annotation.Generated;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Generated;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
     "bounds",
-    "location",
+    "GLocation",
     "location_type",
     "viewport"
 })
@@ -23,7 +20,7 @@ public class Geometry {
     @JsonProperty("bounds")
     private Bounds bounds;
     @JsonProperty("location")
-    private Location location;
+    private GLocation GLocation;
     @JsonProperty("location_type")
     private String location_type;
     @JsonProperty("viewport")
@@ -41,13 +38,13 @@ public class Geometry {
     }
 
     @JsonProperty("location")
-    public Location getLocation() {
-        return location;
+    public GLocation getGLocation() {
+        return GLocation;
     }
 
     @JsonProperty("location")
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setGLocation(GLocation GLocation) {
+        this.GLocation = GLocation;
     }
 
     @JsonProperty("location_type")

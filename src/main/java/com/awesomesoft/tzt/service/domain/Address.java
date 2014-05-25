@@ -1,5 +1,8 @@
 package com.awesomesoft.tzt.service.domain;
 
+import com.awesomesoft.tzt.service.GoogleMapsApi.GoogleMapsApi;
+import com.awesomesoft.tzt.service.GoogleMapsApi.models.GLocation;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.OneToOne;
@@ -19,7 +22,8 @@ public class Address {
    private String postalCode;
    private String town;
 
-   @OneToOne
+
+    @OneToOne
    private Location location;
 
    public Address(){
@@ -31,6 +35,7 @@ public class Address {
        this.houseNumber = houseNumber;
        this.postalCode = postalCode;
        this.town = town;
+       this.location = setLocation();
    }
 
     public String getStreet() {
@@ -71,5 +76,14 @@ public class Address {
 
     public void setId(long id) {
        this.id = id;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    private Location setLocation(){
+        GLocation googleLocation = GoogleMapsApi.getLocation(street+houseNumber+town+postalCode);
+        return  new Location(googleLocation.getLng(),googleLocation.getLat());
     }
 }

@@ -7,14 +7,15 @@
 
 package com.awesomesoft.tzt.service.domain;
 
-import com.sun.org.glassfish.gmbal.IncludeSubclass;
-import org.hibernate.type.DateType;
-
 import javax.persistence.*;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
 
 
 @Entity// Dit zorgt ervoor dat het een entiteit word binnen de database
@@ -40,6 +41,20 @@ public class Person {
     private String confirmedPassword;
 
     private Date dateCreated;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<TZTOrder> orderHistory = new LinkedList<>();
+
+    public String getSalutation() {
+        return salutation;
+    }
+
+    public void setSalutation(String salutation) {
+        this.salutation = salutation;
+    }
+
+    @Transient
+    private String salutation;
 
     @Transient
     private URL activationUrl;
@@ -169,12 +184,21 @@ public class Person {
         this.role = role;
     }
 
-    public Date getDateofBirth() {
-        return dateofBirth;
+    public String getDateofBirth() {
+        if(dateofBirth!=null){
+            DateFormat df = new SimpleDateFormat("dd-mm-yyyy");
+            return df.format(dateofBirth);
+        }
+        return "";
     }
 
-    public void setDateofBirth(Date dateofBirth) {
-        this.dateofBirth = dateofBirth;
+    public void setDateofBirth(String dateofBirth) {
+        try {
+            this.dateofBirth = new SimpleDateFormat("dd-mm-yyyy", Locale.ENGLISH).parse(dateofBirth);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+
+        }
     }
 
     public String getIban(){
@@ -242,5 +266,10 @@ public class Person {
     public boolean isAdmin() {
         return admin;
     }
+
+    public void _own(TZTOrder order) {
+        orderHistory.add(order);
+    }
+
 
 }

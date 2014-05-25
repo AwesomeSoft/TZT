@@ -897,7 +897,7 @@ jQuery.extend({
 		var ret, name,
 			old = {};
 
-		// Remember the old values, and insert the new ones
+		// Remember the old values, and insertPerson the new ones
 		for ( name in options ) {
 			old[ name ] = elem.style[ name ];
 			elem.style[ name ] = options[ name ];
@@ -2689,7 +2689,7 @@ function matcherFromTokens( tokens ) {
 				return setMatcher(
 					i > 1 && elementMatcher( matchers ),
 					i > 1 && toSelector(
-						// If the preceding token was a descendant combinator, insert an implicit any-element `*`
+						// If the preceding token was a descendant combinator, insertPerson an implicit any-element `*`
 						tokens.slice( 0, i - 1 ).concat({ value: tokens[ i - 2 ].type === " " ? "*" : "" })
 					).replace( rtrim, "$1" ),
 					matcher,
@@ -3346,7 +3346,7 @@ jQuery.support = (function( support ) {
 	support.leadingWhitespace = div.firstChild.nodeType === 3;
 
 	// Make sure that tbody elements aren't automatically inserted
-	// IE will insert them into empty tables
+	// IE will insertPerson them into empty tables
 	support.tbody = !div.getElementsByTagName("tbody").length;
 
 	// Make sure that link elements get serialized correctly by innerHTML
@@ -4302,7 +4302,7 @@ jQuery.extend({
 				for ( ; i < max; i++ ) {
 					option = options[ i ];
 
-					// oldIE doesn't update selected after form reset (#2551)
+					// oldIE doesn't updatePerson selected after form reset (#2551)
 					if ( ( option.selected || i === index ) &&
 							// Don't return options that are disabled or in a disabled optgroup
 							( jQuery.support.optDisabled ? !option.disabled : option.getAttribute("disabled") === null ) &&
@@ -8407,7 +8407,7 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 								if ( conv === true ) {
 									conv = converters[ conv2 ];
 
-								// Otherwise, insert the intermediate dataType
+								// Otherwise, insertPerson the intermediate dataType
 								} else if ( converters[ conv2 ] !== true ) {
 									current = tmp[ 0 ];
 									dataTypes.unshift( tmp[ 1 ] );
@@ -8833,7 +8833,7 @@ var fxNow, timerId,
 				// Trust units reported by jQuery.css
 				unit = unit || start[ 3 ];
 
-				// Make sure we update the tween properties later on
+				// Make sure we updatePerson the tween properties later on
 				parts = parts || [];
 
 				// Iteratively approximate from a nonzero starting point

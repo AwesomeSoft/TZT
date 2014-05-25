@@ -30,7 +30,7 @@
     <!--<script type="text/javascript">-->
     <!--$(document).ready(function() {-->
     <!--$(function() {-->
-    <!--var url = window.location.pathname,-->
+    <!--var url = window.GLocation.pathname,-->
     <!--urlRegExp = new RegExp(url.replace(/\/$/,'') + "$");-->
     <!--$('.nav li').each(function() {-->
     <!--if (urlRegExp.test(this.href.replace(/\/$/,''))){-->
@@ -64,7 +64,7 @@
         <ul>
             <li><h:link rendered="#{personController.person.authenticated}" outcome="/profile/index" value="Persoonsgegevens" /></li>
             <!-- 40 = Afzender -->
-            <li><h:link rendered="#{personController.person.getRole()==40}" outcome="/Afzender/RegisterenPakket" value="Registreren pakket" /></li>
+            <li><h:link rendered="#{personController.person.getRole()==40}" outcome="/Afzender/PakketRegistreeren" value="Registreren pakket" /></li>
             <li><h:link rendered="#{personController.person.getRole()==40}" outcome="/Afzender/StatusVerzending" value="Status verzending" /></li>
             <li><h:link rendered="#{personController.person.getRole()==40}" outcome="/Afzender/Historie" value="Historie" /></li>
 
@@ -97,8 +97,8 @@
     </div>
     <div class="container">
         <!--<div class="hero-unit">-->
-        <!--<h1><ui:insert name="title">Hi there</ui:insert></h1>-->
-        <!--<p><ui:insert name="subtitle">Awesome Library Application</ui:insert></p>-->
+        <!--<h1><ui:insertPerson name="title">Hi there</ui:insertPerson></h1>-->
+        <!--<p><ui:insertPerson name="subtitle">Awesome Library Application</ui:insertPerson></p>-->
         <!--</div>-->
 
         <div id="content" class="main_content">

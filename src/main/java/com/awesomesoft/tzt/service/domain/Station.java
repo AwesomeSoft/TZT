@@ -1,8 +1,6 @@
 package com.awesomesoft.tzt.service.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 
 /**
@@ -11,22 +9,36 @@ import javax.persistence.OneToOne;
 @Entity
 public class Station {
 
-    @javax.persistence.Id
+    @Id
     @GeneratedValue
     private Long id;
 
     private String name;
 
-
     @OneToOne
+    @JoinColumn(name = "id")
     private Location location;
 
-    protected Station(){
-
+    public String getName() {
+        return name;
     }
 
-    public Station(String name, Location location) {
+    @Column(name = "location_id")
+    private Long locationId;
+
+    public void setName(String name) {
         this.name = name;
+    }
+
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
         this.location = location;
     }
+
+
+
 }

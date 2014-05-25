@@ -12,54 +12,124 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
     <ui:composition template="../WEB-INF/template.xhtml">
 
         <ui:define name="script">
-            <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
             <script type="text/javascript">
-                $(document).ready(function(){
-                    $.each($('.book'), function(){
-                        var a = $(this).find('a');
-                        $('td:not(:last-child)', this).bind('click',function(){
-                            var e = document.createEvent('MouseEvents');
-                            e.initEvent('click', true, true);
-                            a[0].dispatchEvent(e);
+                function goBack() {
+                    var answer = confirm ("Weet je zeker dat je wilt annuleren, de gegevens worden niet opgeslagen!")
+                    if (answer)
+                        window.GLocation = "./cas/index.xhtml";
+                    else
+                        return false;
+                }
+
+
+                $(document).ready(function () {
+                    $( "#registrationForm\\:dateofBirth" ).datepicker();
+                    $( "#registrationForm\\:dateofBirth" ).regional['nl'];
+                    $(function () {
+                        $("#registrationForm\\:emailAddress").popover({content: "Use your @mail.com email address"}).focus(function () {
+                            $(this).popover('show')
+                        }).blur(function () {
+                            $(this).popover('hide')
+                        });
+                        $("#registrationForm\\:password").popover({html: true, title: "Password requirements", content: "at least one a-z<br />at least one A-Z<br />at least one 0-9<br />at least one special character<br />at least 8 characters long"}).focus(function () {
+                            $(this).popover('show')
+                        }).blur(function () {
+                            $(this).popover('hide')
                         });
                     });
                 });
+
+                function showLoading() {
+                    var a = $('div.loadImage');
+                    a.show();
+                }
             </script>
+
         </ui:define>
 
         <ui:define name="title">Profile</ui:define>
 
         <ui:define name="content">
-
+            <div class="loadImage" style="display: none">
+                <h:graphicImage alt="Loading" library="img" name="loadingsaltpepper.gif"/>
+            </div>
+            <h:form id="registrationForm">
 
             <legend>Persoonsgegevens</legend>
 
             <h:panelGrid id="profileForm" columns="2" >
+                <h:panelGrid columns="3">
+                 <!--   <h:outputText value="Geregisteerd sinds" />
+                    <h:outputText value="#{personController.person.dateCreated}" />
+                    <label></label>-->
 
-                <h:outputText value="Voornaam" />
-                <h:outputText value="#{personController.person.firstName}" />
+                    <label>Voornaam:</label>
+                    <h:inputText id="firstName" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#{personController.person.firstName}" pt:placeholder="Voornaam"/>
+                    <h:message errorClass="text-error" for="firstName"/>
 
-                <h:outputText value="Achternaam" />
-                <h:outputText value="#{personController.person.lastName}" />
+                    <label>Achternaam</label>
+                    <h:inputText id="lastName" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#{personController.person.lastName}" pt:placeholder="Achternaam"/>
+                    <h:message errorClass="text-error" for="lastName"/>
 
-                <h:outputText value="Email adres" />
-                <h:outputText id="emailAddress" value="#{personController.person.emailAddress}" />
+                    <label>E-mailadres</label>
+                    <h:inputText id="emailAddress" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#{personController.person.emailAddress}" pt:placeholder="E-mailadres"/>
+                    <h:message errorClass="text-error" for="emailAddress"/>
 
-                <h:outputText value="Geregisteerd sinds" />
-                <h:outputText value="#{personController.person.dateCreated}" />
+                    <label>Adres</label>
+                    <h:inputText id="street" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#{personController.person.address.street}" pt:placeholder="Street"/>
+                    <h:message errorClass="text-error" for="street"/>
+
+                    <label>Huisnummer</label>
+                    <h:inputText id="houseNumber" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#{personController.person.address.houseNumber}" pt:placeholder="Huisnummer"/>
+                    <h:message errorClass="text-error" for="houseNumber"/>
+
+                    <label>Postcode</label>
+                    <h:inputText id="postalCode" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#{personController.person.address.postalCode}" pt:placeholder="Postcode"/>
+                    <h:message errorClass="text-error" for="postalCode"/>
+
+                    <label>Plaats</label>
+                    <h:inputText id="town" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#{personController.person.address.town}" pt:placeholder="Plaats"/>
+                    <h:message errorClass="text-error" for="town"/>
+
+                    <label>Telefoon</label>
+                    <h:inputText id="telePhone" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#{personController.person.telePhone}" pt:placeholder="Telefoonnummer"/>
+                    <h:message errorClass="text-error" for="telePhone"/>
+                    <label>Geboortedatum</label> <h:inputText id="dateofBirth" required="true" requiredMessage="Field required" autocomplete="false"
+                                                              value="#{personController.person.dateofBirth}" pt:placeholder="Geboortedatum"/>
+                    <h:message errorClass="text-error" for="dateofBirth"/>
+                    <h:outputLabel rendered="#{personController.person.getRole()==50}">iban</h:outputLabel>
+                    <h:inputText id="IBAN" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#{personController.person.iban}" pt:placeholder="iban" rendered="#{personController.person.getRole()==50}"/>
+                    <h:message errorClass="text-error" for="iban" rendered="#{personController.person.getRole()==50}"/>
+                    <h:outputLabel rendered="#{personController.person.getRole()==50}">Tenaamstelling</h:outputLabel>
+                    <h:inputText id="tenaamstelling" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#{personController.person.tenaamstelling}" pt:placeholder="Tenaamstelling" rendered="#{personController.person.getRole()==50}"/>
+                    <h:message errorClass="text-error" for="tenaamstelling"  rendered="#{personController.person.getRole()==50}"/>
+                </h:panelGrid>
 
             </h:panelGrid>
             <br />
-            <h:link class="btn" value="Wachtwoord wijzigen" outcome="/profile/change/index" />
-
-            <br />
-            <br />
+            <h:commandButton styleClass="btn" id="submitRegistration" value="Opslaan" onstart="showLoading()"
+                             action="#{personController.updateProfile()}"/>
+            <h:commandButton styleClass="btn" id="submitRegistration2" value="Annuleren" onclick="goBack();" type="submit" action="Annuleren"
+                        />
+            <h:message errorClass="text-error" for="submitRegistration"/>
+            </h:form>
         </ui:define>
     </ui:composition>
-
 </html>

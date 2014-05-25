@@ -34,19 +34,18 @@ public abstract class JacksonObjectMapper {
         }
     }
 
-    public static Location getLocation(String jsonResult){
+    public static GLocation getLocation(String jsonResult){
         //create ObjectMapper instance
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         //convert json string to object
         try {
-            System.out.println(jsonResult);
+
             GeoLocation geoLocation = objectMapper.readValue(jsonResult,GeoLocation.class);
             List<Result> results = geoLocation.getResults();
 
-                return results.get(0).getGeometry().getLocation();
-
+            return results.get(0).getGeometry().getGLocation();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

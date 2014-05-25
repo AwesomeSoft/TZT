@@ -7,7 +7,6 @@
 
 package com.awesomesoft.tzt.web;
 
-import com.awesomesoft.tzt.service.GoogleMapsApi.GoogleMapsApi;
 import com.awesomesoft.tzt.service.SSLMailer;
 import com.awesomesoft.tzt.service.TZTRepository;
 import com.awesomesoft.tzt.service.domain.Person;
@@ -55,8 +54,28 @@ public class PersonController {
     //De person kan in faces gevuld worden door een getter in de controller
     public void init() {
         person = new Person();
-       // GoogleMapsApi.planRoute("Zwolle","Groningen");
-      //  GoogleMapsApi.getLocation("Groningen");
+        /*
+        Address senderAddress = new Address("Wolweverstraat","9","8011NW", "Zwolle");
+        Address deliveryAddress = new Address("Aquamarijnstraat","599","9743PP", "Groningen");
+        LinkedList<Station> nearestSenderStations = null;
+        LinkedList<Station> nearestDeliveryStations = null;
+        try {
+            nearestSenderStations = repository.getNearestStations(senderAddress.getLocation());
+            nearestDeliveryStations = repository.getNearestStations(deliveryAddress.getLocation());
+            Route groute = GoogleMapsApi.getTrainRoute(nearestSenderStations.get(0), nearestDeliveryStations.get(0),new Date());
+            List<Leg> routeLeg = groute.getLegs();
+            for (Leg leg : routeLeg) {
+                System.out.println(leg.getSteps());
+                System.out.println(leg.getDistance());
+                System.out.println(leg.getDuration());
+                System.out.println(leg.getVia_waypoint());
+            }
+        } catch (JPAException e) {
+            throw new RuntimeException(e);
+
+        }
+
+        */
     }
 
     public void updateProfile() {
@@ -67,7 +86,7 @@ public class PersonController {
             validateHouseNumber(true);
           // moet nog code bij.
           //  validateEmailAddress(false);
-            repository.update(person);
+            repository.updatePerson(person);
         } catch (ValidationException e) {
             ControllerHelper.message(e.getMessage(), "changePasswordForm:submitChange", "ERROR");
         }
@@ -83,7 +102,7 @@ public class PersonController {
             validateEmailAddress(true);
             validatePassword();
             person.setDateCreated(new Date());
-            Long id = repository.insert(person);  // Hier insert hij de person in de database. Dit levert een ID op.
+            Long id = repository.insertPerson(person);  // Hier insertPerson hij de person in de database. Dit levert een ID op.
             generateActivationUrl(id, person.getEmailAddress(), person.getPassword());
             SSLMailer.send(person.getEmailAddress(), "Activate your account", "Awesome! Here's your activation link: " + person.getActivationUrl());
             return "confirmation.xhtml";
@@ -121,17 +140,17 @@ public class PersonController {
     }
 
     private void validateDateofBirth(boolean register) throws ValidationException {
-        Date dateofBirth = person.getDateofBirth();
-   //     logger.info("Validating dateofBirth \"{}\"", dateofBirth);
+        String dateofBirth = person.getDateofBirth();
+        logger.info("Validating dateofBirth \"{}\"", dateofBirth);
 
- //       final Pattern pattern = Pattern.compile("^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$");
+       final Pattern pattern = Pattern.compile("^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\\d\\d$");
         /* Hier moet nog wat bij, zoals geen datum in de toekomst.*/
- //       Matcher matcher = pattern.matcher(dateofBirth);
+        Matcher matcher = pattern.matcher(dateofBirth);
 
- //       if (!matcher.matches()) {
- //           throw new ValidationException("dateofBirth invalid");
- //           throw new ValidationException("dateofBirth invalid");
-  //      }
+        if (!matcher.matches()) {
+            throw new ValidationException("dateofBirth invalid");
+
+        }
     }
     /*Added by Erwin*/
 
@@ -257,7 +276,7 @@ public class PersonController {
             try {
                 if (generateActivationCode(p.getEmailAddress(), p.getPassword()).equals(activationCode)) {
                     p.setActivated(true);
-                    repository.update(p);
+                    repository.updatePerson(p);
                     logger.info("Account with id {} has been activated", p.getId());
                 } else {
                     ControllerHelper.redirect("Codes do not match","");
@@ -302,7 +321,7 @@ public class PersonController {
             String newPassword = generatePassword(8);
             person = repository.getPersonByEmailAddress(person.getEmailAddress());
             person.setPassword(digestPassword(newPassword));
-            repository.update(person);
+            repository.updatePerson(person);
             SSLMailer.send(person.getEmailAddress(), "Your new password", "Great, try again with this one: " + newPassword);
             return "confirmation.xhtml";
         } catch (ValidationException e) {
@@ -335,8 +354,8 @@ public class PersonController {
         try {
             authenticatePerson(requireAdmin);
             person.setLastLogin(new Date());
-            repository.update(person);
-            return requireAdmin ? "/admin/panel.xhtml" : "/profile/index.xhtml";
+            repository.updatePerson(person);
+            return requireAdmin ? "/admin/panel.xhtml" : "/profile/PakketRegistreeren.xhtml";
         } catch (AuthenticationException e) {
             ControllerHelper.message(e.getMessage(), "loginForm:submitLogin", "ERROR");
             return "";
@@ -374,7 +393,7 @@ public class PersonController {
             person.addFailedAttempt();
             if (person.getFailedAttempts() == 3) {
                 temp.setLockedOut(new Date(new Date().getTime() + 1000 * 60 * 10)); // current date + 10 minutes
-                repository.update(temp);
+                repository.updatePerson(temp);
                 throw new AuthenticationException("Account locked out for 10 minutes");
             }
             logger.info("Password does not match");
@@ -399,7 +418,7 @@ public class PersonController {
 
         try {
             validatePassword();
-            repository.update(person);
+            repository.updatePerson(person);
             return "confirmation.xhtml";
         } catch (ValidationException e) {
             ControllerHelper.message(e.getMessage(), "changePasswordForm:submitChange", "ERROR");

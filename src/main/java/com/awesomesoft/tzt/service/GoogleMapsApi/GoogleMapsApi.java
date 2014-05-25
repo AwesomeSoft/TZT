@@ -1,8 +1,9 @@
 package com.awesomesoft.tzt.service.GoogleMapsApi;
 
+import com.awesomesoft.tzt.service.GoogleMapsApi.models.GLocation;
 import com.awesomesoft.tzt.service.GoogleMapsApi.models.Leg;
-import com.awesomesoft.tzt.service.GoogleMapsApi.models.Location;
 import com.awesomesoft.tzt.service.GoogleMapsApi.models.Route;
+import com.awesomesoft.tzt.service.domain.Station;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,10 +41,13 @@ public abstract class GoogleMapsApi{
         return null;
     }
 
-    public static Route plantrainRoute(String senderAddress, String receiverAddress){
-        String routeString = "origin="+senderAddress+"&destination="+receiverAddress+"&sensor=false";
+    public static Route getTrainRoute(Station senderStation, Station receiverStation,Date departureTime){
+        String routeString = "origin="+senderStation.getLocation().getLat()+","+senderStation.getLocation().getLng()+"&destination="+receiverStation.getLocation().getLat()+","+receiverStation.getLocation().getLng()+"&sensor=false&mode=transit";
         try {
-            URL url = new URL(GOOGLE_DIRECTIONS_URL+routeString+PUBLIC_API_KEY);
+            String mode = "&mode=transit";
+            String departureTimeString = "&departure_time="+departureTime.getTime()/10000;
+            URL url = new URL(GOOGLE_DIRECTIONS_URL+routeString+PUBLIC_API_KEY+departureTimeString+mode);
+            System.out.println(GOOGLE_DIRECTIONS_URL+routeString+PUBLIC_API_KEY+departureTimeString+mode);
             String result = startHTTPSrequest(url);
             Route route = JacksonObjectMapper.getRoute(result);
             return route;
@@ -52,13 +57,16 @@ public abstract class GoogleMapsApi{
 
     }
 
-    public static Location getLocation(String address){
+    public static GLocation getLocation(String address){
         String requestString = "address="+address;
         try {
             URL url = new URL(GOOGLE_GEOLOCATION_URL+requestString+PUBLIC_API_KEY);
+            System.out.println("Used request: "+GOOGLE_GEOLOCATION_URL+requestString+PUBLIC_API_KEY);
             String result = startHTTPSrequest(url);
-            Location location = JacksonObjectMapper.getLocation(result);
-            return location;
+            result = result.replace(" ","");
+            GLocation GLocation = JacksonObjectMapper.getLocation(result);
+
+            return GLocation;
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
