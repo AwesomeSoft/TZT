@@ -68,6 +68,7 @@ public class OrderController {
     public String createOrder(Person person){
         tztOrder.setReceiver(this.receiver);
         tztOrder.setCustomer(person);
+        repository.updatePerson(person);
         Long id = repository.insertOrder(tztOrder);
         return "confirmation.xhtml";
     }
