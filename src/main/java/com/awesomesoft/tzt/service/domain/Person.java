@@ -7,6 +7,8 @@
 
 package com.awesomesoft.tzt.service.domain;
 
+import com.awesomesoft.tzt.web.PersonInfo;
+
 import javax.persistence.*;
 import java.net.URL;
 import java.text.DateFormat;
@@ -45,13 +47,6 @@ public class Person {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<TZTOrder> orderHistory = new LinkedList<>();
 
-    public String getSalutation() {
-        return salutation;
-    }
-
-    public void setSalutation(String salutation) {
-        this.salutation = salutation;
-    }
 
     @Transient
     private String salutation;
@@ -82,8 +77,32 @@ public class Person {
         if(this.address == null){
             this.address = new Address();
         }
+
+
     }
 
+    public Person(PersonInfo personInfo){
+         this.address = new Address(personInfo.getAddressInfo());
+        this.firstName = personInfo.getFirstName();
+        this.lastName = personInfo.getLastName();
+        this.emailAddress = personInfo.getEmailAddress();
+        this.password = personInfo.getPassword();
+        this.confirmedPassword = personInfo.getConfirmedPassword();
+        this.dateCreated = new Date();
+
+        this.telePhone = personInfo.getTelePhone();
+        this.role = personInfo.getRole();
+        setDateofBirth(personInfo.getDateofBirth());
+        this.iban = personInfo.getIban();
+        this.tenaamstelling = personInfo.getTenaamstelling();
+    }
+    public String getSalutation() {
+        return salutation;
+    }
+
+    public void setSalutation(String salutation) {
+        this.salutation = salutation;
+    }
     public Long getId() {
         return id;
     }

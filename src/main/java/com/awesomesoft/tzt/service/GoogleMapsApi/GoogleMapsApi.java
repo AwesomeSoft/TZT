@@ -1,8 +1,8 @@
 package com.awesomesoft.tzt.service.GoogleMapsApi;
 
 import com.awesomesoft.tzt.service.GoogleMapsApi.models.GLocation;
-import com.awesomesoft.tzt.service.GoogleMapsApi.models.Leg;
 import com.awesomesoft.tzt.service.GoogleMapsApi.models.Route;
+import com.awesomesoft.tzt.service.domain.Location;
 import com.awesomesoft.tzt.service.domain.Station;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -12,7 +12,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by student on 1/30/14.
@@ -23,22 +22,20 @@ public abstract class GoogleMapsApi{
     static final String GOOGLE_DIRECTIONS_URL = "https://maps.googleapis.com/maps/api/directions/json?";
     static final String GOOGLE_GEOLOCATION_URL = "https://maps.googleapis.com/maps/api/geocode/json?";
 
-    public static Route planRoute(String senderAddress, String receiverAddress){
-        String routeString = "origin="+senderAddress+"&destination="+receiverAddress+"&sensor=false";
+    public static Route planRoute(Location startLocation, Location endLocation,String mode){
+        String routeOption = "&mode="+mode;
+        String departureTime = "&departure_time="+ new Date().getTime()/1000;
+
+        String routeString = "origin="+startLocation.toString()+"&destination="+endLocation.toString()+"&sensor=false";
         try {
-            URL url = new URL(GOOGLE_DIRECTIONS_URL+routeString+PUBLIC_API_KEY);
+            URL url = new URL(GOOGLE_DIRECTIONS_URL+routeString+PUBLIC_API_KEY+departureTime+routeOption);
+            System.out.println(GOOGLE_DIRECTIONS_URL+routeString+PUBLIC_API_KEY+departureTime+routeOption);
             String result = startHTTPSrequest(url);
             Route route = JacksonObjectMapper.getRoute(result);
-            List<Leg> legs = route.getLegs();
-            System.out.println(legs.size());
-            for (Leg leg : legs) {
-                System.out.println(leg.getDistance().toString());
-            }
-
-        } catch (MalformedURLException e) {
+            return route;
+            } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 
     public static Route getTrainRoute(Station senderStation, Station receiverStation,Date departureTime){

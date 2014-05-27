@@ -50,10 +50,12 @@ public class PersonController {
 
     protected Person person;
 
+    protected PersonInfo personInfo;
+
     @PostConstruct // dit zorgt ervoor dat er een person object is wanneer deze controler aangeroepen is. Deze person is leeg.
     //De person kan in faces gevuld worden door een getter in de controller
     public void init() {
-        person = new Person();
+        personInfo = new PersonInfo();
     }
 
     public void updateProfile() {
@@ -71,9 +73,10 @@ public class PersonController {
     }
 
     public String register() {
-        logger.info("Registering {} {}", person.getFirstName(), person.getLastName());
+        logger.info("Registering {} {}", personInfo.getFirstName(), personInfo.getLastName());
 
         try {
+            person = new Person(personInfo);
             validatePostalCode(true);
             validateHouseNumber(true);
             validateDateofBirth(true);
@@ -412,5 +415,13 @@ public class PersonController {
 
     public Person getPerson() {
         return person;
+    }
+
+    public PersonInfo getPersonInfo() {
+        return personInfo;
+    }
+
+    public void setPersonInfo(PersonInfo personInfo) {
+        this.personInfo = personInfo;
     }
 }

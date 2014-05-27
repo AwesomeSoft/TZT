@@ -14,6 +14,7 @@ public class Incident {
     @Id
     @GeneratedValue
     private Long id;// een entiteit heeft een ID nodig met deze anotatiets @id en @generated value
+
     private int priority;
     private int status;
     private Date creationDate;

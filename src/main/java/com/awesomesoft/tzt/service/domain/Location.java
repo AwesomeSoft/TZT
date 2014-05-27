@@ -37,4 +37,9 @@ public class Location {
     public double getLng() {
         return lng;
     }
+
+    @Override
+    public String toString() {
+        return lat+","+lng;
+    }
 }

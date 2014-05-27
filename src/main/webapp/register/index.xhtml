@@ -47,6 +47,10 @@
                 var a = $('div.loadImage');
                 a.show();
             }
+
+            function changeRole() {
+                alert($('.role').val());
+            }
     </script>
 
     </ui:define>
@@ -74,62 +78,62 @@
                 <h:panelGrid columns="3">
                     <label>Voornaam:</label>
                     <h:inputText id="firstName" required="true" requiredMessage="Field required" autocomplete="false"
-                                 value="#{personController.person.firstName}" pt:placeholder="Voornaam"/>
+                                 value="#{personController.personInfo.firstName}" pt:placeholder="Voornaam"/>
                     <h:message errorClass="text-error" for="firstName"/>
 
                     <label>Achternaam</label>
                     <h:inputText id="lastName" required="true" requiredMessage="Field required" autocomplete="false"
-                                 value="#{personController.person.lastName}" pt:placeholder="Achternaam"/>
+                                 value="#{personController.personInfo.lastName}" pt:placeholder="Achternaam"/>
                     <h:message errorClass="text-error" for="lastName"/>
 
                     <label>E-mailadres</label>
                     <h:inputText id="emailAddress" required="true" requiredMessage="Field required" autocomplete="false"
-                                 value="#{personController.person.emailAddress}" pt:placeholder="E-mailadres"/>
+                                 value="#{personController.personInfo.emailAddress}" pt:placeholder="E-mailadres"/>
                     <h:message errorClass="text-error" for="emailAddress"/>
 
                     <label>Wachtwoord</label><h:inputSecret id="password" required="true" requiredMessage="Field required" autocomplete="false"
-                                   value="#{personController.person.password}" pt:placeholder="Wachtwoord"/>
+                                   value="#{personController.personInfo.password}" pt:placeholder="Wachtwoord"/>
                     <h:message errorClass="text-error" for="password"/>
 
                     <label>Wachtwoord bevestigen</label><h:inputSecret id="confirmedPassword" required="true" requiredMessage="Field required"
-                                   autocomplete="false" value="#{personController.person.confirmedPassword}"
+                                   autocomplete="false" value="#{personController.personInfo.confirmedPassword}"
                                    pt:placeholder="Wachtwoord bevestigen"/>
                     <h:message errorClass="text-error" for="confirmedPassword"/>
 
                     <label>Adres</label>
                     <h:inputText id="street" required="true" requiredMessage="Field required" autocomplete="false"
-                                 value="#{personController.person.address.street}" pt:placeholder="Street"/>
+                                 value="#{personController.personInfo.addressInfo.street}" pt:placeholder="Street"/>
                     <h:message errorClass="text-error" for="street"/>
 
                     <label>Huisnummer</label>
                     <h:inputText id="houseNumber" required="true" requiredMessage="Field required" autocomplete="false"
-                                 value="#{personController.person.address.houseNumber}" pt:placeholder="Huisnummer"/>
+                                 value="#{personController.personInfo.addressInfo.houseNumber}" pt:placeholder="Huisnummer"/>
                     <h:message errorClass="text-error" for="houseNumber"/>
 
                     <label>Postcode</label>
                     <h:inputText id="postalCode" required="true" requiredMessage="Field required" autocomplete="false"
-                                  value="#{personController.person.address.postalCode}" pt:placeholder="Postcode"/>
+                                  value="#{personController.personInfo.addressInfo.postalCode}" pt:placeholder="Postcode"/>
                     <h:message errorClass="text-error" for="postalCode"/>
 
                     <label>Plaats</label>
                     <h:inputText id="town" required="true" requiredMessage="Field required" autocomplete="false"
-                                  value="#{personController.person.address.town}" pt:placeholder="Plaats"/>
+                                  value="#{personController.personInfo.addressInfo.town}" pt:placeholder="Plaats"/>
                     <h:message errorClass="text-error" for="town"/>
 
                     <label>Telefoon</label>
                     <h:inputText id="telePhone" required="true" requiredMessage="Field required" autocomplete="false"
-                                  value="#{personController.person.telePhone}" pt:placeholder="Telefoonnummer"/>
+                                  value="#{personController.personInfo.telePhone}" pt:placeholder="Telefoonnummer"/>
                     <h:message errorClass="text-error" for="telePhone"/>
 
                     <label>Gewenste rol</label>
-                    <h:selectOneMenu id="role" value="#{personController.person.role}" converter="javax.faces.Integer">
+                    <h:selectOneMenu class="role" id="role" onchange="changeRole()" value="#{personController.personInfo.role}" converter="javax.faces.Integer">
                         <f:selectItem itemValue="40" itemLabel="Afzender"/>
                         <f:selectItem itemValue="50" itemLabel="Treinkoerier"/>
                     </h:selectOneMenu>
                     <h:message errorClass="text-error" for="role"/>
 
                     <label>Geboortedatum</label> <h:inputText id="dateofBirth" required="true" requiredMessage="Field required" autocomplete="false"
-                                                              value="#{personController.person.dateofBirth}" pt:placeholder="Geboortedatum"/>
+                                                              value="#{personController.personInfo.dateofBirth}" pt:placeholder="Geboortedatum"/>
                     <h:message errorClass="text-error" for="dateofBirth"/>
 
 

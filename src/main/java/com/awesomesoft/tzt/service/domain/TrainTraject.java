@@ -1,25 +1,23 @@
 package com.awesomesoft.tzt.service.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * Created by Erwin on 22-5-2014.
  */
 
 @Entity
-public class TrainTraject {
+public class TrainTraject extends Traject{
 
-
-    @Id
-    @GeneratedValue
-    private long id;
 
     @ManyToOne  //Dit defineerd de relatie met de Trajecten.
     private  TrainCourier trainCourier;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Station startPoint;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Station endPoint;
     // de rest laten we leeg want dit ben jij nu niet nodig.
 
 }
