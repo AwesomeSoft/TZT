@@ -1,21 +1,8 @@
-package nl.pvanassen.ns.handle;
+package com.awesomesoft.tzt.service.ns.handle;
 
 import java.io.InputStream;
 
-/**
- * This interface defines the way documents are deserialized.
- * 
- * @author Paul van Assen
- * 
- * @param <T> Return type
- */
-public interface Handle<T> {
 
-    /**
-     * The deserialize method
-     * 
-     * @param stream Stream to deserialize
-     * @return The deserialized type T
-     */
+public interface Handle<T> {
     T getModel(InputStream stream);
 }

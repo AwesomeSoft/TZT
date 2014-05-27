@@ -1,27 +1,15 @@
 package com.awesomesoft.tzt.service.ns.model.prijzen;
 
+import com.awesomesoft.tzt.service.ns.handle.Handle;
+import com.awesomesoft.tzt.service.ns.xml.Xml;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import nl.pvanassen.ns.handle.Handle;
-import nl.pvanassen.ns.xml.Xml;
 
-/**
- * Handle for parsing 'producten' xml, as defined in <a
- * href="http://www.ns.nl/api/api#api-documentatie-prijzen">documentatie prijzen</a>
- * 
- * @author Paul van Assen
- * 
- */
 public class ProductenHandle implements Handle<Producten> {
-
-    /**
-     * {@inheritDoc}
-     * 
-     * @see nl.pvanassen.ns.handle.Handle#getModel(java.io.InputStream)
-     */
     @Override
     public Producten getModel(InputStream stream) {
         List<Product> producten = new LinkedList<Product>();

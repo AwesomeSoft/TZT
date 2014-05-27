@@ -1,29 +1,23 @@
 package com.awesomesoft.tzt.service.ns.model.reisadvies;
 
+import com.awesomesoft.tzt.service.ns.NsApi;
+import com.awesomesoft.tzt.service.ns.error.NsApiException;
+import com.awesomesoft.tzt.service.ns.handle.Handle;
+import com.awesomesoft.tzt.service.ns.xml.Xml;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-/**
- * Handle to process the 'reisadvies' XML as defined in <a
- * href="http://www.ns.nl/api/api#api-documentatie-reisadviezen">documentatie reisadviezen</a>
- * 
- * @author Paul van Assen
- * 
- */
 public class ReisadviesHandle implements Handle<List<ReisMogelijkheid>> {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    /**
-     * {@inheritDoc}
-     * 
-     * @see nl.pvanassen.ns.handle.Handle#getModel(java.io.InputStream)
-     */
+
     @Override
     public List<ReisMogelijkheid> getModel(InputStream stream) {
         SimpleDateFormat format = new SimpleDateFormat(NsApi.DATETIME_FORMAT);

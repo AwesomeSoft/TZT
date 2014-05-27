@@ -1,18 +1,12 @@
-package nl.pvanassen.ns.model.storingen;
-
-import java.util.Collections;
-import java.util.List;
+package com.awesomesoft.tzt.service.ns.model.storingen;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-/**
- * http://www.ns.nl/api/api#api-documentatie-storingen-en-werkzaamheden
- * 
- * @author Paul van Assen
- * 
- */
+import java.util.Collections;
+import java.util.List;
+
 public class Storingen {
 
     private final List<Storing> ongeplandeStoringen;
@@ -24,39 +18,26 @@ public class Storingen {
         this.geplandeStoringen = Collections.unmodifiableList(geplandeStoringen);
     }
 
-    /**
-     * @return List of unplanned disruptions
-     */
     public List<Storing> getOngeplandeStoringen() {
         return ongeplandeStoringen;
     }
 
-    /**
-     * @return List of planned disruptions
-     */
     public List<Storing> getGeplandeStoringen() {
         return geplandeStoringen;
     }
 
-    /**
-     * @see java.lang.Object#hashCode()
-     */
+
     @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
 
-    /**
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
+
     @Override
     public boolean equals(Object obj) {
         return EqualsBuilder.reflectionEquals(this, obj);
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this);

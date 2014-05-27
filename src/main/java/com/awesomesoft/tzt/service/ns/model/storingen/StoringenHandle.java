@@ -1,4 +1,11 @@
-package nl.pvanassen.ns.model.storingen;
+package com.awesomesoft.tzt.service.ns.model.storingen;
+
+import com.awesomesoft.tzt.service.ns.NsApi;
+import com.awesomesoft.tzt.service.ns.error.NsApiException;
+import com.awesomesoft.tzt.service.ns.handle.Handle;
+import com.awesomesoft.tzt.service.ns.xml.Xml;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.text.ParseException;
@@ -7,31 +14,11 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import nl.pvanassen.ns.NsApi;
-import nl.pvanassen.ns.error.NsApiException;
-import nl.pvanassen.ns.handle.Handle;
-import nl.pvanassen.ns.xml.Xml;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-/**
- * Handle for parsing disruption xml messages. For more information see <a
- * href="http://www.ns.nl/api/api#api-documentatie-storingen-en-werkzaamheden">documentatie storinge en
- * werkzaamheden</a>.
- * 
- * @author Paul van Assen
- * 
- */
 public class StoringenHandle implements Handle<Storingen> {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    /**
-     * {@inheritDoc}
-     * 
-     * @see nl.pvanassen.ns.handle.Handle#getModel(java.io.InputStream)
-     */
     @Override
     public Storingen getModel(InputStream stream) {
         SimpleDateFormat format = new SimpleDateFormat(NsApi.DATETIME_FORMAT);

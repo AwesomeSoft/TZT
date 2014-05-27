@@ -1,6 +1,6 @@
 package com.awesomesoft.tzt.service.ns;
 
-import nl.pvanassen.ns.model.vertrektijden.VertrekkendeTrein;
+import com.awesomesoft.tzt.service.ns.model.vertrektijden.VertrekkendeTrein;
 
 import java.util.List;
 
@@ -12,23 +12,11 @@ class ActueleVertrekTijdenRequest extends ApiRequest<List<VertrekkendeTrein>> {
         this.station = station;
     }
 
-    /**
-     * 
-     * {@inheritDoc}
-     * 
-     * @see nl.pvanassen.ns.ApiRequest#getPath()
-     */
     @Override
     String getPath() {
         return "ns-api-avt";
     }
 
-    /**
-     * 
-     * {@inheritDoc}
-     * 
-     * @see nl.pvanassen.ns.ApiRequest#getRequestString()
-     */
     @Override
     String getRequestString() {
         return "station=" + station;

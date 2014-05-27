@@ -1,25 +1,17 @@
-package nl.pvanassen.ns.model.stations;
+package com.awesomesoft.tzt.service.ns.model.stations;
+
+import com.awesomesoft.tzt.service.ns.handle.Handle;
+import com.awesomesoft.tzt.service.ns.xml.Xml;
 
 import java.io.InputStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
-import nl.pvanassen.ns.handle.Handle;
-import nl.pvanassen.ns.xml.Xml;
 
-/**
- * Handles parsing the response from the NS and de-serializes it into a list of stations
- * 
- * @author Paul van Assen
- * 
- */
 public class StationsHandle implements Handle<List<Station>> {
 
-    /**
-     * 
-     * {@inheritDoc}
-     * 
-     * @see nl.pvanassen.ns.handle.Handle#getModel(java.io.InputStream)
-     */
     @Override
     public List<Station> getModel(InputStream stream) {
         List<Station> stations = new LinkedList<Station>();

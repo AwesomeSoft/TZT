@@ -1,10 +1,10 @@
 package com.awesomesoft.tzt.service.ns;
 
+import com.awesomesoft.tzt.service.ns.model.reisadvies.ReisMogelijkheid;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import nl.pvanassen.ns.model.reisadvies.ReisMogelijkheid;
 
 class ReisadviesRequest extends ApiRequest<List<ReisMogelijkheid>> {
 
@@ -40,21 +40,12 @@ class ReisadviesRequest extends ApiRequest<List<ReisMogelijkheid>> {
         this.yearCard = yearCard;
     }
 
-    /**
-     * {@inheritDoc}
-     * 
-     * @see nl.pvanassen.ns.ApiRequest#getPath()
-     */
     @Override
     String getPath() {
         return "ns-api-treinplanner";
     }
 
-    /**
-     * {@inheritDoc}
-     * 
-     * @see nl.pvanassen.ns.ApiRequest#getRequestString()
-     */
+
     @Override
     String getRequestString() {
         StringBuilder requestString = new StringBuilder();

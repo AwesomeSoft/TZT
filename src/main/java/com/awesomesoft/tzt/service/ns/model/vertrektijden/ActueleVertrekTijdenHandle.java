@@ -1,34 +1,25 @@
-package nl.pvanassen.ns.model.vertrektijden;
+package com.awesomesoft.tzt.service.ns.model.vertrektijden;
+
+import com.awesomesoft.tzt.service.ns.NsApi;
+import com.awesomesoft.tzt.service.ns.error.NsApiException;
+import com.awesomesoft.tzt.service.ns.handle.Handle;
+import com.awesomesoft.tzt.service.ns.xml.Xml;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
-import nl.pvanassen.ns.NsApi;
-import nl.pvanassen.ns.error.NsApiException;
-import nl.pvanassen.ns.handle.Handle;
-import nl.pvanassen.ns.xml.Xml;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-/**
- * Handle to de-serialize the actuele vertrektijden response. For more information see <a
- * href="http://www.ns.nl/api/api#api-documentatie-actuele-vertrektijden">documentatie actuele vertrektijden</a>
- * 
- * @author Paul van Assen
- * 
- */
 public class ActueleVertrekTijdenHandle implements Handle<List<VertrekkendeTrein>> {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    /**
-     * {@inheritDoc}
-     * 
-     * @see nl.pvanassen.ns.handle.Handle#getModel(java.io.InputStream)
-     */
     @Override
     public List<VertrekkendeTrein> getModel(InputStream stream) {
         SimpleDateFormat format = new SimpleDateFormat(NsApi.DATETIME_FORMAT);

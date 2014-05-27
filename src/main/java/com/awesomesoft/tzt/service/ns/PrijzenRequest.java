@@ -1,9 +1,9 @@
 package com.awesomesoft.tzt.service.ns;
 
+import com.awesomesoft.tzt.service.ns.model.prijzen.Producten;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import nl.pvanassen.ns.model.prijzen.Producten;
 
 class PrijzenRequest extends ApiRequest<Producten> {
 
@@ -22,22 +22,11 @@ class PrijzenRequest extends ApiRequest<Producten> {
         this.dateTime = dateTime;
     }
 
-    /**
-     * {@inheritDoc}
-     * 
-     * @see nl.pvanassen.ns.ApiRequest#getPath()
-     */
     @Override
     String getPath() {
         return "ns-api-prijzen-v2";
     }
 
-    /**
-     * 
-     * {@inheritDoc}
-     * 
-     * @see nl.pvanassen.ns.ApiRequest#getRequestString()
-     */
     @Override
     String getRequestString() {
         StringBuilder requestString = new StringBuilder();
