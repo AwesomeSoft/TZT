@@ -21,6 +21,8 @@ public class Incident {
     private Time creationTime;
     private String title;
     private String subject;
+
     protected Incident(){
+
     }
 }

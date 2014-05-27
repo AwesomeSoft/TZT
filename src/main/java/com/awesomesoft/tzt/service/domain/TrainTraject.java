@@ -20,4 +20,11 @@ public class TrainTraject extends Traject{
     private Station endPoint;
     // de rest laten we leeg want dit ben jij nu niet nodig.
 
+    protected TrainTraject(){
+
+    }
+
+    public TrainTraject(double distance, double totalCostPriceTraject, double fixedPrice, double pricePerKm, long duration, Location startPoint, Location endPoint) {
+        super(distance, totalCostPriceTraject, fixedPrice, pricePerKm, duration, startPoint, endPoint);
+    }
 }

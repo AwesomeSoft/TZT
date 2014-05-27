@@ -50,6 +50,7 @@
 
             function changeRole() {
                 alert($('.role').val());
+                $('.traincourierSubmitbutton').show();
             }
     </script>
 
@@ -175,8 +176,10 @@
 
                     <!--   Geboortedatum: <input type="text" id="datepicker"></input>-->
 
-                    <h:commandButton styleClass="btn" id="submitRegistration" value="Opslaan" onstart="showLoading()"
+                    <h:commandButton class="Submitbutton" styleClass="btn" id="submitRegistration" value="Opslaan" onstart="showLoading()"
                                      action="#{personController.register}"/>
+                    <h:commandButton style="display:none" class="traincourierSubmitbutton" styleClass="btn" id="submitTrainCourierRegistration" value="Opslaan" onstart="showLoading()"
+                                     action="#{personController.registerTrainCourier}"/>
                     <h:message errorClass="text-error" for="submitRegistration"/>
             </h:panelGrid>
             </h:panelGrid>

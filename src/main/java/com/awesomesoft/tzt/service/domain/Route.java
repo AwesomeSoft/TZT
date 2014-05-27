@@ -1,8 +1,8 @@
 package com.awesomesoft.tzt.service.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Erwin on 24-5-2014.
@@ -12,14 +12,18 @@ public class Route {
     @javax.persistence.Id
     @GeneratedValue
     private Long id;
-    @OneToOne
-    private Package packAge;
-    @OneToOne
-    private Location senderLocation;
-    @OneToOne
-    private Location deliveryLocation;
-    private int distance;
-    protected Route(){
+
+
+    @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Traject> trajects = new LinkedList<>();
+
+    public Route(){
+
+    }
+
+
+    public void addTraject(Traject traject){
+        trajects.add(traject);
     }
 
     //public void calculateRoute()

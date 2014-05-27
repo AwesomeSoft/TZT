@@ -100,4 +100,10 @@ public class TZTRepositoryJPA implements TZTRepository {
     public Address getAddressById(Long id) {
         return em.find(Address.class,id);
     }
+
+    @Override
+    public Long insertTrainCourier(TrainCourier t) {
+        em.persist(t);
+        return t.getId();
+    }
 }

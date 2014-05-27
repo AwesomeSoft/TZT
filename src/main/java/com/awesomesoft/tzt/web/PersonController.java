@@ -10,6 +10,7 @@ package com.awesomesoft.tzt.web;
 import com.awesomesoft.tzt.service.SSLMailer;
 import com.awesomesoft.tzt.service.TZTRepository;
 import com.awesomesoft.tzt.service.domain.Person;
+import com.awesomesoft.tzt.service.domain.TrainCourier;
 import com.awesomesoft.tzt.service.exception.AuthenticationException;
 import com.awesomesoft.tzt.service.exception.GenerationException;
 import com.awesomesoft.tzt.service.exception.ValidationException;
@@ -50,6 +51,8 @@ public class PersonController {
 
     protected Person person;
 
+    protected TrainCourier trainCourier;
+
     protected PersonInfo personInfo;
 
     @PostConstruct // dit zorgt ervoor dat er een person object is wanneer deze controler aangeroepen is. Deze person is leeg.
@@ -86,6 +89,28 @@ public class PersonController {
             Long id = repository.insertPerson(person);  // Hier insertPerson hij de person in de database. Dit levert een ID op.
             generateActivationUrl(id, person.getEmailAddress(), person.getPassword());
             SSLMailer.send(person.getEmailAddress(), "Activate your account", "Awesome! Here's your activation link: " + person.getActivationUrl());
+            return "confirmation.xhtml";
+        } catch (ValidationException | GenerationException e) {
+            ControllerHelper.message(e.getMessage(), "registrationForm:submitRegistration", "ERROR");
+            return "";
+        }
+    }
+
+    public String registerTrainCourier() {
+        logger.info("Registering {} {}", personInfo.getFirstName(), personInfo.getLastName());
+
+        try {
+            trainCourier = new TrainCourier(personInfo);
+            person = trainCourier;
+            validatePostalCode(true);
+            validateHouseNumber(true);
+            validateDateofBirth(true);
+            validateEmailAddress(true);
+            validatePassword();
+            trainCourier.setDateCreated(new Date());
+            Long id = repository.insertTrainCourier(trainCourier);  // Hier insertPerson hij de person in de database. Dit levert een ID op.
+            generateActivationUrl(id, trainCourier.getEmailAddress(), trainCourier.getPassword());
+            SSLMailer.send(trainCourier.getEmailAddress(), "Activate your account", "Awesome! Here's your activation link: " + person.getActivationUrl());
             return "confirmation.xhtml";
         } catch (ValidationException | GenerationException e) {
             ControllerHelper.message(e.getMessage(), "registrationForm:submitRegistration", "ERROR");

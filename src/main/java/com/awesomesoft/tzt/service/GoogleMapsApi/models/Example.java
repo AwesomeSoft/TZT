@@ -11,25 +11,25 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({
-    "routes",
+    "GRoutes",
     "status"
 })
 public class Example {
 
-    @JsonProperty("routes")
-    private List<Route> routes = new ArrayList<Route>();
+    @JsonProperty("GRoutes")
+    private List<GRoute> GRoutes = new ArrayList<GRoute>();
     @JsonProperty("status")
     private String status;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @JsonProperty("routes")
-    public List<Route> getRoutes() {
-        return routes;
+    @JsonProperty("GRoutes")
+    public List<GRoute> getGRoutes() {
+        return GRoutes;
     }
 
-    @JsonProperty("routes")
-    public void setRoutes(List<Route> routes) {
-        this.routes = routes;
+    @JsonProperty("GRoutes")
+    public void setGRoutes(List<GRoute> GRoutes) {
+        this.GRoutes = GRoutes;
     }
 
     @JsonProperty("status")

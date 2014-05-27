@@ -14,7 +14,7 @@ import java.util.List;
  */
 public abstract class JacksonObjectMapper {
 
-    public static Route getRoute(String jsonResult){
+    public static GRoute getRoute(String jsonResult){
          //create ObjectMapper instance
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);

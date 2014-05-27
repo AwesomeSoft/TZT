@@ -19,9 +19,6 @@ public class Station {
     @JoinColumn(name = "id")
     private Location location;
 
-    @OneToOne
-    private TrainTraject trainTraject;
-
     public String getName() {
         return name;
     }

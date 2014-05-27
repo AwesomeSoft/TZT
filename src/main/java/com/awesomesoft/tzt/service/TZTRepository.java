@@ -14,27 +14,29 @@ import java.util.LinkedList;
 
 public interface TZTRepository {
 
-    public Long insertPerson(Person p);
+    Long insertPerson(Person p);
 
-    public Person getPersonById(Long id);
+    Person getPersonById(Long id);
 
-    public boolean checkPersonExistsById(Long id);
+    boolean checkPersonExistsById(Long id);
 
-    public Person getPersonByEmailAddress(String emailAddress);
+    Person getPersonByEmailAddress(String emailAddress);
 
-    public boolean checkPersonExistsByEmailAddress(String emailAddress);
+    boolean checkPersonExistsByEmailAddress(String emailAddress);
 
-    public void updatePerson(Person p);
+    void updatePerson(Person p);
 
-    public LinkedList<Station> getNearestStations(Location loc) throws JPAException;
+    LinkedList<Station> getNearestStations(Location loc) throws JPAException;
 
-    public Long insertOrder(TZTOrder o);
+    Long insertOrder(TZTOrder o);
 
-    public TZTOrder getOrderById(Long id);
+    TZTOrder getOrderById(Long id);
 
-    public Long insertPackage(Package p);
+    Long insertPackage(Package p);
 
-    public Long insertAddress(Address a);
+    Long insertAddress(Address a);
 
-    public Address getAddressById(Long id);
+    Address getAddressById(Long id);
+
+    Long insertTrainCourier(TrainCourier trainCourier);
 }

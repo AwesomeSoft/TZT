@@ -19,7 +19,7 @@ import java.util.Map;
     "warnings",
     "waypoint_order"
 })
-public class Route {
+public class GRoute {
 
     @JsonProperty("bounds")
     private Bounds bounds;
@@ -119,7 +119,7 @@ public class Route {
 
     @Override
     public String toString() {
-        return "Route{" +
+        return "GRoute{" +
                 ", copyrights='" + copyrights + '\'' +
                 ", legs=" + legs.toString()+"}";
 

@@ -20,6 +20,7 @@ public class TrainCourier extends Person{
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "trainCourier")  //dit defineerd de relatie in Traincourier/ mappedBy traincourier betekent dat er een veld is in TrainTraject met een klasse TrainCourier en de naam trainCourier
     private List<TrainTraject> asignedTrajects = new LinkedList<>();
 
+
     private final static double PRICE_PER_TRAJECT = 3.0;
 
     protected TrainCourier() {
