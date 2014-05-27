@@ -70,12 +70,21 @@ public class TZTOrder {
         this.orderNumber = generateOrderNumber();
     }
 
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "tztOrder")
+    private Route route;
+
+
     public Package getaPackage() {
         return aPackage;
     }
 
     public void setaPackage(Package aPackage) {
         this.aPackage = aPackage;
+    }
+
+    public void addRoute(Route route){
+        this.route = route;
+        route.addOrder(this);
     }
 
     public long generateOrderNumber(){

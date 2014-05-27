@@ -106,4 +106,14 @@ public class TZTRepositoryJPA implements TZTRepository {
         em.persist(t);
         return t.getId();
     }
+
+    @Override
+    public TZTOrder findOrder(Long id) {
+        return em.find(TZTOrder.class,id);
+    }
+
+    @Override
+    public void updateTZTOrder(TZTOrder tztOrder) {
+        em.merge(tztOrder);
+    }
 }

@@ -1,7 +1,7 @@
 package com.awesomesoft.tzt.service.GoogleMapsApi;
 
 import com.awesomesoft.tzt.service.GoogleMapsApi.models.GLocation;
-import com.awesomesoft.tzt.service.GoogleMapsApi.models.GRoute;
+import com.awesomesoft.tzt.service.GoogleMapsApi.models.Route;
 import com.awesomesoft.tzt.service.domain.Location;
 import com.awesomesoft.tzt.service.domain.Station;
 
@@ -22,7 +22,7 @@ public abstract class GoogleMapsApi{
     static final String GOOGLE_DIRECTIONS_URL = "https://maps.googleapis.com/maps/api/directions/json?";
     static final String GOOGLE_GEOLOCATION_URL = "https://maps.googleapis.com/maps/api/geocode/json?";
 
-    public static GRoute planRoute(Location startLocation, Location endLocation,String mode){
+    public static Route planRoute(Location startLocation, Location endLocation,String mode){
         String routeOption = "&mode="+mode;
         String departureTime = "&departure_time="+ new Date().getTime()/1000;
 
@@ -31,14 +31,14 @@ public abstract class GoogleMapsApi{
             URL url = new URL(GOOGLE_DIRECTIONS_URL+routeString+PUBLIC_API_KEY+departureTime+routeOption);
             System.out.println(GOOGLE_DIRECTIONS_URL+routeString+PUBLIC_API_KEY+departureTime+routeOption);
             String result = startHTTPSrequest(url);
-            GRoute GRoute = JacksonObjectMapper.getRoute(result);
-            return GRoute;
+            Route Route = JacksonObjectMapper.getRoute(result);
+            return Route;
             } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static GRoute getTrainRoute(Station senderStation, Station receiverStation,Date departureTime){
+    public static Route getTrainRoute(Station senderStation, Station receiverStation,Date departureTime){
         String routeString = "origin="+senderStation.getLocation().getLat()+","+senderStation.getLocation().getLng()+"&destination="+receiverStation.getLocation().getLat()+","+receiverStation.getLocation().getLng()+"&sensor=false&mode=transit";
         try {
             String mode = "&mode=transit";
@@ -46,8 +46,8 @@ public abstract class GoogleMapsApi{
             URL url = new URL(GOOGLE_DIRECTIONS_URL+routeString+PUBLIC_API_KEY+departureTimeString+mode);
             System.out.println(GOOGLE_DIRECTIONS_URL+routeString+PUBLIC_API_KEY+departureTimeString+mode);
             String result = startHTTPSrequest(url);
-            GRoute GRoute = JacksonObjectMapper.getRoute(result);
-            return GRoute;
+            Route Route = JacksonObjectMapper.getRoute(result);
+            return Route;
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }

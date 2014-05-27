@@ -4,9 +4,11 @@ package com.awesomesoft.tzt.web;
  * Created by student on 5/17/14.
  */
 
+import com.awesomesoft.tzt.service.GoogleMapsApi.GoogleMapsApi;
+import com.awesomesoft.tzt.service.GoogleMapsApi.models.*;
 import com.awesomesoft.tzt.service.TZTRepository;
-import com.awesomesoft.tzt.service.domain.Person;
-import com.awesomesoft.tzt.service.domain.TZTOrder;
+import com.awesomesoft.tzt.service.domain.*;
+import com.awesomesoft.tzt.service.impl.JPAException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +16,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
+import java.util.LinkedList;
+import java.util.List;
 
 
 @ManagedBean  //zorgt ervoor dat de personcontroller in JSF beschikbaar is
@@ -42,7 +46,7 @@ public class OrderController {
         if(receiver == null){
             receiver = new Person();
         }
-        /*
+
         Address senderAddress = new Address("Aquamarijnstraat","599","9743PP","Groningen");
         Address deliveryAddress =  new Address("Overtoom","71","1054HC","Amsterdam");
 
@@ -50,9 +54,9 @@ public class OrderController {
             System.out.println("Got the address");
             Station nearestSenderStations = repository.getNearestStations(senderAddress.getLocation()).get(0);
             Station nearestDeliveryStations = repository.getNearestStations(deliveryAddress.getLocation()).get(0);
-            System.out.println("Calculate GRoute");
-            GRoute GRoute = GoogleMapsApi.planRoute(nearestSenderStations.getLocation(), nearestDeliveryStations.getLocation(), "transit");
-            List<Leg> legs = GRoute.getLegs();
+            System.out.println("Calculate Route");
+            com.awesomesoft.tzt.service.GoogleMapsApi.models.Route Route = GoogleMapsApi.planRoute(nearestSenderStations.getLocation(), nearestDeliveryStations.getLocation(), "transit");
+            List<Leg> legs = Route.getLegs();
             System.out.println(legs.size());
             List<TrainTraject> trainTrajects = new LinkedList<>();
             List<CourierTraject> courierTrajects = new LinkedList<>();
@@ -73,13 +77,13 @@ public class OrderController {
                 }
             }
             System.out.println("Total traintrajects: "+trainTrajects.size());
-            GRoute GRouteToStation = GoogleMapsApi.planRoute(senderAddress.getLocation(), nearestSenderStations.getLocation(), "driving");
+            com.awesomesoft.tzt.service.GoogleMapsApi.models.Route RouteToStation = GoogleMapsApi.planRoute(senderAddress.getLocation(), nearestSenderStations.getLocation(), "driving");
 
-            List<Leg> routeToStationLegs = GRouteToStation.getLegs();
+            List<Leg> routeToStationLegs = RouteToStation.getLegs();
             for (Leg routeToStationLeg : routeToStationLegs) {
                 System.out.println(routeToStationLeg.getDistance().getValue());
                 System.out.println(routeToStationLeg.getDuration().getValue());
-                CourierTraject courierTraject = new CourierTraject(routeToStationLeg.getDistance().getValue()*1.609344,12,12,12,12,senderAddress.getLocation(),nearestSenderStations.getLocation());
+                CourierTraject courierTraject = new CourierTraject(routeToStationLeg.getDistance().getValue()/1.609344,12,12,12,12,senderAddress.getLocation(),nearestSenderStations.getLocation());
                 courierTrajects.add(courierTraject);
                 List<Step> routeToSteps = routeToStationLeg.getSteps();
                 for (Step routeToStep : routeToSteps) {
@@ -90,13 +94,13 @@ public class OrderController {
                     System.out.println(routeToStep.getHtml_instructions());
                 }
             }
-            GRoute GRouteFromStation = GoogleMapsApi.planRoute(deliveryAddress.getLocation(), nearestDeliveryStations.getLocation(), "driving");
+            com.awesomesoft.tzt.service.GoogleMapsApi.models.Route RouteFromStation = GoogleMapsApi.planRoute(deliveryAddress.getLocation(), nearestDeliveryStations.getLocation(), "driving");
 
-            List<Leg> routeFromStationLegs = GRouteFromStation.getLegs();
+            List<Leg> routeFromStationLegs = RouteFromStation.getLegs();
             for (Leg routeFromStationLeg : routeFromStationLegs) {
                 System.out.println(routeFromStationLeg.getDistance().getValue());
                 System.out.println(routeFromStationLeg.getDuration().getValue());
-                CourierTraject courierTraject = new CourierTraject(routeFromStationLeg.getDistance().getValue()*1.609344,12,12,12,12,deliveryAddress.getLocation(),nearestDeliveryStations.getLocation());
+                CourierTraject courierTraject = new CourierTraject(routeFromStationLeg.getDistance().getValue()/1.609344,12,12,12,12,deliveryAddress.getLocation(),nearestDeliveryStations.getLocation());
                 courierTrajects.add(courierTraject);
 
                 List<Step> routeFromSteps = routeFromStationLeg.getSteps();
@@ -109,17 +113,20 @@ public class OrderController {
                 }
             }
 
-            Route finalRoute = new Route();
+            com.awesomesoft.tzt.service.domain.Route finalRoute = new com.awesomesoft.tzt.service.domain.Route();
             finalRoute.addTraject(courierTrajects.get(0));
             finalRoute.addTraject(trainTrajects.get(0));
             finalRoute.addTraject(courierTrajects.get(1));
-
+            Long id = Long.parseLong("1150");
+            TZTOrder tztOrder = repository.findOrder(id);
+            tztOrder.addRoute(finalRoute);
+            repository.updateTZTOrder(tztOrder);
 
         } catch (JPAException e) {
             throw new RuntimeException(e);
 
         }
-        */
+
     }
 
     public Person getReceiver() {
@@ -145,7 +152,7 @@ public class OrderController {
         LinkedList<Station> nearestDeliveryStations = null;
         try {
 
-            GRoute groute = GoogleMapsApi.getTrainRoute(nearestSenderStations.get(0), nearestDeliveryStations.get(0), new Date());
+            Route groute = GoogleMapsApi.getTrainRoute(nearestSenderStations.get(0), nearestDeliveryStations.get(0), new Date());
             List<Leg> routeLeg = groute.getLegs();
             for (Leg leg : routeLeg) {
 

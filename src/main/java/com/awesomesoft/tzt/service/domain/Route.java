@@ -17,13 +17,20 @@ public class Route {
     @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Traject> trajects = new LinkedList<>();
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private TZTOrder tztOrder;
+
+
     public Route(){
 
     }
 
-
     public void addTraject(Traject traject){
         trajects.add(traject);
+    }
+
+    public void addOrder(TZTOrder tztOrder){
+        this.tztOrder = tztOrder;
     }
 
     //public void calculateRoute()

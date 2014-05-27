@@ -39,4 +39,9 @@ public interface TZTRepository {
     Address getAddressById(Long id);
 
     Long insertTrainCourier(TrainCourier trainCourier);
+
+
+    TZTOrder findOrder(Long id);
+
+    void updateTZTOrder(TZTOrder tztOrder);
 }

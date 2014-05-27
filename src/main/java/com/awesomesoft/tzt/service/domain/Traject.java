@@ -37,7 +37,7 @@ public class Traject {
     }
 
     public Traject(double distance, double totalCostPriceTraject, double fixedPrice, double pricePerKm, long duration, Location startPoint, Location endPoint) {
-        this.distance = distance;
+        this.distance = 1.0;
         this.totalCostPriceTraject = totalCostPriceTraject;
         this.duration = duration;
         this.pricePerKm = pricePerKm;

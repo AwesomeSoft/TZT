@@ -7,27 +7,27 @@ import com.awesomesoft.tzt.service.GoogleMapsApi.exceptions.RouteNotFoundExcepti
  */
 public class Routes {
 
-    GRoute[] GRoutes;
+    Route[] Routes;
 
-    public GRoute[] getGRoutes() {
-        return GRoutes;
+    public Route[] getRoutes() {
+        return Routes;
     }
 
-    public void setGRoutes(GRoute[] GRoutes) {
-        this.GRoutes = GRoutes;
+    public void setRoutes(Route[] routes) {
+        this.Routes = routes;
     }
 
     @Override
     public String toString() {
         return "Routes{" +
-                "GRoutes=" + GRoutes[0].toString() +
+                "Routes=" + Routes[0].toString() +
                 '}';
     }
 
     //Return the first route
-    public GRoute getRoute() throws RouteNotFoundException{
-        if(GRoutes.length>0){
-            return GRoutes[0];
+    public Route getRoute() throws RouteNotFoundException{
+        if(Routes.length>0){
+            return Routes[0];
         }else{
             throw new RouteNotFoundException("Error: Your route is not found");
         }

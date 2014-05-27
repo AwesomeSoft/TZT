@@ -13,11 +13,6 @@ public class TrainTraject extends Traject{
     @ManyToOne  //Dit defineerd de relatie met de Trajecten.
     private  TrainCourier trainCourier;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Station startPoint;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Station endPoint;
     // de rest laten we leeg want dit ben jij nu niet nodig.
 
     protected TrainTraject(){
