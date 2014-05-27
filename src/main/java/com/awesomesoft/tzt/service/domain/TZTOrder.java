@@ -70,7 +70,7 @@ public class TZTOrder {
         this.orderNumber = generateOrderNumber();
     }
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "tztOrder")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Route route;
 
 

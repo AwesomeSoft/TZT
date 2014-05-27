@@ -33,6 +33,12 @@
       <foreign-key name="FK1ED033D4DA64A45D" columns="location_id" ref-table="Location" ref-schema="" ref-catalog="TZTDB" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="FK8E48877581774E17" table="Person" schema="" catalog="TZTDB" columns="address_id"/>
     </table>
+    <table name="CourierCompany" schema="" catalog="TZTDB" type="TABLE">
+      <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5"/>
+      <column name="name" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="pricePerKm" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
     <table name="Incident" schema="" catalog="TZTDB" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5"/>
       <column name="creationDate" sqlType="DATE" length="10" precision="0" nullable="true" jdbcType="91"/>
@@ -61,8 +67,11 @@
       <column name="registrationTime" sqlType="TIME" length="8" precision="0" nullable="true" jdbcType="92"/>
       <column name="weightInKilos" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
       <column name="width" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <column name="order_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK331DCC26D09A1FAF" columns="order_id" ref-table="TZTOrder" ref-schema="" ref-catalog="TZTDB" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <exported-key name="FK4B7C229479594D7" table="Route" schema="" catalog="TZTDB" columns="packAge_id"/>
+      <exported-key name="FK42B93960B23D4FF8" table="TZTOrder" schema="" catalog="TZTDB" columns="aPackage_id"/>
     </table>
     <table name="Person" schema="" catalog="TZTDB" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5"/>
@@ -86,19 +95,20 @@
       <column name="tenaamstelling" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
       <foreign-key name="FK8E48877581774E17" columns="address_id" ref-table="Address" ref-schema="" ref-catalog="TZTDB" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK42B93960E0044843" table="TZTOrder" schema="" catalog="TZTDB" columns="receiver_id"/>
       <exported-key name="FK42B93960F3B737F4" table="TZTOrder" schema="" catalog="TZTDB" columns="customer_id"/>
-      <exported-key name="FKFA651007E3EA2CBD" table="TrainTraject" schema="" catalog="TZTDB" columns="trainCourier_id"/>
     </table>
     <table name="Route" schema="" catalog="TZTDB" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5"/>
-      <column name="distance" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
       <column name="deliveryLocation_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
       <column name="packAge_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
       <column name="senderLocation_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
+      <column name="tztOrder_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
       <primary-key name="PRIMARY" columns="id"/>
-      <foreign-key name="FK4B7C22972F78708" columns="senderLocation_id" ref-table="Location" ref-schema="" ref-catalog="TZTDB" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FK4B7C229479594D7" columns="packAge_id" ref-table="Package" ref-schema="" ref-catalog="TZTDB" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK4B7C22972F78708" columns="senderLocation_id" ref-table="Location" ref-schema="" ref-catalog="TZTDB" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FK4B7C229ABF247E9" columns="deliveryLocation_id" ref-table="Location" ref-schema="" ref-catalog="TZTDB" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK4B7C229E23D545D" columns="tztOrder_id" ref-table="TZTOrder" ref-schema="" ref-catalog="TZTDB" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
     </table>
     <table name="Station" schema="" catalog="TZTDB" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5"/>
@@ -110,17 +120,20 @@
     <table name="TZTOrder" schema="" catalog="TZTDB" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5"/>
       <column name="custumerPrice" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8"/>
-      <column name="orderNumber" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
+      <column name="orderNumber" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5"/>
+      <column name="sendDate" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93"/>
+      <column name="status" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
       <column name="totalCostprice" sqlType="DOUBLE" length="22" precision="0" nullable="false" jdbcType="8"/>
+      <column name="aPackage_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
       <column name="customer_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
+      <column name="receiver_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
+      <column name="creationDate" sqlType="DATETIME" length="19" precision="0" nullable="true" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK42B93960B23D4FF8" columns="aPackage_id" ref-table="Package" ref-schema="" ref-catalog="TZTDB" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK42B93960E0044843" columns="receiver_id" ref-table="Person" ref-schema="" ref-catalog="TZTDB" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
       <foreign-key name="FK42B93960F3B737F4" columns="customer_id" ref-table="Person" ref-schema="" ref-catalog="TZTDB" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
-    </table>
-    <table name="TrainTraject" schema="" catalog="TZTDB" type="TABLE">
-      <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5"/>
-      <column name="trainCourier_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <foreign-key name="FKFA651007E3EA2CBD" columns="trainCourier_id" ref-table="Person" ref-schema="" ref-catalog="TZTDB" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="FK331DCC26D09A1FAF" table="Package" schema="" catalog="TZTDB" columns="order_id"/>
+      <exported-key name="FK4B7C229E23D545D" table="Route" schema="" catalog="TZTDB" columns="tztOrder_id"/>
     </table>
     <table name="User" schema="" catalog="TZTDB" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5"/>

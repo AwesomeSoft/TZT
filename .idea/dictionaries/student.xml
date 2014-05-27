@@ -2,6 +2,7 @@
   <dictionary name="student">
     <words>
       <w>jpql</w>
+      <w>reisadvies</w>
     </words>
   </dictionary>
 </component>

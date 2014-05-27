@@ -1,6 +1,6 @@
 cas-web.iml 
 workspace.xml
-.idea
+.idea/*.*
 pom.xml
 profiles_settings.xml
 .idea/workspace.xml

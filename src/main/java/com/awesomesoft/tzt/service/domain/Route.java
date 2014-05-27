@@ -17,7 +17,7 @@ public class Route {
     @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Traject> trajects = new LinkedList<>();
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL)
     private TZTOrder tztOrder;
 
 
