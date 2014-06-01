@@ -21,6 +21,9 @@ public class Location {
     @OneToOne(mappedBy = "location")
     private Address address;
 
+    @OneToOne(mappedBy = "location")
+    private Station station;
+
     protected Location(){
 
     }
