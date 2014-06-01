@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: student
+  Date: 11/13/13
+  Time: 12:13 PM
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="../WEB-INF/template.xhtml">
+
+    <ui:define name="script">
+
+        <script type="text/javascript">
+            function goBack() {
+                var answer = confirm ("Weet je zeker dat je wilt annuleren, de gegevens worden niet opgeslagen!")
+                if (answer)
+                    window.GLocation = "./cas/index.xhtml";
+                else
+                    return false;
+            }
+
+            function showLoading() {
+                var a = $('div.loadImage');
+                a.show();
+            }
+        </script>
+
+    </ui:define>
+
+    <ui:define name="title">Profile</ui:define>
+
+    <ui:define name="content">
+        <div class="loadImage" style="display: none">
+            <h:graphicImage alt="Loading" library="img" name="loadingsaltpepper.gif"/>
+        </div>
+        <h:form id="registrationForm">
+
+            <legend>Persoonsgegevens</legend>
+            <br />
+            <h:commandButton styleClass="btn" id="submitRegistration" value="StationsLijstBijwerken" onstart="showLoading()"
+                             action="#{trainStationController.makeTrainStationsList}"/>
+
+            <h:message errorClass="text-error" for="submitRegistration"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</html>
