@@ -4,8 +4,6 @@ import com.awesomesoft.tzt.service.ns.NsApi;
 import com.awesomesoft.tzt.service.ns.error.NsApiException;
 import com.awesomesoft.tzt.service.ns.handle.Handle;
 import com.awesomesoft.tzt.service.ns.xml.Xml;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.text.ParseException;
@@ -14,10 +12,6 @@ import java.util.*;
 
 
 public class ReisadviesHandle implements Handle<List<ReisMogelijkheid>> {
-
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-
-
     @Override
     public List<ReisMogelijkheid> getModel(InputStream stream) {
         SimpleDateFormat format = new SimpleDateFormat(NsApi.DATETIME_FORMAT);
@@ -85,7 +79,6 @@ public class ReisadviesHandle implements Handle<List<ReisMogelijkheid>> {
             return Collections.unmodifiableList(reisMogelijkheden);
         }
         catch (ParseException e) {
-            logger.error("Error parsing stream to actuele vertrektijden", e);
             throw new NsApiException("Error parsing stream to actuele vertrektijden", e);
         }
     }

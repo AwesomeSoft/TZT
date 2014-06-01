@@ -4,8 +4,6 @@ import com.awesomesoft.tzt.service.ns.NsApi;
 import com.awesomesoft.tzt.service.ns.error.NsApiException;
 import com.awesomesoft.tzt.service.ns.handle.Handle;
 import com.awesomesoft.tzt.service.ns.xml.Xml;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.text.ParseException;
@@ -17,8 +15,6 @@ import java.util.List;
 
 
 public class ActueleVertrekTijdenHandle implements Handle<List<VertrekkendeTrein>> {
-
-    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
     public List<VertrekkendeTrein> getModel(InputStream stream) {
@@ -37,7 +33,6 @@ public class ActueleVertrekTijdenHandle implements Handle<List<VertrekkendeTrein
                                 .replace("M", ""));
                     }
                     catch (NumberFormatException e) {
-                        logger.warn("Error parsing vertrek vertraging minuten into minutes", e);
                     }
                 }
                 String vertrekVertragingTekst = vertrekkendeTreinXml.child("VertrekVertragingTekst").content();
@@ -60,7 +55,6 @@ public class ActueleVertrekTijdenHandle implements Handle<List<VertrekkendeTrein
             return Collections.unmodifiableList(vertrekkendeTreinen);
         }
         catch (ParseException e) {
-            logger.error("Error parsing stream to actuele vertrektijden", e);
             throw new NsApiException("Error parsing stream to actuele vertrektijden", e);
         }
     }

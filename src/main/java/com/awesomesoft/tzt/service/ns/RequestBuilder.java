@@ -10,7 +10,7 @@ import java.util.List;
 
 public class RequestBuilder {
 
-    private static final ApiRequest INSTANCE = new StationsRequest(); /*StationRequest*/
+    private static final ApiRequest INSTANCE = new StationsRequest();
 
     private RequestBuilder() {
         super();
