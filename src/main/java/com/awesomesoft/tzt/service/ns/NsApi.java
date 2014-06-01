@@ -18,7 +18,7 @@ public class NsApi {
 
     public static final String DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ";
 
-    private final HttpConnection httpConnection;
+    private HttpConnection httpConnection;
 
     private static final String BASE_URL = "http://webservices.ns.nl/";
 
@@ -28,7 +28,6 @@ public class NsApi {
         if (username == null || password == null) {
             throw new NullPointerException("Username or password cannot be null");
         }
-
         if (username.trim().length() == 0 || password.trim().length() == 0) {
             throw new IllegalArgumentException("Username or password cannot be empty");
         }

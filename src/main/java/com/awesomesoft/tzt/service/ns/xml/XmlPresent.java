@@ -1,8 +1,6 @@
 package com.awesomesoft.tzt.service.ns.xml;
 
 import com.awesomesoft.tzt.service.ns.error.NsApiException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.w3c.dom.*;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -15,8 +13,6 @@ import java.util.Map;
 
 
 public class XmlPresent extends Xml {
-
-    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final String name;
 
@@ -100,7 +96,6 @@ public class XmlPresent extends Xml {
     public Xml child(String name) {
         List<Xml> children = children(name);
         if (children.size() != 1) {
-            logger.info("Could not find individual child node: " + name);
             return new XmlAbsent(name);
         }
         return children.get(0);

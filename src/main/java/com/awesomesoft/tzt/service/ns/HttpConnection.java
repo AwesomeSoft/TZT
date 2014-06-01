@@ -9,15 +9,11 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 class HttpConnection {
-
-    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private final HttpClient httpclient;
 
@@ -32,16 +28,13 @@ class HttpConnection {
         HttpGet httpget = new HttpGet(url);
         try {
             HttpResponse response = httpclient.execute(httpget);
-            logger.info("Status: " + response.getStatusLine());
             HttpEntity entity = response.getEntity();
             if (entity != null) {
                 return entity.getContent();
             }
-            logger.error("Error while calling the webservice, entity is null");
             throw new NsApiException("Error while calling the webservice, entity is null");
         }
         catch (IOException e) {
-            logger.error("Error while calling the webservice", e);
             throw e;
         }
     }

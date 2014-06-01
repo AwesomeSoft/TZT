@@ -4,9 +4,9 @@ import com.awesomesoft.tzt.service.ns.model.stations.Station;
 
 import java.util.List;
 
-class StationsRequest extends ApiRequest<List<Station>> {
+public class StationsRequest extends ApiRequest<List<Station>> {
 
-    StationsRequest() {
+    public StationsRequest() {
     }
 
     @Override
@@ -18,5 +18,4 @@ class StationsRequest extends ApiRequest<List<Station>> {
     String getRequestString() {
         return "";
     }
-
 }
