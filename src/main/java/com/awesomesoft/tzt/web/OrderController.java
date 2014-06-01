@@ -145,6 +145,10 @@ public class OrderController {
         return "confirmation.xhtml";
     }
 
+    public String StatusVerzending() {
+        return "test";
+    }
+
     /*
     private void calculateRoute(Address senderAddress,Address deliveryAddress){
 
