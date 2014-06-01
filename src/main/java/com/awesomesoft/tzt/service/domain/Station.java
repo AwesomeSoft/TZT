@@ -13,6 +13,7 @@ public class Station {
     @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
     private String name;
 
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
