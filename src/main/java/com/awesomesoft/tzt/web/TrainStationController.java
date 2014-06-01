@@ -15,7 +15,8 @@ import javax.inject.Inject;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
-    @ManagedBean
+
+@ManagedBean
     @SessionScoped
     public class TrainStationController {
     private static final Logger logger = LoggerFactory.getLogger(TrainStationController.class);
@@ -38,13 +39,19 @@ import java.util.List;
                 Station value = (Station) it.next();
                 if (value.getLand().equals("NL")){
                     if((value.getType().equals("knooppuntIntercitystation"))||(value.getType().equals("megastation"))) {
-                        System.out.println("Value :" + value.getType());
                         Namen namen = value.getNamen();
-                        System.out.println("Value :" + namen.getMiddel());
                         com.awesomesoft.tzt.service.domain.Station station = new com.awesomesoft.tzt.service.domain.Station(namen.getMiddel(), value.getLon(), value.getLat());
                         //     Location location_id = new Location(value.getLon(),value.getLat());
+                        try {
+                            repository.insertTrainStation(station);
+                        }catch (Exception e){
+                            StringBuilder message = new StringBuilder();
+                            message.append("Alreaddy added station: ");
+                            message.append(namen.getMiddel());
+                            logger.info(message.toString());
+                        }
 
-                        repository.insertTrainStation(station);
+
                     }
                 }
             }

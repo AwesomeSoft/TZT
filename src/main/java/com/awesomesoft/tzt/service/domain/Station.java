@@ -16,16 +16,24 @@ public class Station {
     @Column(unique = true)
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")
+    @OneToOne(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
+    @JoinColumn(name = "location_id")
     private Location location;
+
+    protected Station(){
+
+    }
+
+    public Station(String name, double lon, double lat) {
+        this.name = name;
+        Location stationLocation = new Location(lon,lat);
+
+        this.location = stationLocation;
+    }
 
     public String getName() {
         return name;
     }
-
-    @Column(name = "location_id")
-    private Long locationId;
 
     public Long getId() {
         return id;
@@ -50,8 +58,6 @@ public class Station {
 
         Station station = (Station) o;
 
-        if (location != null ? !location.equals(station.location) : station.location != null) return false;
-        if (locationId != null ? !locationId.equals(station.locationId) : station.locationId != null) return false;
         if (name != null ? !name.equals(station.name) : station.name != null) return false;
 
         return true;
@@ -59,9 +65,6 @@ public class Station {
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (location != null ? location.hashCode() : 0);
-        result = 31 * result + (locationId != null ? locationId.hashCode() : 0);
-        return result;
+        return name != null ? name.hashCode() : 0;
     }
 }

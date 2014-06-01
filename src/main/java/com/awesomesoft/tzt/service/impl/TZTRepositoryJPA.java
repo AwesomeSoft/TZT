@@ -65,6 +65,11 @@ public class TZTRepositoryJPA implements TZTRepository {
         em.merge(trainCourier);
     }
 
+    public Long insertTrainStation(Station station) {
+        em.merge(station);
+        return station.getId();
+    }
+
     public boolean checkPersonExistsByEmailAddress(String emailAddress) {
         String jpql = "select count(p) from Person p where emailAddress = ?1";
         TypedQuery<Long> q = em.createQuery(jpql, Long.class);
