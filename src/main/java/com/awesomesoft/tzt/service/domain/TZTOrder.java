@@ -1,5 +1,6 @@
 package com.awesomesoft.tzt.service.domain;
 
+
 import javax.persistence.*;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -12,11 +13,10 @@ import java.util.Random;
  * Created by Erwin on 21-5-2014.
  */
 @Entity
-@SequenceGenerator(name="seq", initialValue=1000, allocationSize=100)
 public class TZTOrder {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq")
+    @GeneratedValue
     private Long id;// een entiteit heeft een ID nodig met deze anotatiets @id en @generated value
 
     public Person getCustomer() {
@@ -24,11 +24,11 @@ public class TZTOrder {
     }
 
     public void setCustomer(Person customer) {
-        this.customer = customer;
         customer._own(this);
+        this.customer = customer;
     }
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     private Person customer;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -70,7 +70,7 @@ public class TZTOrder {
         this.orderNumber = generateOrderNumber();
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne
     private Route route;
 
 
@@ -104,9 +104,9 @@ public class TZTOrder {
         return "";
     }
 
-    public void setSendDate(String dateofBirth) {
+    public void setSendDate(String sendDate) {
         try {
-            this.sendDate = new SimpleDateFormat("dd-mm-yyyy", Locale.ENGLISH).parse(dateofBirth);
+            this.sendDate = new SimpleDateFormat("dd-mm-yyyy", Locale.ENGLISH).parse(sendDate);
         } catch (ParseException e) {
             throw new RuntimeException(e);
 
@@ -115,5 +115,23 @@ public class TZTOrder {
 
     public Long getId() {
         return id;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TZTOrder)) return false;
+
+        TZTOrder tztOrder = (TZTOrder) o;
+
+        if (orderNumber != tztOrder.orderNumber) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (orderNumber ^ (orderNumber >>> 32));
     }
 }

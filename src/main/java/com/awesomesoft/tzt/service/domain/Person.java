@@ -14,19 +14,18 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 
 @Entity// Dit zorgt ervoor dat het een entiteit word binnen de database
+@Inheritance(strategy=InheritanceType.JOINED)
+@DiscriminatorColumn(name = "PERSON_TYPE")
+@DiscriminatorValue("P")
 public class Person {
 
     @Id
     @GeneratedValue
-    private Long id;// een entiteit heeft een ID nodig met deze anotatiets @id en @generated value
-
+    private Long id;
 
     @OneToOne(cascade={CascadeType.ALL})
     private Address address;
@@ -44,7 +43,7 @@ public class Person {
 
     private Date dateCreated;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<TZTOrder> orderHistory = new LinkedList<>();
 
 
@@ -103,6 +102,7 @@ public class Person {
     public void setSalutation(String salutation) {
         this.salutation = salutation;
     }
+
     public Long getId() {
         return id;
     }
@@ -212,11 +212,13 @@ public class Person {
     }
 
     public void setDateofBirth(String dateofBirth) {
-        try {
-            this.dateofBirth = new SimpleDateFormat("dd-mm-yyyy", Locale.ENGLISH).parse(dateofBirth);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
+        if(dateofBirth != null){
+            try {
+                this.dateofBirth = new SimpleDateFormat("dd-mm-yyyy", Locale.ENGLISH).parse(dateofBirth);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
 
+            }
         }
     }
 
@@ -242,12 +244,20 @@ public class Person {
 
         Person person = (Person) o;
 
-        return id.equals(person.id);
+        if (emailAddress != null ? !emailAddress.equals(person.emailAddress) : person.emailAddress != null)
+            return false;
+        if (firstName != null ? !firstName.equals(person.firstName) : person.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(person.lastName) : person.lastName != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        int result = firstName != null ? firstName.hashCode() : 0;
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (emailAddress != null ? emailAddress.hashCode() : 0);
+        return result;
     }
 
     public Date getLastLogin() {
@@ -292,5 +302,7 @@ public class Person {
 
     @OneToOne(mappedBy = "receiver")
     private TZTOrder tztOrder;
+
+
 
 }

@@ -5,6 +5,8 @@ package com.awesomesoft.tzt.service.domain;
  */
 
 import com.awesomesoft.tzt.web.PersonInfo;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.LinkedList;
@@ -12,16 +14,24 @@ import java.util.List;
 
 //Een domein calsse waarvan een object opgeslagen moet worden in de database krijgt een @Entity tag. Let op gebruik geen hibernate.
 @Entity
+@DiscriminatorValue("TC")
 public class TrainCourier extends Person{
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "trainCourier")  //dit defineerd de relatie in Traincourier/ mappedBy traincourier betekent dat er een veld is in TrainTraject met een klasse TrainCourier en de naam trainCourier
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name="trainCourier_id",referencedColumnName = "id")
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<TrainTraject> planedTrajects = new LinkedList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "trainCourier")  //dit defineerd de relatie in Traincourier/ mappedBy traincourier betekent dat er een veld is in TrainTraject met een klasse TrainCourier en de naam trainCourier
-    private List<TrainTraject> asignedTrajects = new LinkedList<>();
+
+    public void addTraject(TrainTraject trainTraject) {
+        this.planedTrajects.add(trainTraject);
+    }
 
 
-    private final static double PRICE_PER_TRAJECT = 3.0;
+
+
+    private double salary;
 
     protected TrainCourier() {
 
@@ -31,13 +41,19 @@ public class TrainCourier extends Person{
         super(personInfo);
     }
 
+    /*
     public void asignRoute(TrainTraject traject){
         this.asignedTrajects.add(traject);
     }
+    */
 
-    public double getPricePerTraject(){
-        return PRICE_PER_TRAJECT;
+
+
+    public double getSalary() {
+        return salary;
     }
+
+
 }
 
 

@@ -22,7 +22,7 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $( "#registrationForm\\:dateofBirth" ).datepicker();
-                $( "#registrationForm\\:dateofBirth" ).regional['nl'];
+
                 $(function () {
                     $("#registrationForm\\:emailAddress").popover({content: "Use your @mail.com email address"}).focus(function () {
                         $(this).popover('show')
@@ -60,10 +60,7 @@
 
             <p:watermark for="firstName" value="First name"/>
             <p:watermark for="lastName" value="Last name"/>
-            <p:watermark for="emailAddress" value="Email address"/>
-            <p:watermark for="password" value="Password"/>
-            <p:watermark for="confirmedPassword" value="Confirm password"/>
-            <p:watermark for="dateofBirth" value="Geboorte datum"/>
+
             <h:panelGrid columns="3">
                     <label>Aanhef:</label>
                     <h:inputText id="Aanhef" required="true" requiredMessage="Field required" autocomplete="false"
@@ -71,18 +68,18 @@
                     <h:message errorClass="text-error" for="Aanhef"/>
 
                     <label>Voornaam:</label>
-                    <h:inputText id="Voornaam" required="true" requiredMessage="Field required" autocomplete="false"
-                                 value="#{orderController.receiver.firstName}" pt:placeholder="Voornaam"/>
-                    <h:message errorClass="text-error" for="Voornaam"/>
+                    <h:inputText id="firstName" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#{orderController.receiver.firstName}" pt:placeholder="firstName"/>
+                    <h:message errorClass="text-error" for="firstName"/>
 
                     <label>Achternaam:</label>
-                    <h:inputText id="Achternaam" required="true" requiredMessage="Field required" autocomplete="false"
-                                 value="#{orderController.receiver.lastName}" pt:placeholder="Achternaam"/>
-                    <h:message errorClass="text-error" for="Achternaam"/>
+                    <h:inputText id="lastName" required="true" requiredMessage="Field required" autocomplete="false"
+                                 value="#{orderController.receiver.lastName}" pt:placeholder="lastName"/>
+                    <h:message errorClass="text-error" for="lastName"/>
 
                     <label>Adres:</label>
                     <h:inputText id="Street" required="true" requiredMessage="Field required" autocomplete="false"
-                                 value="#{orderController.receiver.address.street}" pt:placeholder="Adres"/>
+                                 value="#{orderController.receiver.address.street}" pt:placeholder="street"/>
                     <h:message errorClass="text-error" for="Street"/>
 
                     <label>Huisnummer:</label>

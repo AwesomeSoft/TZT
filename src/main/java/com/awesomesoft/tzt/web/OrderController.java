@@ -114,9 +114,9 @@ public class OrderController {
             }
 
             com.awesomesoft.tzt.service.domain.Route finalRoute = new com.awesomesoft.tzt.service.domain.Route();
-            finalRoute.addTraject(courierTrajects.get(0));
-            finalRoute.addTraject(trainTrajects.get(0));
-            finalRoute.addTraject(courierTrajects.get(1));
+  //          finalRoute.addTraject(courierTrajects.get(0));
+   //         finalRoute.addTraject(trainTrajects.get(0));
+   //         finalRoute.addTraject(courierTrajects.get(1));
             Long id = Long.parseLong("1150");
             TZTOrder tztOrder = repository.findOrder(id);
             tztOrder.addRoute(finalRoute);

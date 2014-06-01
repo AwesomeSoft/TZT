@@ -48,6 +48,23 @@ public class TZTRepositoryJPA implements TZTRepository {
         return q.getSingleResult();
     }
 
+
+    public List<Station> getAllStations() {
+        String jpql = "select S from Station s";
+        TypedQuery<Station> q = em.createQuery(jpql, Station.class);
+        return q.getResultList();
+    }
+
+    @Override
+    public TrainCourier getTrainCourier(Long id) {
+        return em.find(TrainCourier.class,id);
+    }
+
+    @Override
+    public void updateTrainCourier(TrainCourier trainCourier) {
+        em.merge(trainCourier);
+    }
+
     public boolean checkPersonExistsByEmailAddress(String emailAddress) {
         String jpql = "select count(p) from Person p where emailAddress = ?1";
         TypedQuery<Long> q = em.createQuery(jpql, Long.class);

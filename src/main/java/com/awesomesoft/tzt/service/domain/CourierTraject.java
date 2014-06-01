@@ -7,6 +7,7 @@ import javax.persistence.*;
  */
 
 @Entity
+@DiscriminatorValue("CT")
 public class CourierTraject extends Traject{
 
     @ManyToOne  //Dit defineerd de relatie met de Trajecten.

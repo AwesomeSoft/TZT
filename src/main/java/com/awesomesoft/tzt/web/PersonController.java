@@ -169,7 +169,7 @@ public class PersonController {
      * @throws ValidationException
      */
     private void validateEmailAddress(boolean register) throws ValidationException {
-        String mail = person.getEmailAddress();
+        String mail = personInfo.getEmailAddress();
         logger.info("Validating email address \"{}\"", mail);
 
         final Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
@@ -180,9 +180,9 @@ public class PersonController {
             throw new ValidationException("Email address invalid");
         }
 
-        if (register && repository.checkPersonExistsByEmailAddress(person.getEmailAddress())) {
+        if (register && repository.checkPersonExistsByEmailAddress(personInfo.getEmailAddress())) {
             throw new ValidationException("Email address already exists");
-        } else if (!register && !repository.checkPersonExistsByEmailAddress(person.getEmailAddress())) {
+        } else if (!register && !repository.checkPersonExistsByEmailAddress(personInfo.getEmailAddress())) {
             throw new ValidationException("Email address unknown");
         }
     }
@@ -199,7 +199,7 @@ public class PersonController {
      */
     private void validatePassword() throws ValidationException {
         logger.info("Validating password");
-        String password = person.getPassword();
+        String password = personInfo.getPassword();
 
         final Pattern pattern = Pattern.compile("^(?=[\\x21-\\x7E]*[0-9])(?=[\\x21-\\x7E]*[A-Z])(?=[\\x21-\\x7E]*[a-z])(?=[\\x21-\\x7E]*[\\x21-\\x2F|\\x3A-\\x40|\\x5B-\\x60|\\x7B-\\x7E])[\\x21-\\x7E]{8,}$");
 
@@ -209,7 +209,7 @@ public class PersonController {
             throw new ValidationException("Password does not meet the specified requirements");
         }
 
-        if (!password.equals(person.getConfirmedPassword())) {
+        if (!password.equals(personInfo.getConfirmedPassword())) {
             throw new ValidationException("Passwords do not match");
         }
 
@@ -376,7 +376,7 @@ public class PersonController {
      * @throws AuthenticationException
      */
     protected void authenticatePerson(boolean requireAdmin) throws AuthenticationException {
-        String mail = person.getEmailAddress();
+        String mail = personInfo.getEmailAddress();
         logger.info("Authenticating \"{}\"", mail);
 
         if (!mail.toLowerCase().contains("@")) {
@@ -395,9 +395,9 @@ public class PersonController {
             throw new AuthenticationException("Account locked out until " + new SimpleDateFormat("HH:mm:ss").format(temp.getLockedOut()));
         }
 
-        if (!temp.getPassword().equals(digestPassword(person.getPassword()))) {
-            person.addFailedAttempt();
-            if (person.getFailedAttempts() == 3) {
+        if (!temp.getPassword().equals(digestPassword(personInfo.getPassword()))) {
+            temp.addFailedAttempt();
+            if (temp.getFailedAttempts() == 3) {
                 temp.setLockedOut(new Date(new Date().getTime() + 1000 * 60 * 10)); // current date + 10 minutes
                 repository.updatePerson(temp);
                 throw new AuthenticationException("Account locked out for 10 minutes");

@@ -14,7 +14,7 @@ public class Route {
     private Long id;
 
 
-    @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Traject> trajects = new LinkedList<>();
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -25,6 +25,9 @@ public class Route {
 
     }
 
+
+
+
     public void addTraject(Traject traject){
         trajects.add(traject);
     }
@@ -33,6 +36,5 @@ public class Route {
         this.tztOrder = tztOrder;
     }
 
-    //public void calculateRoute()
 
 }

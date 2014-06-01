@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: student
+  Date: 11/13/13
+  Time: 12:13 PM
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<head>
+
+</head>
+
+<ui:composition template="../WEB-INF/template.xhtml">
+
+    <ui:define name="title">Registration</ui:define>
+
+    <ui:define name="script">
+        <script type="text/javascript">
+            $(document).ready(function () {
+            $( "#registrationForm\\:departureDate" ).datepicker();
+            })
+
+        </script>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <p class="fotoRegister">
+
+        </p>
+
+        <div class="loadImage" style="display: none">
+            <h:graphicImage alt="Loading" library="img" name="loadingsaltpepper.gif"/>
+        </div>
+        <h:form id="registrationForm">
+
+            <legend>Wijzig uw beschikbaarheid</legend>
+            <h2>Planed routes</h2>
+
+            <h:outputText rendered="#{empty trainCourierController.getTrainCourier(personController.person)}" value="Nog geen trajecten gepland" />
+            <h:commandButton value="Add traject" action="showAddPanel()"/>
+            <h:dataTable id="ownedBooksTable"
+                         rendered="#{not empty personController.person.ownedBooks}"
+                         value="#{personController.person.ownedBooks}"
+                         var="book"
+                         styleClass="table table-hover"
+                         rowClasses="book"
+                         columnClasses="id,title,active-loan,borrower,actions">
+
+                <h:column visible="false">
+                    <h:link outcome="../book/index.xhtml" value="">
+                        <f:param name="id" value="#{book.id}" />
+                    </h:link>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Title</f:facet>
+                    <h:outputText value="#{book.title}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Active loan</f:facet>
+                    <h:outputText value="#{book.available ?  'No' : 'Yes'}" />
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Borrowed by</f:facet>
+                    <ui:repeat value="#{book.loans}" var="loan">
+                        <h:outputText rendered="#{!loan.returned}" value="#{loan.borrower.firstName} #{loan.borrower.lastName}" />
+                    </ui:repeat>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Actions</f:facet>
+                    <h:link value="Edit" outcome="/book/change.xhtml" style="margin-right:20px">
+                        <f:param name="id" value="#{book.id}" />
+                    </h:link>
+                    <h:link value="Delete" rendered="#{book.available}" outcome="/book/delete.xhtml">
+                        <f:param name="id" value="#{book.id}" />
+                    </h:link>
+                    <h:outputText rendered="#{!book.available}" style="color: #808080" value="Delete" title="Cannot delete a book that has an active loan" />
+                </h:column>
+
+            </h:dataTable>
+
+
+            <h:panelGrid rendered="false" columns="3">
+                    <label>Vertrekpunt</label>
+                    <p:autoComplete id="startPoint" value="#{trainCourierController.startPoint}" completeMethod="#{trainCourierController.completeStation}"
+                                    var="station" itemLabel="#{station.name}" itemValue="#{station}" converter="stationConverter" forceSelection="true" />
+                    <h:message errorClass="text-error" for="startPoint"/>
+
+                    <label>Eindpunt</label>
+                    <p:autoComplete id="endPoint" value="#{trainCourierController.endPoint}" completeMethod="#{trainCourierController.completeStation}"
+                                    var="station" itemLabel="#{station.name}" itemValue="#{station}" converter="stationConverter" forceSelection="true" />
+                    <h:message errorClass="text-error" for="endPoint"/>
+
+                    <label>Vertrek datum</label>
+                    <h:inputText id="departureDate" required="true" requiredMessage="Field required" autocomplete="false"
+                                                              value="#{trainCourierController.trainTraject.departureDate}" pt:placeholder="vertrekdatum"/>
+                    <h:message errorClass="text-error" for="departureDate"/>
+
+                    <label>Vertrektijd</label>
+                    <h:inputText id="departureTime" rendered="true" requiredMessage="Veld verplicht" value="#{trainCourierController.trainTraject.departureTime}"/>
+                    <h:message errorClass="text-error" for="departureDate"/>
+                    <h:commandButton class="traincourierSubmitbutton" styleClass="btn" id="submitTrainCourierRegistration" value="Opslaan" onstart="showLoading()"
+                                     action="#{trainCourierController.addTraject(personController.person)}"/>
+                </h:panelGrid>
+
+        </h:form>
+
+    </ui:define>
+
+
+
+</ui:composition>
+
+</html>

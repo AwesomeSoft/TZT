@@ -91,7 +91,7 @@ public class Address {
     }
 
     private Location setLocation(){
-        GLocation googleLocation = GoogleMapsApi.getLocation(street+houseNumber+town+postalCode);
+        GLocation googleLocation = GoogleMapsApi.getLocation(street+houseNumber+town);
         return  new Location(googleLocation.getLng(),googleLocation.getLat());
     }
 }

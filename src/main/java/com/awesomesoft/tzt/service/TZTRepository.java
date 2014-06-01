@@ -5,6 +5,7 @@ import com.awesomesoft.tzt.service.domain.Package;
 import com.awesomesoft.tzt.service.impl.JPAException;
 
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Gerben de Heij on 24/04/14.
@@ -44,4 +45,11 @@ public interface TZTRepository {
     TZTOrder findOrder(Long id);
 
     void updateTZTOrder(TZTOrder tztOrder);
+
+    List<Station> getAllStations();
+
+
+    TrainCourier getTrainCourier(Long id);
+
+    void updateTrainCourier(TrainCourier trainCourier);
 }

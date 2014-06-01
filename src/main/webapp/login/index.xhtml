@@ -29,10 +29,10 @@
 
                     <h:panelGrid columns="2">
 
-                        <h:inputText id="emailAddress" required="true" requiredMessage="Field required" value="#{personController.person.emailAddress}" pt:placeholder="Vul hier je inlognaam"/>
+                        <h:inputText id="emailAddress" required="true" requiredMessage="Field required" value="#{personController.personInfo.emailAddress}" pt:placeholder="Vul hier je inlognaam"/>
                         <h:message errorClass="text-error" for="emailAddress" />
 
-                        <h:inputSecret id="password" required="true" requiredMessage="Field required" value="#{personController.person.password}" pt:placeholder="Vul hier je wachtwoord"  />
+                        <h:inputSecret id="password" required="true" requiredMessage="Field required" value="#{personController.personInfo.password}" pt:placeholder="Vul hier je wachtwoord"  />
                         <h:message errorClass="text-error" for="password" />
 
                         <h:commandButton styleClass="btn" id="submitLogin" value="Login" action="#{personController.login(false)}" style="float:left;" />

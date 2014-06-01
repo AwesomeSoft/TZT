@@ -16,6 +16,8 @@ public class CourierCompany {
 
     private double pricePerKm;
 
+    private double fixedPrice;
+
     private String name;
 
     protected CourierCompany(){
@@ -26,4 +28,5 @@ public class CourierCompany {
         this.name = name;
         this.pricePerKm = pricePerKm;
     }
+
 }
