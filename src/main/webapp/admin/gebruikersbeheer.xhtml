@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Created by IntelliJ IDEA.
-  User: student
-  Date: 11/13/13
-  Time: 12:13 PM
+ * Created by Erwin on 02-06-2014.
 -->
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -20,6 +17,11 @@
     <ui:define name="script">
 
         <script type="text/javascript">
+            //function OpenDate(){
+       //         $("#registrationForm\\:dateofBirth").datepicker();
+       //         $("#registrationForm\\:dateofBirth").regional['nl'];
+          //  }
+
             function showLoading() {
                 var a = $('div.loadImage');
                 a.show();
@@ -47,12 +49,11 @@
             <h:column><h:link outcome="/admin/gebruikersbeheer.xhtml?delete=#{persoonsGegevens.id}" value="[verwijderen]"/></h:column>
         </h:dataTable>
         <br/>
-        <h:form id="registrationForm">
+        <h:form id="registrationForm" rendered="#{param.edit!=null}">
 
             <legend>Gebruiker bewerken:</legend>
             <br />
             <ui:repeat value="#{adminController.getUserDetails(param.edit)}" var="userToEdit">
-
                     <label>Voornaam:</label><h:inputText id="firstName" value="#{userToEdit.firstName}" pt:placeholder="Voornaam" requiredMessage="Field required"></h:inputText><h:message errorClass="text-error" for="firstName"/>
                     <label>Achternaam:</label><h:inputText id="lastName" value="#{userToEdit.lastName}" pt:placeholder="Achternaam" requiredMessage="Field required"></h:inputText><h:message errorClass="text-error" for="lastName"/>
                     <label>Adres:</label><h:inputText id="street" value="#{userToEdit.address.street}" pt:placeholder="Adres" requiredMessage="Field required"></h:inputText><h:message errorClass="text-error" for="street"/>
@@ -62,8 +63,6 @@
                     <label>Telefoon:</label><h:inputText id="telePhone" value="#{userToEdit.telePhone}" pt:placeholder="Telefoon" requiredMessage="Field required"></h:inputText><h:message errorClass="text-error" for="telePhone"/>
                     <label>Gewenste rol:</label><h:inputText id="role" value="#{userToEdit.role}" pt:placeholder="Gewenste rol" requiredMessage="Field required"></h:inputText><h:message errorClass="text-error" for="role"/>
                     <label>Geboortedatum:</label><h:inputText id="dateofBirth" value="#{userToEdit.dateofBirth}" pt:placeholder="Geboortedatum" requiredMessage="Field required"></h:inputText><h:message errorClass="text-error" for="dateofBirth"/>
-
-
                      <h:commandButton styleClass="btn" id="updateUser" value="Gebruiker updaten"
                                        action="#{adminController.updateUser}" />
                      <h:message errorClass="text-error" for="updateUser"/>

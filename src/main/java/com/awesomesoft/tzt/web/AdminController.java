@@ -55,11 +55,14 @@ import java.util.List;
     public Person getUserDetails(Long id){
         if(
             (id != null && lastID != id || this.personToEdit == null)){
+            System.out.println(id);
             this.personToEdit = repository.getPersonById(id);
             lastID = id;
         }
         return this.personToEdit;
     }
+
+
 
     public String updateUser(){
         if(personToEdit != null) {

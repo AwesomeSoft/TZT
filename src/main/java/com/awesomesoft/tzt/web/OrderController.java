@@ -20,8 +20,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.awesomesoft.tzt.web.ControllerHelper.message;
 
 
 @ManagedBean  //zorgt ervoor dat de personcontroller in JSF beschikbaar is
@@ -35,12 +38,15 @@ public class OrderController {
 
     private Person receiver;
 
+    private Long orderNumberInfo;
+    private String postalCodeInfo;
+    private TZTOrder tztOrderInfo;
+
     public TZTOrder getTztOrder() {
         return tztOrder;
     }
 
     private TZTOrder tztOrder;
-
     @PostConstruct
     public void init() {
 
@@ -60,6 +66,9 @@ public class OrderController {
         this.receiver = receiver;
     }
 
+    public TZTOrder getTztOrderInfo(){
+        return tztOrderInfo;
+    }
     /**
      * Creates an order and plans the route.
      * <p/>
@@ -89,10 +98,10 @@ public class OrderController {
             throw new RuntimeException(e);
 
         } catch (LocationUknownException e) {
-            ControllerHelper.message(e.getMessage(), "sendPackageForm:submitOrder", "ERROR");
+            message(e.getMessage(), "sendPackageForm:submitOrder", "ERROR");
             return "";
         } catch (APIConnectionException e) {
-            ControllerHelper.message(e.getMessage(), "sendPackageForm:submitOrder", "ERROR");
+            message(e.getMessage(), "sendPackageForm:submitOrder", "ERROR");
             return "";
         }
 
@@ -145,11 +154,19 @@ public class OrderController {
         }
     }
 
-
-    public String StatusVerzending() {
-        return "test";
-
-    }
+/* Controleer het ordernummer+postcode en geef bij resultaat een pagina terug met de resultaten */
+ public String StatusVerzending() {
+     try {
+         this.tztOrderInfo = repository.getOrderByPostalCodeOrdernr(orderNumberInfo, postalCodeInfo);
+         return "ResultStatusVerzending.xhtml";
+     }catch (NoResultException e) {
+         ControllerHelper.message(e.getMessage(), "statuszendingForm:submitStatusOpenstaandeZending", "ERROR");
+         return "";
+     }catch (Exception e) {
+         ControllerHelper.message(e.getMessage(), "statuszendingForm:submitStatusOpenstaandeZending", "ERROR");
+             return "";
+     }
+     }
 
 
     private boolean foundTrainCourier(Station nearestSenderStations, Station nearestDeliveryStations) {
@@ -165,5 +182,19 @@ public class OrderController {
         return false;
     }
 
+    public String getPostalCodeInfo() {
+        return postalCodeInfo;
+    }
 
+    public void setPostalCodeInfo(String postalCodeInfo) {
+        this.postalCodeInfo = postalCodeInfo;
+    }
+
+    public Long getOrderNumberInfo() {
+        return orderNumberInfo;
+    }
+
+    public void setOrderNumberInfo(Long orderNumberInfo) {
+        this.orderNumberInfo = orderNumberInfo;
+    }
 }

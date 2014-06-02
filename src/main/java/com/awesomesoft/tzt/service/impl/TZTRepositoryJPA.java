@@ -7,6 +7,7 @@ import com.awesomesoft.tzt.service.exception.LocationUknownException;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.LinkedList;
@@ -134,6 +135,18 @@ public class TZTRepositoryJPA implements TZTRepository {
         return em.find(TZTOrder.class,id);
     }
 
+    /* Zoek een order op basis van Postcode en Ordernr*/
+    public TZTOrder getOrderByPostalCodeOrdernr(Long orderNumber, String postalCode) throws JPAException, NoResultException {
+        String jpql = "select O from TZTOrder O JOIN O.receiver person JOIN person.address address WHERE O.orderNumber  = :orderNumber AND address.postalCode = :postalcode";
+        TypedQuery<TZTOrder> q = em.createQuery(jpql, TZTOrder.class);
+        q.setParameter("orderNumber", orderNumber);
+        q.setParameter("postalcode", postalCode);
+        if(q.getResultList().isEmpty()){
+            throw new NoResultException("Geen order gevonden!");
+        }
+        return q.getSingleResult();
+    }
+
     public Long insertPackage(Package p) {
         em.persist(p); // de persist functie van de entity manager zorgt ervoor dat deze bestaat.
         return p.getId();
@@ -164,6 +177,7 @@ public class TZTRepositoryJPA implements TZTRepository {
         em.merge(tztOrder);
     }
 
+    /* Lijst met gebruikers ophalen*/
     @Override
     public List<Person> listUsersAdminView(){
             String jpql = "select p from Person p ORDER BY id ASC";

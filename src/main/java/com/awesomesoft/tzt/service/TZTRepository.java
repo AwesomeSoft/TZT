@@ -5,6 +5,7 @@ import com.awesomesoft.tzt.service.domain.Package;
 import com.awesomesoft.tzt.service.exception.LocationUknownException;
 import com.awesomesoft.tzt.service.impl.JPAException;
 
+import javax.persistence.NoResultException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,6 +34,8 @@ public interface TZTRepository {
     Long insertOrder(TZTOrder o);
 
     TZTOrder getOrderById(Long id);
+
+    TZTOrder getOrderByPostalCodeOrdernr(Long orderNumber, String postalCode) throws JPAException, NoResultException;
 
     Long insertPackage(Package p);
 

@@ -49,6 +49,11 @@ public class TZTOrder {
         return orderNumber;
     }
 
+    // Added by Erwin
+    public void setOrderNumber(long orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
     private long orderNumber;
 
     private double totalCostprice;
@@ -72,7 +77,6 @@ public class TZTOrder {
 
     @OneToOne
     private Route route;
-
 
     public Package getaPackage() {
         return aPackage;
@@ -111,6 +115,10 @@ public class TZTOrder {
             throw new RuntimeException(e);
 
         }
+    }
+
+    public int getStatus(){
+        return status;
     }
 
     public Long getId() {
