@@ -26,7 +26,7 @@ import java.util.List;
         @PostConstruct
         public void init() {
         }
-        public void makeTrainStationsList() {
+        public String makeTrainStationsList() {
             nsApi = new NsApi("erwinvanzandvliet@gmail.com", "jEwxHwkBSQBOjsQH-64LqwxqNBwzQMaD-UvoIuBpcSKHk8MRz7j12w");
             List<Station> apiResponse = null;
             try {
@@ -41,7 +41,6 @@ import java.util.List;
                     if((value.getType().equals("knooppuntIntercitystation"))||(value.getType().equals("megastation"))) {
                         Namen namen = value.getNamen();
                         com.awesomesoft.tzt.service.domain.Station station = new com.awesomesoft.tzt.service.domain.Station(namen.getMiddel(), value.getLon(), value.getLat());
-                        //     Location location_id = new Location(value.getLon(),value.getLat());
                         try {
                             repository.insertTrainStation(station);
                         }catch (Exception e){
@@ -50,12 +49,10 @@ import java.util.List;
                             message.append(namen.getMiddel());
                             logger.info(message.toString());
                         }
-
-
                     }
                 }
             }
-
+            return "confirmation.xhtml";
         }
 
 }

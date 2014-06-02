@@ -54,4 +54,8 @@ public interface TZTRepository {
     void updateTrainCourier(TrainCourier trainCourier);
 
     Long insertTrainStation(Station station);
+
+    List<Person> listUsersAdminView();
+
+    List<Person> getUserDetails(int id);
 }

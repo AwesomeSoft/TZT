@@ -115,7 +115,7 @@
                     <h:outputLabel rendered="#{personController.person.getRole()==50}">iban</h:outputLabel>
                     <h:inputText id="IBAN" required="true" requiredMessage="Field required" autocomplete="false"
                                  value="#{personController.person.iban}" pt:placeholder="iban" rendered="#{personController.person.getRole()==50}"/>
-                    <h:message errorClass="text-error" for="iban" rendered="#{personController.person.getRole()==50}"/>
+                    <h:message errorClass="text-error" for="IBAN" rendered="#{personController.person.getRole()==50}"/>
                     <h:outputLabel rendered="#{personController.person.getRole()==50}">Tenaamstelling</h:outputLabel>
                     <h:inputText id="tenaamstelling" required="true" requiredMessage="Field required" autocomplete="false"
                                  value="#{personController.person.tenaamstelling}" pt:placeholder="Tenaamstelling" rendered="#{personController.person.getRole()==50}"/>

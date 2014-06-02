@@ -61,8 +61,7 @@ public class PersonController {
         personInfo = new PersonInfo();
     }
 
-    public void updateProfile() {
-        System.out.println("sad");
+    public String updateProfile() {
         logger.info("Updaten profiel voor {}", person.getEmailAddress());
         try {
             validatePostalCode(true);
@@ -70,8 +69,10 @@ public class PersonController {
           // moet nog code bij.
           //  validateEmailAddress(false);
             repository.updatePerson(person);
+            return "confirmation.xhtml";
         } catch (ValidationException e) {
             ControllerHelper.message(e.getMessage(), "changePasswordForm:submitChange", "ERROR");
+            return "";
         }
     }
 

@@ -49,8 +49,16 @@
             }
 
             function changeRole() {
-                alert($('.role').val());
-                $('.traincourierSubmitbutton').show();
+                if ($( "#registrationForm\\:role option:selected" ).text() == "Treinkoerier"){
+                    $( "#registrationForm\\:submitRegistration" ).hide();
+                    $( "#registrationForm\\:submitTrainCourierRegistration" ).show();
+                }else{
+                    $( "#registrationForm\\:submitRegistration" ).show();
+                    $( "#registrationForm\\:submitTrainCourierRegistration" ).hide();
+                }
+
+   //             document.getElementById('submitRegistration').style.visibility='hidden'; // show
+     //           document.getElementById('traincourierSubmitbutton').style.visibility='visible'; // show
             }
     </script>
 
@@ -140,40 +148,6 @@
 
                 </h:panelGrid>
                 <h:panelGrid columns="3">
-                   <!--
-
-                    <label>Geboortedatum</label> <h:inputText id="dateofBirth" required="true" requiredMessage="Field required" autocomplete="false"
-                                                              value="" pt:placeholder="Geboortedatum"/>
-                    <h:message errorClass="text-error" for="dateofBirth"/>
-
-                    <label>Bankgegevens (IBAN)</label>
-                    <h:inputText id="IBAN" required="true" requiredMessage="Field required" autocomplete="false"
-                                 value="" pt:placeholder="Bankgegevens (IBAN)"/>
-                    <h:message errorClass="text-error" for="IBAN"/>
-
-                    <label>Werkdagen</label>
-                    <h:inputText id="IBAN1" required="true" requiredMessage="Field required" autocomplete="false"
-                                 value="" pt:placeholder="Werkdagen"/>
-                    <h:message errorClass="text-error" for="IBAN1"/>
-                    <label>Werkdagen</label>
-                    <h:inputText id="IBAN2" required="true" requiredMessage="Field required" autocomplete="false"
-                                 value="" pt:placeholder="Werkdagen"/>
-                    <h:message errorClass="text-error" for="IBAN2"/>
-                    <label>Werkdagen</label>
-                    <h:inputText id="IBAN3" required="true" requiredMessage="Field required" autocomplete="false"
-                                 value="" pt:placeholder="Werkdagen"/>
-                    <h:message errorClass="text-error" for="IBAN3"/>
-                    <label>Werkdagen</label>
-                    <h:inputText id="IBAN4" required="true" requiredMessage="Field required" autocomplete="false"
-                                 value="" pt:placeholder="Werkdagen"/>
-                    <h:message errorClass="text-error" for="IBAN4"/>
-                    <label>Werkdagen</label>
-                    <h:inputText id="IBAN5" required="true" requiredMessage="Field required" autocomplete="false"
-                                 value="" pt:placeholder="Werkdagen"/>
-                    <h:message errorClass="text-error" for="IBAN5"/>-->
-
-
-
                     <!--   Geboortedatum: <input type="text" id="datepicker"></input>-->
 
                     <h:commandButton class="Submitbutton" styleClass="btn" id="submitRegistration" value="Opslaan" onstart="showLoading()"

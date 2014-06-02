@@ -30,45 +30,7 @@
                              action="#{orderController.StatusVerzending}"/>
         </h:form>
 
-
-            <!--<h:panelGroup id="searchResultsTable">
-                <h:dataTable
-                        value="#{orderController.orderList}"
-                        var="book"
-                        styleClass="table table-hover"
-                        rowClasses="book"
-                        columnClasses="image,title,author,available">
-
-                    <h:column>
-                        <h:link style="display: none" outcome="../book/index.xhtml" value="">
-                            <f:param name="id" value="#{book.id}" />
-                        </h:link>
-                        <p:graphicImage styleClass="bookcover" width="150" height="150" url="#{book.imageLink.length()>0 ? book.imageLink : '../resources/img/nocover.jpg'}" />
-                    </h:column>
-
-                    <h:column>
-                        <f:param name="id" value="#{book.id}" />
-                        <f:facet name="header" >Title</f:facet>
-                        <p><h:outputText style="font-weight: bold" value="#{book.title}" /></p>
-                        <p><h:outputText value="#{book.description.length()>100 ? book.description.substring(0,100) : 'no description found'}.."/></p>
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">Author</f:facet>
-                        <h:outputLabel value="#{book.authors}"/>
-                    </h:column>
-
-                    <h:column>
-                        <f:facet name="header">Available</f:facet>
-                        <h:outputText value="#{book.available ? 'Yes' : 'No'}" />
-                    </h:column>
-                </h:dataTable>
-                <h:outputText rendered="#{empty bookController.bookList}" value="No results. Try another search" />
-            </h:panelGroup>-->
         </ui:define>
     </ui:composition>
-
-
 </h:body>
-
 </html>

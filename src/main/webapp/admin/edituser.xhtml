@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:body>
+
+    <ui:composition template="../WEB-INF/template.xhtml">
+
+        <ui:define name="title">Gebruikersbeheer - Edit</ui:define>
+
+        <ui:define name="content">
+            <h:form>
+                <legend>Gebruikersbeheer - Edit</legend>
+                <h:dataTable value="#{adminController.editUser}" var="persoonsGegevens" border="1">
+                    <h:column><f:facet name="header">id</f:facet>#{persoonsGegevens.id}</h:column>
+                    <h:column><f:facet name="header">Voornaam</f:facet>#{persoonsGegevens.firstName}</h:column>
+                    <h:column><f:facet name="header">Achternaam</f:facet>#{persoonsGegevens.lastName}</h:column>
+                    <h:column><f:facet name="header">E-mailadres</f:facet>#{persoonsGegevens.emailAddress}</h:column>
+                    <h:column><f:facet name="header">Telefoon</f:facet>#{persoonsGegevens.telePhone}</h:column>
+                    <h:column><f:facet name="header">Postcode</f:facet>#{persoonsGegevens.address.postalCode}</h:column>
+                    <h:column><f:facet name="header">Plaats</f:facet>#{persoonsGegevens.address.town}</h:column>
+                    <h:column><f:facet name="header">Geboortedatum</f:facet>#{persoonsGegevens.dateofBirth}</h:column>
+                    <h:column><f:facet name="header">Aanmeldingsdatum</f:facet>#{persoonsGegevens.dateCreated}</h:column>
+                    <h:column><f:facet name="header">Role</f:facet>#{persoonsGegevens.role}</h:column>
+                    <h:column><h:link outcome="/admin/gebruikersbeheer.xhtml?edit=#{persoonsGegevens.id}" value="[wijzigen]" rendered="#{!adminController.currentUser()}"  /></h:column>
+                    <h:column><h:link outcome="/admin/gebruikersbeheer.xhtml?delete=#{persoonsGegevens.id}" value="[verwijderen]" rendered="#{!adminController.currentUser()}"/></h:column>
+                </h:dataTable>
+            </h:form>
+            <h:inputText id="edit" value="#{param.edit}"></h:inputText>
+
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

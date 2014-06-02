@@ -199,6 +199,16 @@ public class Person {
         return 0;
     }
 
+
+    public int getRole(boolean admin) {
+        if(admin) {
+            return role;
+        }else {
+            return 0;
+        }
+    }
+
+
     public void setRole(int role) {
         this.role = role;
     }
