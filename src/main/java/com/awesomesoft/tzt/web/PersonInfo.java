@@ -3,7 +3,7 @@ package com.awesomesoft.tzt.web;
 import java.util.Date;
 
 /**
- * Created by student on 5/26/14.
+ * Created by Gerben on 26-5-2014.
  */
 public class PersonInfo {
 

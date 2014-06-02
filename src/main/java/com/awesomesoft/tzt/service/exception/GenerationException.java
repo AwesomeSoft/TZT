@@ -3,7 +3,7 @@ package com.awesomesoft.tzt.service.exception;
 /**
  * Created by student on 5/13/14.
  */
-public class GenerationException extends Throwable {
+public class GenerationException extends Exception {
     public GenerationException() {
     }
 

@@ -7,9 +7,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import java.util.List;
-
 /**
- * Created by student on 5/30/14.
+ * Created by Gerben on 24-5-2014.
  */
 @FacesConverter("stationConverter")
 public class StationConverter implements Converter{
@@ -17,7 +16,7 @@ public class StationConverter implements Converter{
 
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
         if(value != null && value.trim().length() > 0) {
-            TrainCourierController trainCourierController = (TrainCourierController) fc.getExternalContext().getSessionMap().get("trainCourierController");
+            TrainCourierController trainCourierController = (TrainCourierController) fc.getApplication().evaluateExpressionGet(fc,"#{trainCourierController}",TrainCourierController.class);
             List<Station> allStations = trainCourierController.getAllStatins();
             for (Station station : allStations) {
                 if(station.getId() == Long.parseLong(value))

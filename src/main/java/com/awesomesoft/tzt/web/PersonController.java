@@ -11,9 +11,7 @@ import com.awesomesoft.tzt.service.SSLMailer;
 import com.awesomesoft.tzt.service.TZTRepository;
 import com.awesomesoft.tzt.service.domain.Person;
 import com.awesomesoft.tzt.service.domain.TrainCourier;
-import com.awesomesoft.tzt.service.exception.AuthenticationException;
-import com.awesomesoft.tzt.service.exception.GenerationException;
-import com.awesomesoft.tzt.service.exception.ValidationException;
+import com.awesomesoft.tzt.service.exception.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +36,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by student on 1/14/14.
+ * Created by Gerben on 1-10-2014.
  */
 @ManagedBean  //zorgt ervoor dat de personcontroller in JSF beschikbaar is
 @SessionScoped  //zorgt ervoor dat de personcontroller in JSF beschikbaar is
@@ -55,34 +53,40 @@ public class PersonController {
 
     protected PersonInfo personInfo;
 
-    @PostConstruct // dit zorgt ervoor dat er een person object is wanneer deze controler aangeroepen is. Deze person is leeg.
-    //De person kan in faces gevuld worden door een getter in de controller
+    @PostConstruct
     public void init() {
+        //Initialize the personInfo object used in JSF
         personInfo = new PersonInfo();
     }
 
+    /**
+     * Updates the profile settings
+     */
     public void updateProfile() {
         System.out.println("sad");
         logger.info("Updaten profiel voor {}", person.getEmailAddress());
         try {
-            validatePostalCode(true);
-            validateHouseNumber(true);
-          // moet nog code bij.
-          //  validateEmailAddress(false);
+            validatePostalCode();
+            validateHouseNumber();
+            validateEmailAddress(false);
             repository.updatePerson(person);
         } catch (ValidationException e) {
             ControllerHelper.message(e.getMessage(), "changePasswordForm:submitChange", "ERROR");
         }
     }
 
+    /**
+     * Register a user with the server.
+     * @return returns confirmation page.
+     */
     public String register() {
         logger.info("Registering {} {}", personInfo.getFirstName(), personInfo.getLastName());
 
         try {
             person = new Person(personInfo);
-            validatePostalCode(true);
-            validateHouseNumber(true);
-            validateDateofBirth(true);
+            validatePostalCode();
+            validateHouseNumber();
+            validateDateofBirth();
             validateEmailAddress(true);
             validatePassword();
             person.setDateCreated(new Date());
@@ -93,18 +97,28 @@ public class PersonController {
         } catch (ValidationException | GenerationException e) {
             ControllerHelper.message(e.getMessage(), "registrationForm:submitRegistration", "ERROR");
             return "";
+        } catch (LocationUknownException e) {
+            ControllerHelper.message(e.getMessage(), "registrationForm:submitRegistration", "ERROR");
+            return "";
+        } catch (APIConnectionException e) {
+            ControllerHelper.message(e.getMessage(), "registrationForm:submitRegistration", "ERROR");
+            return "";
         }
     }
 
+    /**
+     * Register a trainCourier with the server.
+     * @return returns confirmation page.
+     */
     public String registerTrainCourier() {
         logger.info("Registering {} {}", personInfo.getFirstName(), personInfo.getLastName());
 
         try {
             trainCourier = new TrainCourier(personInfo);
             person = trainCourier;
-            validatePostalCode(true);
-            validateHouseNumber(true);
-            validateDateofBirth(true);
+            validatePostalCode();
+            validateHouseNumber();
+            validateDateofBirth();
             validateEmailAddress(true);
             validatePassword();
             trainCourier.setDateCreated(new Date());
@@ -117,9 +131,12 @@ public class PersonController {
             return "";
         }
     }
-    /*Added by Erwin*/
 
-    private void validatePostalCode(boolean register) throws ValidationException {
+    /**
+     * Validation of the postalcode. Only contains four numbers and two characters
+     * @throws ValidationException
+     */
+    private void validatePostalCode() throws ValidationException {
         String postalCode = person.getAddress().getPostalCode();
         logger.info("Validating postcalCode \"{}\"", postalCode);
 
@@ -131,8 +148,14 @@ public class PersonController {
             throw new ValidationException("postcalCode invalid");
         }
     }
-
-    private void validateHouseNumber(boolean register) throws ValidationException {
+    /**
+     * Validates the HouseNumber.
+     * This method validates the address using a regular expression
+     *
+     *
+     * @throws ValidationException
+     */
+    private void validateHouseNumber() throws ValidationException {
         String houseNumber = person.getAddress().getHouseNumber();
         logger.info("Validating houseNumber \"{}\"", houseNumber);
 
@@ -144,8 +167,14 @@ public class PersonController {
             throw new ValidationException("houseNumber invalid");
         }
     }
-
-    private void validateDateofBirth(boolean register) throws ValidationException {
+    /**
+     * Validates the Date of birth on the following partern MM-DD-YYYY.
+     * This method validates the address using a regular expression
+     *
+     *
+     * @throws ValidationException
+     */
+    private void validateDateofBirth() throws ValidationException {
         String dateofBirth = person.getDateofBirth();
         logger.info("Validating dateofBirth \"{}\"", dateofBirth);
 
@@ -215,7 +244,15 @@ public class PersonController {
 
         person.setPassword(digestPassword(password));
     }
-
+    /**
+     * Generates an activation URL with which the user can activate the account
+     *
+     * @param id the Id of the person object
+     * @param emailAddress the email address of the person
+     * @param password the password of the person
+     *
+     * @throws GenerationException
+     */
     private void generateActivationUrl(Long id, String emailAddress, String password) throws GenerationException {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
@@ -231,6 +268,14 @@ public class PersonController {
         logger.info("Generated URL = {}", person.getActivationUrl());
     }
 
+    /**
+     * Generates an unique activation code
+     *
+     * @param emailAddress the email address of the person
+     * @param password the password of the person
+     *
+     * @throws GenerationException
+     */
     private String generateActivationCode(String emailAddress, String password) throws GenerationException {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-1");
@@ -295,6 +340,9 @@ public class PersonController {
         }
     }
 
+    /**
+     * Add some salt and pepper to the password string. Then hash it with sha1 encryption
+     */
     private String digestPassword(String password) {
         final String salt = "518498bd76e3830421f8c6f31eaaee817b62ee8b";
         final String pepper = "839586c94bc175e5ccdc4019a76f972d4e8b8376";
@@ -356,6 +404,9 @@ public class PersonController {
         return sb.toString();
     }
 
+    /**
+     * Verifies the user credentials and sets adds the person object to the session.
+     */
     public String login(boolean requireAdmin) {
         try {
             authenticatePerson(requireAdmin);
@@ -419,6 +470,9 @@ public class PersonController {
         logger.info("Success");
     }
 
+    /**
+     *With this function the password of the person object can be changed
+     */
     public String changePassword() {
         logger.info("Changing password for {}", person.getEmailAddress());
 
@@ -432,6 +486,9 @@ public class PersonController {
         }
     }
 
+    /**
+     * Destroys the current session
+     */
     public void logout() throws IOException {
         Long id = person.getId();
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();

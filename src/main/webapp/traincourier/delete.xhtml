@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: student
+  Date: 11/13/13
+  Time: 12:13 PM
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="../WEB-INF/template.xhtml">
+
+    <ui:define name="title">Delete traject</ui:define>
+
+    <ui:define name="content">
+
+         <h:form id="deleteTraject" style="margin-top: 10px" >
+
+            <h:panelGrid columns="1">
+
+                <h:outputText id="departureDate" disabled="true" value="#{trainCourierController.trainTraject.departureDate}" />
+
+                <h:outputText  id="departureTime" disabled="true" value="#{trainCourierController.trainTraject.departureTime}" />
+
+                <h:outputText id="startPoint" disabled="true" value="#{trainCourierController.trainTraject.startPointStation.name}" />
+
+                <h:outputText id="endPoint" disabled="true" value="#{trainCourierController.trainTraject.endPointStation.name}"/>
+
+            </h:panelGrid>
+
+            <h:outputText style="margin: 50px 0 50px 0" value="Are you sure you want to delete this book?"/>
+            <br />
+            <br />
+            <h:link outcome="/profile/index" value="Cancel" styleClass="btn" style="margin-right:10px" />
+            <h:commandButton id="deleteTraject" value="Delete" styleClass="btn btn-danger" action="#{trainCourierController.deleTraject()}" />
+            <h:message errorClass="text-error" for="deleteTraject" />
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
+
+</html>

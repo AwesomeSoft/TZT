@@ -2,6 +2,7 @@ package com.awesomesoft.tzt.service;
 
 import com.awesomesoft.tzt.service.domain.*;
 import com.awesomesoft.tzt.service.domain.Package;
+import com.awesomesoft.tzt.service.exception.LocationUknownException;
 import com.awesomesoft.tzt.service.impl.JPAException;
 
 import java.util.LinkedList;
@@ -27,7 +28,7 @@ public interface TZTRepository {
 
     void updatePerson(Person p);
 
-    LinkedList<Station> getNearestStations(Location loc) throws JPAException;
+    LinkedList<Station> getNearestStations(Location loc) throws JPAException, LocationUknownException;
 
     Long insertOrder(TZTOrder o);
 
@@ -54,4 +55,11 @@ public interface TZTRepository {
     void updateTrainCourier(TrainCourier trainCourier);
 
     Long insertTrainStation(Station station);
+
+    boolean checkTrainTrajectExist(Long id);
+
+    TrainTraject getTrainTraject(Long id);
+
+    List<TrainCourier> getTrainCouriersWithPlanedRoutes();
+
 }

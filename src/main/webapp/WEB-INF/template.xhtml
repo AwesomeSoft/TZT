@@ -64,9 +64,9 @@
         <ul>
             <li><h:link rendered="#{personController.person.authenticated}" outcome="/profile/index" value="Persoonsgegevens" /></li>
             <!-- 40 = Afzender -->
-            <li><h:link rendered="#{personController.person.getRole()==40}" outcome="/Afzender/PakketRegistreeren" value="Registreren pakket" /></li>
-            <li><h:link rendered="#{personController.person.getRole()==40}" outcome="/Afzender/StatusVerzending" value="Status verzending" /></li>
-            <li><h:link rendered="#{personController.person.getRole()==40}" outcome="/Afzender/Historie" value="Historie" /></li>
+            <li><h:link rendered="#{personController.person.getRole()==40}" outcome="/afzender/PakketRegistreeren" value="Registreren pakket" /></li>
+            <li><h:link rendered="#{personController.person.getRole()==40}" outcome="/afzender/StatusVerzending" value="Status verzending" /></li>
+            <li><h:link rendered="#{personController.person.getRole()==40}" outcome="/afzender/Historie" value="Historie" /></li>
 
             <!-- 50 = Treinkoerier -->
             <li><h:link rendered="#{personController.person.getRole()==50}" outcome="/traincourier/index" value="Wijzigen beschikbaarheid" /></li>

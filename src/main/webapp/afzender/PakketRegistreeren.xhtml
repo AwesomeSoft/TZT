@@ -15,7 +15,7 @@
 
 <ui:composition template="../WEB-INF/template.xhtml">
 
-    <ui:define name="title">Registration</ui:define>
+    <ui:define name="title">Pakket verzenden</ui:define>
 
     <ui:define name="script">
 
@@ -54,7 +54,7 @@
         <div class="loadImage" style="display: none">
             <h:graphicImage alt="Loading" library="img" name="loadingsaltpepper.gif"/>
         </div>
-        <h:form id="registrationForm">
+        <h:form id="sendPackageForm">
 
             <legend>Registeren pakket</legend>
 
@@ -123,7 +123,8 @@
                                  value="#{orderController.tztOrder.aPackage.weightInKilos}" pt:placeholder="PakketgegevensGewicht"/>
                     <h:message errorClass="text-error" for="PakketgegevensGewicht"/>
                 </h:panelGrid>
-            <h:commandButton styleClass="btn btn-primary" id="submitBook" value="Submit" action="#{orderController.createOrder(personController.person)}"/>
+            <h:commandButton styleClass="btn btn-primary" id="submitOrder" value="Submit" action="#{orderController.createOrder(personController.person)}"/>
+            <h:message errorClass="text-error" for="submitOrder"/>
         </h:form>
 
     </ui:define>

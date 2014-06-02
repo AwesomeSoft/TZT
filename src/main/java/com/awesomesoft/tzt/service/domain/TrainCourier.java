@@ -9,7 +9,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 //Een domein calsse waarvan een object opgeslagen moet worden in de database krijgt een @Entity tag. Let op gebruik geen hibernate.
@@ -21,15 +21,7 @@ public class TrainCourier extends Person{
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinColumn(name="trainCourier_id",referencedColumnName = "id")
     @Fetch(value = FetchMode.SUBSELECT)
-    private List<TrainTraject> planedTrajects = new LinkedList<>();
-
-
-    public void addTraject(TrainTraject trainTraject) {
-        this.planedTrajects.add(trainTraject);
-    }
-
-
-
+    private List<TrainTraject> planedTrajects = new ArrayList<>();
 
     private double salary;
 
@@ -39,6 +31,15 @@ public class TrainCourier extends Person{
 
     public TrainCourier(PersonInfo personInfo){
         super(personInfo);
+    }
+
+    public void _ownTraject(TrainTraject trainTraject) {
+        this.planedTrajects.add(trainTraject);
+    }
+
+
+    public List<TrainTraject> getPlanedTrajects() {
+        return planedTrajects;
     }
 
     /*
@@ -54,6 +55,38 @@ public class TrainCourier extends Person{
     }
 
 
+    public boolean deletTraject(TrainTraject trainTraject) {
+        if(planedTrajects.contains(trainTraject)){
+            planedTrajects.remove(trainTraject);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TrainCourier)) return false;
+        if (!super.equals(o)) return false;
+
+        TrainCourier that = (TrainCourier) o;
+
+        if (Double.compare(that.salary, salary) != 0) return false;
+        if (planedTrajects != null ? !planedTrajects.equals(that.planedTrajects) : that.planedTrajects != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        long temp;
+        result = 31 * result + (planedTrajects != null ? planedTrajects.hashCode() : 0);
+        temp = Double.doubleToLongBits(salary);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 }
 
 

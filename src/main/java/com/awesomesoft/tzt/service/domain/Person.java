@@ -7,6 +7,8 @@
 
 package com.awesomesoft.tzt.service.domain;
 
+import com.awesomesoft.tzt.service.exception.APIConnectionException;
+import com.awesomesoft.tzt.service.exception.LocationUknownException;
 import com.awesomesoft.tzt.web.PersonInfo;
 
 import javax.persistence.*;
@@ -80,20 +82,19 @@ public class Person {
 
     }
 
-    public Person(PersonInfo personInfo){
-         this.address = new Address(personInfo.getAddressInfo());
+    public Person(PersonInfo personInfo) throws LocationUknownException, APIConnectionException {
+        this.address = new Address(personInfo.getAddressInfo());
         this.firstName = personInfo.getFirstName();
         this.lastName = personInfo.getLastName();
         this.emailAddress = personInfo.getEmailAddress();
         this.password = personInfo.getPassword();
         this.confirmedPassword = personInfo.getConfirmedPassword();
         this.dateCreated = new Date();
-
         this.telePhone = personInfo.getTelePhone();
         this.role = personInfo.getRole();
-        setDateofBirth(personInfo.getDateofBirth());
         this.iban = personInfo.getIban();
         this.tenaamstelling = personInfo.getTenaamstelling();
+        setDateofBirth(personInfo.getDateofBirth());
     }
     public String getSalutation() {
         return salutation;
@@ -181,7 +182,7 @@ public class Person {
         return address;
     }
 
-    public void setAddress(String street, String houseNumber, String postalCode, String town ){
+    public void setAddress(String street, String houseNumber, String postalCode, String town ) throws LocationUknownException, APIConnectionException {
         this.address = new Address(street,houseNumber, postalCode,town);
     }
 

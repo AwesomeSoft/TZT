@@ -3,6 +3,7 @@ package com.awesomesoft.tzt.service.impl;
 import com.awesomesoft.tzt.service.TZTRepository;
 import com.awesomesoft.tzt.service.domain.*;
 import com.awesomesoft.tzt.service.domain.Package;
+import com.awesomesoft.tzt.service.exception.LocationUknownException;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
@@ -70,6 +71,21 @@ public class TZTRepositoryJPA implements TZTRepository {
         return station.getId();
     }
 
+    @Override
+    public boolean checkTrainTrajectExist(Long id) {
+        String jpql = "select count(t) from TrainTraject t where id = ?1";
+        TypedQuery<Long> q = em.createQuery(jpql, Long.class);
+        q.setParameter(1, id);
+        return q.getSingleResult() > 0;
+    }
+
+    @Override
+    public TrainTraject getTrainTraject(Long id) {
+        return em.find(TrainTraject.class,id);
+    }
+
+
+
     public boolean checkPersonExistsByEmailAddress(String emailAddress) {
         String jpql = "select count(p) from Person p where emailAddress = ?1";
         TypedQuery<Long> q = em.createQuery(jpql, Long.class);
@@ -77,8 +93,17 @@ public class TZTRepositoryJPA implements TZTRepository {
         return q.getSingleResult() > 0;
     }
 
-    public LinkedList<Station> getNearestStations(Location loc) throws JPAException{
+    public List<TrainCourier> getTrainCouriersWithPlanedRoutes() {
+        String jpql = "select t from TrainCourier t where size(t.planedTrajects) > 0";
+        TypedQuery<TrainCourier> q = em.createQuery(jpql, TrainCourier.class);
+        return q.getResultList();
+    }
 
+
+    public LinkedList<Station> getNearestStations(Location loc) throws JPAException, LocationUknownException {
+        if(loc == null){
+            throw new LocationUknownException("There is no known location");
+        }
         String jpql = "select ((((acos(sin(("+loc.getLat()+"*pi()/180)) * sin((l.lat*pi()/180))+cos(("+loc.getLat()+"*pi()/180))" +
                 "   * cos((l.lat*pi()/180)) * cos((("+loc.getLng()+" - l.lng)*pi()/180))))*180/pi())*60*1.1515)*1.609344)" +
                 " AS kilometer, s from Station s JOIN s.location l ORDER BY kilometer ASC ";

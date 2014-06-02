@@ -4,6 +4,8 @@ import com.awesomesoft.tzt.service.GoogleMapsApi.models.GLocation;
 import com.awesomesoft.tzt.service.GoogleMapsApi.models.Route;
 import com.awesomesoft.tzt.service.domain.Location;
 import com.awesomesoft.tzt.service.domain.Station;
+import com.awesomesoft.tzt.service.exception.APIConnectionException;
+import com.awesomesoft.tzt.service.exception.GoogleMapsApiException;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -22,88 +24,106 @@ public abstract class GoogleMapsApi{
     static final String GOOGLE_DIRECTIONS_URL = "https://maps.googleapis.com/maps/api/directions/json?";
     static final String GOOGLE_GEOLOCATION_URL = "https://maps.googleapis.com/maps/api/geocode/json?";
 
-    public static Route planRoute(Location startLocation, Location endLocation,String mode){
+    public static Route planRoute(Location startLocation, Location endLocation,String mode) throws APIConnectionException, GoogleMapsApiException {
         String routeOption = "&mode="+mode;
         String departureTime = "&departure_time="+ new Date().getTime()/1000;
-
         String routeString = "origin="+startLocation.toString()+"&destination="+endLocation.toString()+"&sensor=false";
+        StringBuilder urlString = new StringBuilder();
+        urlString.append(GOOGLE_DIRECTIONS_URL);
+        urlString.append(routeString);
+        urlString.append(PUBLIC_API_KEY);
+        urlString.append(departureTime);
+        urlString.append(routeOption);
         try {
-            URL url = new URL(GOOGLE_DIRECTIONS_URL+routeString+PUBLIC_API_KEY+departureTime+routeOption);
-            System.out.println(GOOGLE_DIRECTIONS_URL+routeString+PUBLIC_API_KEY+departureTime+routeOption);
-            String result = startHTTPSrequest(url);
-            Route Route = JacksonObjectMapper.getRoute(result);
-            return Route;
+                URL url = new URL(urlString.toString());
+                String result = startHTTPSrequest(url);
+                Route Route = JacksonObjectMapper.getRoute(result);
+                return Route;
             } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
+                StringBuilder errorMessage = new StringBuilder();
+                errorMessage.append("Fatal Error in connecting to the URL: ");
+                errorMessage.append(urlString.toString());
+                throw new GoogleMapsApiException("Bad URL request");
+            }
     }
 
-    public static Route getTrainRoute(Station senderStation, Station receiverStation,Date departureTime){
+    public static Route getTrainRoute(Station senderStation, Station receiverStation,Date departureTime) throws GoogleMapsApiException, APIConnectionException {
+
         String routeString = "origin="+senderStation.getLocation().getLat()+","+senderStation.getLocation().getLng()+"&destination="+receiverStation.getLocation().getLat()+","+receiverStation.getLocation().getLng()+"&sensor=false&mode=transit";
+        StringBuilder urlString = new StringBuilder();
+        String mode = "&mode=transit";
+        String departureTimeString = "&departure_time="+departureTime.getTime()/10000;
+        urlString.append(GOOGLE_DIRECTIONS_URL);
+        urlString.append(routeString);
+        urlString.append(PUBLIC_API_KEY);
+        urlString.append(departureTimeString);
+        urlString.append(mode);
         try {
-            String mode = "&mode=transit";
-            String departureTimeString = "&departure_time="+departureTime.getTime()/10000;
-            URL url = new URL(GOOGLE_DIRECTIONS_URL+routeString+PUBLIC_API_KEY+departureTimeString+mode);
-            System.out.println(GOOGLE_DIRECTIONS_URL+routeString+PUBLIC_API_KEY+departureTimeString+mode);
+            URL url = new URL(urlString.toString());
             String result = startHTTPSrequest(url);
             Route Route = JacksonObjectMapper.getRoute(result);
             return Route;
         } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
+            StringBuilder errorMessage = new StringBuilder();
+            errorMessage.append("Fatal Error in connecting to the URL: ");
+            errorMessage.append(urlString.toString());
+            throw new GoogleMapsApiException("Bad URL request");
         }
 
     }
 
-    public static GLocation getLocation(String address){
+    public static GLocation getLocation(String address) throws GoogleMapsApiException, APIConnectionException {
         String requestString = "address="+address;
+        StringBuilder urlString = new StringBuilder();
+        urlString.append(GOOGLE_GEOLOCATION_URL);
+        urlString.append(requestString);
+        urlString.append(PUBLIC_API_KEY);
         try {
-            URL url = new URL(GOOGLE_GEOLOCATION_URL+requestString+PUBLIC_API_KEY);
-            System.out.println("Used request: "+GOOGLE_GEOLOCATION_URL+requestString+PUBLIC_API_KEY);
+            URL url = new URL(urlString.toString());
             String result = startHTTPSrequest(url);
             result = result.replace(" ","");
             GLocation GLocation = JacksonObjectMapper.getLocation(result);
-
             return GLocation;
         } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
+            StringBuilder errorMessage = new StringBuilder();
+            errorMessage.append("Fatal Error in connecting to the URL: ");
+            errorMessage.append(urlString.toString());
+            throw new GoogleMapsApiException("Bad URL request");
         }
     }
 
-    public static String startHTTPSrequest(URL url){
-        HttpsURLConnection con = openHTTPSconnection(url);
-        if(con!=null){
-            try {
-                System.out.println("****** Content of the URL ********");
-                BufferedReader br =
-                        new BufferedReader(
-                                new InputStreamReader(con.getInputStream()));
-                String input;
-                StringBuilder jsonData = new StringBuilder();
-                while ((input = br.readLine()) != null){
-                    jsonData.append(input);
-                }
-                br.close();
-                return jsonData.toString();
+    public static String startHTTPSrequest(URL url) throws APIConnectionException {
+        try{
+              HttpsURLConnection con = openHTTPSconnection(url);
+              if(con!=null){
+                    BufferedReader br =
+                            new BufferedReader(
+                                    new InputStreamReader(con.getInputStream()));
+                    String input;
+                    StringBuilder jsonData = new StringBuilder();
+                    while ((input = br.readLine()) != null){
+                        jsonData.append(input);
+                    }
+                    br.close();
+                    return jsonData.toString();
+              }else{
+                  throw new APIConnectionException("No connection");
+              }
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new APIConnectionException("Connection error");
             }
-
-        }
-        return"";
     }
 
-    public static HttpsURLConnection openHTTPSconnection(URL url){
+    public static HttpsURLConnection openHTTPSconnection(URL url) throws APIConnectionException {
         HttpsURLConnection con = null;
         try {
-             con = (HttpsURLConnection)url.openConnection();
+            con =(HttpsURLConnection)url.openConnection();
             return con;
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            throw new APIConnectionException("Connection error");
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new APIConnectionException("Connection error");
         }
-        //never gets executed
-        return  con;
     }
 
 }

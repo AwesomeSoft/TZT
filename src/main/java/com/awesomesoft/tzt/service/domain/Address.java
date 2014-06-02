@@ -2,6 +2,9 @@ package com.awesomesoft.tzt.service.domain;
 
 import com.awesomesoft.tzt.service.GoogleMapsApi.GoogleMapsApi;
 import com.awesomesoft.tzt.service.GoogleMapsApi.models.GLocation;
+import com.awesomesoft.tzt.service.exception.APIConnectionException;
+import com.awesomesoft.tzt.service.exception.GoogleMapsApiException;
+import com.awesomesoft.tzt.service.exception.LocationUknownException;
 import com.awesomesoft.tzt.web.AddressInfo;
 
 import javax.persistence.*;
@@ -29,7 +32,7 @@ public class Address {
 
     }
 
-    public Address(String street, String houseNumber, String postalCode, String town){
+    public Address(String street, String houseNumber, String postalCode, String town) throws LocationUknownException, APIConnectionException {
         this.street = street;
         this.houseNumber = houseNumber;
         this.postalCode = postalCode;
@@ -37,7 +40,7 @@ public class Address {
         this.location = setLocation();
     }
 
-    public Address(AddressInfo addressInfo){
+    public Address(AddressInfo addressInfo) throws LocationUknownException, APIConnectionException {
         this.street = addressInfo.getStreet();
         this.houseNumber = addressInfo.getHouseNumber();
         this.postalCode = addressInfo.getPostalCode();
@@ -86,12 +89,27 @@ public class Address {
        this.id = id;
     }
 
-    public Location getLocation() {
-        return location;
+    public Location getLocation() throws LocationUknownException, APIConnectionException {
+        if(location == null){
+            try {
+                GLocation googleLocation = null;
+                googleLocation = GoogleMapsApi.getLocation(street + houseNumber + town);
+                return  new Location(googleLocation.getLng(),googleLocation.getLat());
+            } catch (GoogleMapsApiException e) {
+                throw new LocationUknownException("Het adres is niet gevonden ");
+            }
+        }else{
+          return location;
+        }
     }
 
-    private Location setLocation(){
-        GLocation googleLocation = GoogleMapsApi.getLocation(street+houseNumber+town);
-        return  new Location(googleLocation.getLng(),googleLocation.getLat());
+    private Location setLocation() throws LocationUknownException, APIConnectionException {
+        try {
+            GLocation googleLocation = null;
+            googleLocation = GoogleMapsApi.getLocation(street + houseNumber + town);
+            return  new Location(googleLocation.getLng(),googleLocation.getLat());
+        } catch (GoogleMapsApiException e) {
+            throw new LocationUknownException("Het adres is niet gevonden ");
+        }
     }
 }
