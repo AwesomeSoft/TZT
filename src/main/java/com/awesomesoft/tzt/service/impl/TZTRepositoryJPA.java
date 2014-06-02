@@ -163,4 +163,11 @@ public class TZTRepositoryJPA implements TZTRepository {
     public void updateTZTOrder(TZTOrder tztOrder) {
         em.merge(tztOrder);
     }
+
+    @Override
+    public List<Person> listUsersAdminView(){
+            String jpql = "select p from Person p ORDER BY id ASC";
+            TypedQuery<Person> q = em.createQuery(jpql, Person.class);
+            return q.getResultList();
+    }
 }

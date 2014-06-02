@@ -20,14 +20,6 @@
     <ui:define name="script">
 
         <script type="text/javascript">
-            function goBack() {
-                var answer = confirm ("Weet je zeker dat je wilt annuleren, de gegevens worden niet opgeslagen!")
-                if (answer)
-                    window.GLocation = "./cas/index.xhtml";
-                else
-                    return false;
-            }
-
             function showLoading() {
                 var a = $('div.loadImage');
                 a.show();
@@ -36,21 +28,20 @@
 
     </ui:define>
 
-    <ui:define name="title">Profile</ui:define>
+    <ui:define name="title">Update treinstationlijst</ui:define>
 
     <ui:define name="content">
-        <div class="loadImage" style="display: none">
-            <h:graphicImage alt="Loading" library="img" name="loadingsaltpepper.gif"/>
-        </div>
         <h:form id="registrationForm">
 
-            <legend>Persoonsgegevens</legend>
+            <legend>Update treinstationlijst</legend>
             <br />
             <h:commandButton styleClass="btn" id="submitRegistration" value="StationsLijstBijwerken" onstart="showLoading()"
-                             action="#{trainStationController.makeTrainStationsList}"/>
-
+                             action="#{trainStationController.makeTrainStationsList}" onclick="showLoading()"/>
             <h:message errorClass="text-error" for="submitRegistration"/>
         </h:form>
+        <div class="loadImage" style="display: none">
+            <label><b>De gegevens worden bijgewerkt!</b></label>
+        </div>
     </ui:define>
 </ui:composition>
 </html>

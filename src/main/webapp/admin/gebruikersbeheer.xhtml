@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: student
+  Date: 11/13/13
+  Time: 12:13 PM
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="../WEB-INF/template.xhtml">
+
+    <ui:define name="script">
+
+        <script type="text/javascript">
+            function showLoading() {
+                var a = $('div.loadImage');
+                a.show();
+            }
+        </script>
+
+    </ui:define>
+
+    <ui:define name="title">Update treinstationlijst</ui:define>
+
+    <ui:define name="content">
+        <legend>Gebruikersbeheer</legend>
+        <h:dataTable value="#{adminController.empResultData}" var="persoonsGegevens" border="1">
+            <h:column><f:facet name="header">id</f:facet>#{persoonsGegevens.id}</h:column>
+            <h:column><f:facet name="header">Voornaam</f:facet>#{persoonsGegevens.firstName}</h:column>
+            <h:column><f:facet name="header">Achternaam</f:facet>#{persoonsGegevens.lastName}</h:column>
+            <h:column><f:facet name="header">E-mailadres</f:facet>#{persoonsGegevens.emailAddress}</h:column>
+            <h:column><f:facet name="header">Telefoon</f:facet>#{persoonsGegevens.telePhone}</h:column>
+            <h:column><f:facet name="header">Postcode</f:facet>#{persoonsGegevens.address.postalCode}</h:column>
+            <h:column><f:facet name="header">Plaats</f:facet>#{persoonsGegevens.address.town}</h:column>
+            <h:column><f:facet name="header">Geboortedatum</f:facet>#{persoonsGegevens.dateofBirth}</h:column>
+            <h:column><f:facet name="header">Aanmeldingsdatum</f:facet>#{persoonsGegevens.dateCreated}</h:column>
+            <h:column><f:facet name="header">Role</f:facet>#{persoonsGegevens.getRole(true)}</h:column>
+            <h:column><h:link outcome="/admin/gebruikersbeheer.xhtml?edit=#{persoonsGegevens.id}" value="[wijzigen]"  /></h:column>
+            <h:column><h:link outcome="/admin/gebruikersbeheer.xhtml?delete=#{persoonsGegevens.id}" value="[verwijderen]"/></h:column>
+        </h:dataTable>
+        <br/>
+        <h:form id="registrationForm">
+
+            <legend>Gebruiker bewerken:</legend>
+            <br />
+            <ui:repeat value="#{adminController.getUserDetails(param.edit)}" var="userToEdit">
+
+                    <label>Voornaam:</label><h:inputText id="firstName" value="#{userToEdit.firstName}" pt:placeholder="Voornaam" requiredMessage="Field required"></h:inputText><h:message errorClass="text-error" for="firstName"/>
+                    <label>Achternaam:</label><h:inputText id="lastName" value="#{userToEdit.lastName}" pt:placeholder="Achternaam" requiredMessage="Field required"></h:inputText><h:message errorClass="text-error" for="lastName"/>
+                    <label>Adres:</label><h:inputText id="street" value="#{userToEdit.address.street}" pt:placeholder="Adres" requiredMessage="Field required"></h:inputText><h:message errorClass="text-error" for="street"/>
+                    <label>Huisnummer:</label><h:inputText id="houseNumber" value="#{userToEdit.address.houseNumber}" pt:placeholder="Huisnummer" requiredMessage="Field required"></h:inputText><h:message errorClass="text-error" for="houseNumber"/>
+                    <label>Postcode:</label><h:inputText id="postalCode" value="#{userToEdit.address.postalCode}" pt:placeholder="Postcode" requiredMessage="Field required"></h:inputText><h:message errorClass="text-error" for="postalCode"/>
+                    <label>Plaats:</label><h:inputText id="town" value="#{userToEdit.address.town}" pt:placeholder="Plaats" requiredMessage="Field required"></h:inputText><h:message errorClass="text-error" for="town"/>
+                    <label>Telefoon:</label><h:inputText id="telePhone" value="#{userToEdit.telePhone}" pt:placeholder="Telefoon" requiredMessage="Field required"></h:inputText><h:message errorClass="text-error" for="telePhone"/>
+                    <label>Gewenste rol:</label><h:inputText id="role" value="#{userToEdit.role}" pt:placeholder="Gewenste rol" requiredMessage="Field required"></h:inputText><h:message errorClass="text-error" for="role"/>
+                    <label>Geboortedatum:</label><h:inputText id="dateofBirth" value="#{userToEdit.dateofBirth}" pt:placeholder="Geboortedatum" requiredMessage="Field required"></h:inputText><h:message errorClass="text-error" for="dateofBirth"/>
+
+
+                     <h:commandButton styleClass="btn" id="updateUser" value="Gebruiker updaten"
+                                       action="#{adminController.updateUser}" />
+                     <h:message errorClass="text-error" for="updateUser"/>
+                   </ui:repeat>
+                 </h:form>
+                 <div class="loadImage" style="display: none">
+                     <label><b>De gegevens worden bijgewerkt!</b></label>
+                 </div>
+             </ui:define>
+         </ui:composition>
+         </html>

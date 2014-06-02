@@ -62,4 +62,6 @@ public interface TZTRepository {
 
     List<TrainCourier> getTrainCouriersWithPlanedRoutes();
 
+    List<Person> listUsersAdminView();
+
 }

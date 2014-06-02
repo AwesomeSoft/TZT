@@ -146,6 +146,19 @@ public class OrderController {
            }
     }
 
+<<<<<<< HEAD
+=======
+    public String StatusVerzending() {
+        return "test";
+    }
+
+    /*
+    private void calculateRoute(Address senderAddress,Address deliveryAddress){
+
+        LinkedList<Station> nearestSenderStations = null;
+        LinkedList<Station> nearestDeliveryStations = null;
+        try {
+>>>>>>> 0db37ceced160ca19cf20adeb4974cda8b348ae2
 
 
     private boolean foundTrainCourier(Station nearestSenderStations, Station nearestDeliveryStations) {

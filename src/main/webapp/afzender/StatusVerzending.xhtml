@@ -5,7 +5,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 <h:body>
 
     <ui:composition template="../WEB-INF/template.xhtml">
@@ -13,12 +14,23 @@
         <ui:define name="title">Status openstaande zendingen</ui:define>
 
         <ui:define name="content">
+        <h:form>
             <legend>Status openstaande zendingen</legend>
+            <h:panelGrid columns="3">
+                <label>Ordernummer:</label>
+                <h:inputText id="Ordernummer" required="true" requiredMessage="Field required" autocomplete="false"
+                             value="" pt:placeholder="Ordernummer"/>
+                <h:message errorClass="text-error" for="Ordernummer"/>
+                <label>Postcode:</label>
+                <h:inputText id="Postcode" required="true" requiredMessage="Field required" autocomplete="false"
+                             value="" pt:placeholder="Postcode"/>
+                <h:message errorClass="text-error" for="Postcode"/>
+            </h:panelGrid>
+            <h:commandButton class="Submitbutton" styleClass="btn" id="submitStatusVerzending" value="Zoeken" onstart="showLoading()"
+                             action="#{orderController.StatusVerzending}"/>
+        </h:form>
 
         </ui:define>
     </ui:composition>
-
-
 </h:body>
-
 </html>
