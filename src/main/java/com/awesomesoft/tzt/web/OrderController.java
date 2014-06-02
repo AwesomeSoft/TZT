@@ -33,7 +33,6 @@ public class OrderController {
     TZTRepository repository;
 
 
-
     private Person receiver;
 
     public TZTOrder getTztOrder() {
@@ -45,10 +44,10 @@ public class OrderController {
     @PostConstruct
     public void init() {
 
-        if(tztOrder == null){
+        if (tztOrder == null) {
             tztOrder = new TZTOrder();
         }
-        if(receiver == null){
+        if (receiver == null) {
             receiver = new Person();
         }
     }
@@ -63,25 +62,23 @@ public class OrderController {
 
     /**
      * Creates an order and plans the route.
-     *
+     * <p/>
      * Searches start and en point in planedTrajects of the TrainCourier.
      * If it founds a planed traject it is calculating the route duration and cost using GoogleMaps Api.
      * Then it calculates the same route for a car by using the GoogleMaps Api
      * Using the distance and duration it calculates the best courier to use.
-     *
-     *
      */
-    public String createOrder(Person person){
+    public String createOrder(Person person) {
         tztOrder.setReceiver(this.receiver);
         tztOrder.setCustomer(person);
         repository.updatePerson(person);
-        Route finalRoute =  new Route();
+        Route finalRoute = new Route();
         try {
             Address senderAddress = person.getAddress();
             Address deliveryAddress = receiver.getAddress();
             Station nearestSenderStations = repository.getNearestStations(senderAddress.getLocation()).get(0);
             Station nearestDeliveryStations = repository.getNearestStations(deliveryAddress.getLocation()).get(0);
-            if(foundTrainCourier(nearestSenderStations,nearestDeliveryStations)){
+            if (foundTrainCourier(nearestSenderStations, nearestDeliveryStations)) {
             }
             Long id = Long.parseLong("1150");
             TZTOrder tztOrder = repository.findOrder(id);
@@ -91,7 +88,7 @@ public class OrderController {
         } catch (JPAException e) {
             throw new RuntimeException(e);
 
-        }catch (LocationUknownException e){
+        } catch (LocationUknownException e) {
             ControllerHelper.message(e.getMessage(), "sendPackageForm:submitOrder", "ERROR");
             return "";
         } catch (APIConnectionException e) {
@@ -102,63 +99,57 @@ public class OrderController {
         Long id = repository.insertOrder(tztOrder);
         return "confirmation.xhtml";
     }
-    private List<TrainTraject> calculateTrainCourierRoute(Location startPoint,Location endPoint) throws CalculateRouteException {
+
+    private List<TrainTraject> calculateTrainCourierRoute(Location startPoint, Location endPoint) throws CalculateRouteException {
         List<TrainTraject> trainTrajects = new LinkedList<>();
-        try{
-            com.awesomesoft.tzt.service.GoogleMapsApi.models.Route Route = GoogleMapsApi.planRoute(startPoint,endPoint, "transit");
+        try {
+            com.awesomesoft.tzt.service.GoogleMapsApi.models.Route Route = GoogleMapsApi.planRoute(startPoint, endPoint, "transit");
             List<Leg> legs = Route.getLegs();
             System.out.println(legs.size());
             List<CourierTraject> courierTrajects = new LinkedList<>();
             for (Leg leg : legs) {
                 List<Step> steps = leg.getSteps();
                 for (Step step : steps) {
-                    if(step.getHtml_instructions().startsWith("Train")){
-                        TrainTraject trainTraject = new TrainTraject(120.0,33.0,2.0,10,123123,startPoint,endPoint);
+                    if (step.getHtml_instructions().startsWith("Train")) {
+                        TrainTraject trainTraject = new TrainTraject(120.0, 33.0, 2.0, 10, 123123, startPoint, endPoint);
                         trainTrajects.add(trainTraject);
                     }
                 }
             }
-            if(trainTrajects.size() >0){
+            if (trainTrajects.size() > 0) {
                 return trainTrajects;
-            }else{
+            } else {
                 throw new CalculateRouteException("No route found ");
             }
         } catch (GoogleMapsApiException e) {
-                throw new RuntimeException(e);
+            throw new RuntimeException(e);
         } catch (APIConnectionException e) {
             throw new RuntimeException(e);
 
         }
     }
-    private CourierTraject calculateCourierCompanyRoute(Location startPoint,Location endPoint)throws CalculateRouteException{
-            try{
-                com.awesomesoft.tzt.service.GoogleMapsApi.models.Route RouteFromStation = GoogleMapsApi.planRoute(startPoint, endPoint, "driving");
-                List<Leg> routeFromStationLegs = RouteFromStation.getLegs();
-                for (Leg routeFromStationLeg : routeFromStationLegs) {
-                    CourierTraject courierTraject = new CourierTraject(routeFromStationLeg.getDistance().getValue()/1.609344,12,12,12,12,startPoint,endPoint);
-                    return courierTraject;
-                }
-                throw new CalculateRouteException("No route found");
-            }catch (APIConnectionException e){
-                throw new CalculateRouteException("Connection failed");
-            }catch (GoogleMapsApiException e){
-                throw new CalculateRouteException("No route found");
-           }
+
+    private CourierTraject calculateCourierCompanyRoute(Location startPoint, Location endPoint) throws CalculateRouteException {
+        try {
+            com.awesomesoft.tzt.service.GoogleMapsApi.models.Route RouteFromStation = GoogleMapsApi.planRoute(startPoint, endPoint, "driving");
+            List<Leg> routeFromStationLegs = RouteFromStation.getLegs();
+            for (Leg routeFromStationLeg : routeFromStationLegs) {
+                CourierTraject courierTraject = new CourierTraject(routeFromStationLeg.getDistance().getValue() / 1.609344, 12, 12, 12, 12, startPoint, endPoint);
+                return courierTraject;
+            }
+            throw new CalculateRouteException("No route found");
+        } catch (APIConnectionException e) {
+            throw new CalculateRouteException("Connection failed");
+        } catch (GoogleMapsApiException e) {
+            throw new CalculateRouteException("No route found");
+        }
     }
 
-<<<<<<< HEAD
-=======
+
     public String StatusVerzending() {
         return "test";
+
     }
-
-    /*
-    private void calculateRoute(Address senderAddress,Address deliveryAddress){
-
-        LinkedList<Station> nearestSenderStations = null;
-        LinkedList<Station> nearestDeliveryStations = null;
-        try {
->>>>>>> 0db37ceced160ca19cf20adeb4974cda8b348ae2
 
 
     private boolean foundTrainCourier(Station nearestSenderStations, Station nearestDeliveryStations) {

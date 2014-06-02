@@ -59,15 +59,11 @@ public class PersonController {
         personInfo = new PersonInfo();
     }
 
-<<<<<<< HEAD
+
     /**
      * Updates the profile settings
      */
-    public void updateProfile() {
-        System.out.println("sad");
-=======
     public String updateProfile() {
->>>>>>> 0db37ceced160ca19cf20adeb4974cda8b348ae2
         logger.info("Updaten profiel voor {}", person.getEmailAddress());
         try {
             validatePostalCode();
@@ -133,6 +129,12 @@ public class PersonController {
             SSLMailer.send(trainCourier.getEmailAddress(), "Activate your account", "Awesome! Here's your activation link: " + person.getActivationUrl());
             return "confirmation.xhtml";
         } catch (ValidationException | GenerationException e) {
+            ControllerHelper.message(e.getMessage(), "registrationForm:submitRegistration", "ERROR");
+            return "";
+        } catch (LocationUknownException e) {
+            ControllerHelper.message(e.getMessage(), "registrationForm:submitRegistration", "ERROR");
+            return "";
+        } catch (APIConnectionException e) {
             ControllerHelper.message(e.getMessage(), "registrationForm:submitRegistration", "ERROR");
             return "";
         }

@@ -4,6 +4,8 @@ package com.awesomesoft.tzt.service.domain;
  * Created by Erwin on 22-5-2014.
  */
 
+import com.awesomesoft.tzt.service.exception.APIConnectionException;
+import com.awesomesoft.tzt.service.exception.LocationUknownException;
 import com.awesomesoft.tzt.web.PersonInfo;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -29,7 +31,7 @@ public class TrainCourier extends Person{
 
     }
 
-    public TrainCourier(PersonInfo personInfo){
+    public TrainCourier(PersonInfo personInfo) throws LocationUknownException, APIConnectionException {
         super(personInfo);
     }
 
