@@ -63,8 +63,8 @@ public class TrainCourierController{
                 Long id = stringId.length() > 0 ? Long.parseLong(stringId) : -1l;
                 if (id != -1 && repository.checkTrainTrajectExist(id)) {
                     trainTraject = repository.getTrainTraject(id);
-                    this.startPoint = trainTraject.getStartPointStation();
-                    this.endPoint = trainTraject.getEndPointStation();
+                   // this.startPoint = trainTraject.getStartPointStation();
+                 //   this.endPoint = trainTraject.getEndPointStation();
                 } else {
                     trainTraject = new TrainTraject();
                     ControllerHelper.redirect("No book found with id " + id);
@@ -105,8 +105,6 @@ public class TrainCourierController{
      * @throws AuthenticationException
      */
     public String addTraject() throws AuthenticationException{
-        trainTraject.setStartPoint(startPoint.getLocation());
-        trainTraject.setEndPoint(endPoint.getLocation());
         trainTraject.setStartPointStation(startPoint);
         trainTraject.setEndPointStation(endPoint);
         if(trainCourier==null){
@@ -140,8 +138,6 @@ public class TrainCourierController{
      * @throws AuthenticationException
      */
     public String changeTraject() throws AuthenticationException{
-        trainTraject.setStartPoint(startPoint.getLocation());
-        trainTraject.setEndPoint(endPoint.getLocation());
         trainTraject.setStartPointStation(startPoint);
         trainTraject.setEndPointStation(endPoint);
         if(trainCourier==null){
@@ -162,6 +158,7 @@ public class TrainCourierController{
         }
         return trainCourier;
     }
+
     public Station getStartPoint() {
         return startPoint;
     }
@@ -181,6 +178,5 @@ public class TrainCourierController{
     public List<Station> getAllStatins() {
         return allStations;
     }
-
 
 }

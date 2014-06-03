@@ -26,6 +26,12 @@ public class Traject {
     private double totalCostPrice;
     private long duration;
 
+    @OneToOne(mappedBy = "asignedTraject")
+    private TrainCourier assignedTrainCourier;
+
+    @OneToOne(mappedBy = "asignedTraject")
+    private CourierCompany assignedCourierCompany;
+
 
     private Date departureDate;
     // de rest laten we leeg want dit ben jij nu niet nodig.
@@ -58,7 +64,13 @@ public class Traject {
         }
     }
 
+    public void asignCourierCompany(CourierCompany courierCompany){
+        this.assignedCourierCompany = courierCompany;
 
+    }
+    public void asignTrainCourier(TrainCourier trainCourier){
+        this.assignedTrainCourier = trainCourier;
+    }
     public String getDepartureDate() {
         if(departureDate!=null){
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
@@ -101,8 +113,15 @@ public class Traject {
         this.endPoint = endPoint;
     }
 
-    public Traject(double distance, double totalCostPriceTraject, double fixedPrice, double pricePerKm, long duration, Location startPoint, Location endPoint) {
-        this.distance = 1.0;
+    /**
+     * Traject constructor
+     * @param distance total traject distance
+     * @param duration total duration of the traject
+     * @param startPoint start location
+     * @param endPoint end location
+     */
+    public Traject(double distance, long duration, Location startPoint, Location endPoint) {
+        this.distance = distance;
         this.duration = duration;
         this.startPoint = startPoint;
         this.endPoint = endPoint;
@@ -147,7 +166,7 @@ public class Traject {
         if (duration != traject.duration) return false;
         if (Double.compare(traject.totalCostPrice, totalCostPrice) != 0) return false;
         if (endPoint != null ? !endPoint.equals(traject.endPoint) : traject.endPoint != null) return false;
-  //      if (route != null ? !route.equals(traject.route) : traject.route != null) return false;
+        if (route != null ? !route.equals(traject.route) : traject.route != null) return false;
         if (startPoint != null ? !startPoint.equals(traject.startPoint) : traject.startPoint != null) return false;
 
         return true;

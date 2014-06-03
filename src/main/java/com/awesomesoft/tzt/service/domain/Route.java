@@ -13,6 +13,7 @@ public class Route {
     @GeneratedValue
     private Long id;
 
+    private double totalTrajectCosts;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Traject> trajects = new LinkedList<>();
@@ -26,10 +27,17 @@ public class Route {
     }
 
 
+    private void increaseTotalTrajectCosts(double amount){
+        this.totalTrajectCosts += amount;
+    }
 
+    public double getTotalTrajectCosts() {
+        return totalTrajectCosts;
+    }
 
     public void addTraject(Traject traject){
         trajects.add(traject);
+        increaseTotalTrajectCosts(traject.getTotalCostPrice());
     }
 
     public void addOrder(TZTOrder tztOrder){

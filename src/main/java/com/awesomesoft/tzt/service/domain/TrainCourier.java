@@ -18,44 +18,28 @@ import java.util.List;
 @Entity
 @DiscriminatorValue("TC")
 public class TrainCourier extends Person{
-
-
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name="trainCourier_id",referencedColumnName = "id")
     @Fetch(value = FetchMode.SUBSELECT)
     private List<TrainTraject> planedTrajects = new ArrayList<>();
 
-    private double salary;
-
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private TrainTraject asignedTraject;
+    final static double SALARY = 5.0;
     protected TrainCourier() {
-
     }
 
     public TrainCourier(PersonInfo personInfo) throws LocationUknownException, APIConnectionException {
         super(personInfo);
     }
 
-    public void _ownTraject(TrainTraject trainTraject) {
-        this.planedTrajects.add(trainTraject);
+    public void planTraject(TrainTraject trainTraject) {
+        asignedTraject = trainTraject;
+        trainTraject.asignTrainCourier(this);
     }
-
 
     public List<TrainTraject> getPlanedTrajects() {
         return planedTrajects;
     }
-
-    /*
-    public void asignRoute(TrainTraject traject){
-        this.asignedTrajects.add(traject);
-    }
-    */
-
-
-
-    public double getSalary() {
-        return salary;
-    }
-
 
     public boolean deletTraject(TrainTraject trainTraject) {
         if(planedTrajects.contains(trainTraject)){
@@ -63,6 +47,10 @@ public class TrainCourier extends Person{
             return true;
         }
         return false;
+    }
+
+    public void _ownTraject(TrainTraject trainTraject) {
+        this.planedTrajects.add(trainTraject);
     }
 
     @Override
@@ -73,7 +61,6 @@ public class TrainCourier extends Person{
 
         TrainCourier that = (TrainCourier) o;
 
-        if (Double.compare(that.salary, salary) != 0) return false;
         if (planedTrajects != null ? !planedTrajects.equals(that.planedTrajects) : that.planedTrajects != null)
             return false;
 
@@ -83,11 +70,12 @@ public class TrainCourier extends Person{
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        long temp;
         result = 31 * result + (planedTrajects != null ? planedTrajects.hashCode() : 0);
-        temp = Double.doubleToLongBits(salary);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
+    }
+
+    public double calcTotalTrajectPrice(Traject traject){
+        return SALARY;
     }
 }
 

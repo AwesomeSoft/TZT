@@ -8,10 +8,7 @@ import com.awesomesoft.tzt.service.GoogleMapsApi.models.Leg;
 import com.awesomesoft.tzt.service.GoogleMapsApi.models.Step;
 import com.awesomesoft.tzt.service.TZTRepository;
 import com.awesomesoft.tzt.service.domain.*;
-import com.awesomesoft.tzt.service.exception.APIConnectionException;
-import com.awesomesoft.tzt.service.exception.CalculateRouteException;
-import com.awesomesoft.tzt.service.exception.GoogleMapsApiException;
-import com.awesomesoft.tzt.service.exception.LocationUknownException;
+import com.awesomesoft.tzt.service.exception.*;
 import com.awesomesoft.tzt.service.impl.JPAException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +17,10 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 
 @ManagedBean  //zorgt ervoor dat de personcontroller in JSF beschikbaar is
@@ -69,38 +68,105 @@ public class OrderController {
      * Using the distance and duration it calculates the best courier to use.
      */
     public String createOrder(Person person) {
-        tztOrder.setReceiver(this.receiver);
-        tztOrder.setCustomer(person);
-        repository.updatePerson(person);
-        Route finalRoute = new Route();
         try {
-            Address senderAddress = person.getAddress();
-            Address deliveryAddress = receiver.getAddress();
-            Station nearestSenderStations = repository.getNearestStations(senderAddress.getLocation()).get(0);
-            Station nearestDeliveryStations = repository.getNearestStations(deliveryAddress.getLocation()).get(0);
-            if (foundTrainCourier(nearestSenderStations, nearestDeliveryStations)) {
+            verifyPersonLogIn(person);
+            tztOrder.setReceiver(this.receiver);
+            tztOrder.setCustomer(person);
+            repository.updatePerson(person);
+            Route finalRoute = new Route();
+            try {
+                Address senderAddress = person.getAddress();
+                Address deliveryAddress = receiver.getAddress();
+                repository.insertPerson(receiver);
+                Station nearestSenderStations = repository.getNearestStations(senderAddress.getLocation()).get(0);
+                Station nearestDeliveryStations = repository.getNearestStations(deliveryAddress.getLocation()).get(0);
+                Map<TrainCourier, TrainTraject> trainCouriersForTraject = getTrainCouriersForRoute(nearestSenderStations, nearestDeliveryStations);
+                for (Map.Entry<TrainCourier, TrainTraject> trainCourierTrainTrajectEntry : trainCouriersForTraject.entrySet()) {
+                    TrainTraject tempTraject = trainCourierTrainTrajectEntry.getValue();
+                    List<TrainTraject> newFilledTrainTrajects = calculateTrainCourierRoute(tempTraject.getStartPointStation().getLocation(),tempTraject.getEndPointStation().getLocation());
+                    if(newFilledTrainTrajects.size() < 2){
+                        Route tempTrainRoute = new Route();
+                        Route tempCourierCompanyRoute = new Route();
+                        //Direct Train route found
+                        TrainTraject trainTraject = newFilledTrainTrajects.get(0);
+                        //Assign courier to route.
+                        trainTraject.asignTrajectToCourier(trainCourierTrainTrajectEntry.getKey());
+
+                        CourierTraject toStation = calculateCourierCompanyRoute(senderAddress.getLocation(),nearestSenderStations.getLocation());
+                        CourierTraject fromStation = calculateCourierCompanyRoute(deliveryAddress.getLocation(),nearestDeliveryStations.getLocation());
+                        CourierTraject wholeTraject = calculateCourierCompanyRoute(senderAddress.getLocation(),deliveryAddress.getLocation());
+                        List<CourierCompany> courierCompanies = repository.getAllCourierCompanies();
+                        CourierCompany cheapestToStationCourier = new CourierCompany(99999,"temp");
+                        CourierCompany cheapestFromStationCourier = new CourierCompany(99999,"temp");
+                        CourierCompany cheapestwholeTrajectCourier = new CourierCompany(99999,"temp");
+                        for (CourierCompany courierCompany : courierCompanies) {
+                            if(courierCompany.calcTotalTrajectPrice(toStation) < cheapestToStationCourier.calcTotalTrajectPrice(toStation)){
+                                cheapestToStationCourier = courierCompany;
+                            }
+                            if(courierCompany.calcTotalTrajectPrice(fromStation) < cheapestFromStationCourier.calcTotalTrajectPrice(fromStation)){
+                                cheapestFromStationCourier = courierCompany;
+                            }
+                            if(courierCompany.calcTotalTrajectPrice(wholeTraject) < cheapestwholeTrajectCourier.calcTotalTrajectPrice(wholeTraject)){
+                                cheapestwholeTrajectCourier = courierCompany;
+                            }
+                        }
+                        toStation.asignTrajectToCourier(cheapestToStationCourier);
+                        fromStation.asignTrajectToCourier(cheapestFromStationCourier);
+                        tempTrainRoute.addTraject(toStation);
+                        tempTrainRoute.addTraject(tempTraject);
+                        tempTrainRoute.addTraject(fromStation);
+                        tempCourierCompanyRoute.addTraject(wholeTraject);
+                        Route bestRoute = (tempTrainRoute.getTotalTrajectCosts() > tempCourierCompanyRoute.getTotalTrajectCosts()) ? tempTrainRoute : tempCourierCompanyRoute;
+                        if(finalizeOrder(bestRoute)){
+                            return "confirmation.xhtml";
+                        }
+                    }else{
+                        CourierTraject wholeTraject = calculateCourierCompanyRoute(senderAddress.getLocation(),deliveryAddress.getLocation());
+                        List<CourierCompany> courierCompanies = repository.getAllCourierCompanies();
+                        CourierCompany cheapestwholeTrajectCourier = new CourierCompany(99999,"temp");
+                        for (CourierCompany courierCompany : courierCompanies) {
+                            if(courierCompany.calcTotalTrajectPrice(wholeTraject) < cheapestwholeTrajectCourier.calcTotalTrajectPrice(wholeTraject)){
+                                cheapestwholeTrajectCourier = courierCompany;
+                            }
+                        }
+                        Route tempCourierCompanyRoute = new Route();
+                        tempCourierCompanyRoute.addTraject(wholeTraject);
+                        Route bestRoute = tempCourierCompanyRoute;
+                        if(finalizeOrder(bestRoute)){
+                            return "confirmation.xhtml";
+                        }
+                    }
+                }
+
+            } catch (JPAException e) {
+                throw new RuntimeException(e);
+
+            } catch (LocationUknownException e) {
+                ControllerHelper.message(e.getMessage(), "sendPackageForm:submitOrder", "ERROR");
+                return "";
+            } catch (APIConnectionException e) {
+                ControllerHelper.message(e.getMessage(), "sendPackageForm:submitOrder", "ERROR");
+                return "";
+            } catch (CalculateRouteException e) {
+                ControllerHelper.message(e.getMessage(), "sendPackageForm:submitOrder", "ERROR");
+                return "";
             }
-            Long id = Long.parseLong("1150");
-            TZTOrder tztOrder = repository.findOrder(id);
-            tztOrder.addRoute(finalRoute);
-            repository.updateTZTOrder(tztOrder);
-
-        } catch (JPAException e) {
-            throw new RuntimeException(e);
-
-        } catch (LocationUknownException e) {
-            ControllerHelper.message(e.getMessage(), "sendPackageForm:submitOrder", "ERROR");
-            return "";
-        } catch (APIConnectionException e) {
+        } catch (ValidationException e) {
             ControllerHelper.message(e.getMessage(), "sendPackageForm:submitOrder", "ERROR");
             return "";
         }
-
-        Long id = repository.insertOrder(tztOrder);
-        return "confirmation.xhtml";
+        return "";
     }
 
-    private List<TrainTraject> calculateTrainCourierRoute(Location startPoint, Location endPoint) throws CalculateRouteException {
+    private boolean finalizeOrder(Route calculatedRoute){
+        tztOrder.addRoute(calculatedRoute);
+        repository.insertRoute(calculatedRoute);
+
+        repository.insertOrder(tztOrder);
+        return  true;
+    }
+
+    private List<TrainTraject> calculateTrainCourierRoute(Location startPoint, Location endPoint) throws CalculateRouteException, LocationUknownException {
         List<TrainTraject> trainTrajects = new LinkedList<>();
         try {
             com.awesomesoft.tzt.service.GoogleMapsApi.models.Route Route = GoogleMapsApi.planRoute(startPoint, endPoint, "transit");
@@ -111,7 +177,7 @@ public class OrderController {
                 List<Step> steps = leg.getSteps();
                 for (Step step : steps) {
                     if (step.getHtml_instructions().startsWith("Train")) {
-                        TrainTraject trainTraject = new TrainTraject(120.0, 33.0, 2.0, 10, 123123, startPoint, endPoint);
+                        TrainTraject trainTraject = new TrainTraject(step.getDistance().getValue()/1000,step.getDuration().getValue()/60,startPoint,endPoint);
                         trainTrajects.add(trainTraject);
                     }
                 }
@@ -119,7 +185,7 @@ public class OrderController {
             if (trainTrajects.size() > 0) {
                 return trainTrajects;
             } else {
-                throw new CalculateRouteException("No route found ");
+                return null;
             }
         } catch (GoogleMapsApiException e) {
             throw new RuntimeException(e);
@@ -129,12 +195,12 @@ public class OrderController {
         }
     }
 
-    private CourierTraject calculateCourierCompanyRoute(Location startPoint, Location endPoint) throws CalculateRouteException {
+    private CourierTraject calculateCourierCompanyRoute(Location startPoint, Location endPoint) throws CalculateRouteException, LocationUknownException {
         try {
-            com.awesomesoft.tzt.service.GoogleMapsApi.models.Route RouteFromStation = GoogleMapsApi.planRoute(startPoint, endPoint, "driving");
-            List<Leg> routeFromStationLegs = RouteFromStation.getLegs();
-            for (Leg routeFromStationLeg : routeFromStationLegs) {
-                CourierTraject courierTraject = new CourierTraject(routeFromStationLeg.getDistance().getValue() / 1.609344, 12, 12, 12, 12, startPoint, endPoint);
+            com.awesomesoft.tzt.service.GoogleMapsApi.models.Route route = GoogleMapsApi.planRoute(startPoint, endPoint, "driving");
+            List<Leg> routeLegs = route.getLegs();
+            for (Leg routeLeg : routeLegs) {
+                CourierTraject courierTraject = new CourierTraject(routeLeg.getDistance().getValue() / 1000,routeLeg.getDuration().getValue()/60, startPoint, endPoint);
                 return courierTraject;
             }
             throw new CalculateRouteException("No route found");
@@ -152,18 +218,27 @@ public class OrderController {
     }
 
 
-    private boolean foundTrainCourier(Station nearestSenderStations, Station nearestDeliveryStations) {
+    private Map<TrainCourier,TrainTraject> getTrainCouriersForRoute(Station nearestSenderStations, Station nearestDeliveryStations) {
         List<TrainCourier> trainCouriers = repository.getTrainCouriersWithPlanedRoutes();
+        Map<TrainCourier,TrainTraject> trainCourierAndRouteMap = new LinkedHashMap<>();
         for (TrainCourier trainCourier : trainCouriers) {
             List<TrainTraject> trainTrajects = trainCourier.getPlanedTrajects();
             for (TrainTraject trainTraject : trainTrajects) {
                 if(trainTraject.getStartPointStation().equals(nearestSenderStations)&&trainTraject.getEndPointStation().equals(nearestDeliveryStations)){
-                    return true;
+                    trainCourierAndRouteMap.put(trainCourier,trainTraject);
                 }
             }
         }
-        return false;
+        return trainCourierAndRouteMap;
     }
 
+
+    public void verifyPersonLogIn(Person person) throws ValidationException {
+        if(person == null)
+            throw new ValidationException("Je bent niet ingelogt");
+        if(!person.isAuthenticated()){
+            throw new ValidationException("Je bent niet ingelogt");
+        }
+    }
 
 }

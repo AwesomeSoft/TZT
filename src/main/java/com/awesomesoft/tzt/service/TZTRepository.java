@@ -64,4 +64,12 @@ public interface TZTRepository {
 
     List<Person> listUsersAdminView();
 
+    void insertCourier(CourierCompany courierCompany);
+
+    public List<CourierCompany> getAllCourierCompanies();
+
+    void insertRoute(Route calculatedRoute);
+
+    void insertLocation(Location location);
+
 }

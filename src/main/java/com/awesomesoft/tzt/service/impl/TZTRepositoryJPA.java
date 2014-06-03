@@ -56,6 +56,22 @@ public class TZTRepositoryJPA implements TZTRepository {
         return q.getResultList();
     }
 
+    public List<CourierCompany> getAllCourierCompanies() {
+        String jpql = "select c from CourierCompany c";
+        TypedQuery<CourierCompany> q = em.createQuery(jpql, CourierCompany.class);
+        return q.getResultList();
+    }
+
+    @Override
+    public void insertRoute(Route calculatedRoute) {
+        em.persist(calculatedRoute);
+    }
+
+    @Override
+    public void insertLocation(Location location) {
+        em.persist(location);
+    }
+
     @Override
     public TrainCourier getTrainCourier(Long id) {
         return em.find(TrainCourier.class,id);
@@ -169,5 +185,10 @@ public class TZTRepositoryJPA implements TZTRepository {
             String jpql = "select p from Person p ORDER BY id ASC";
             TypedQuery<Person> q = em.createQuery(jpql, Person.class);
             return q.getResultList();
+    }
+
+    @Override
+    public void insertCourier(CourierCompany courierCompany) {
+        em.persist(courierCompany);
     }
 }

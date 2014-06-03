@@ -60,6 +60,14 @@ public class Location {
         return true;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     @Override
     public int hashCode() {
         int result;

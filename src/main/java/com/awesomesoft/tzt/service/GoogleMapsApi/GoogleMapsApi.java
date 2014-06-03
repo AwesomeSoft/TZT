@@ -6,6 +6,7 @@ import com.awesomesoft.tzt.service.domain.Location;
 import com.awesomesoft.tzt.service.domain.Station;
 import com.awesomesoft.tzt.service.exception.APIConnectionException;
 import com.awesomesoft.tzt.service.exception.GoogleMapsApiException;
+import com.awesomesoft.tzt.service.exception.LocationUknownException;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -24,7 +25,7 @@ public abstract class GoogleMapsApi{
     static final String GOOGLE_DIRECTIONS_URL = "https://maps.googleapis.com/maps/api/directions/json?";
     static final String GOOGLE_GEOLOCATION_URL = "https://maps.googleapis.com/maps/api/geocode/json?";
 
-    public static Route planRoute(Location startLocation, Location endLocation,String mode) throws APIConnectionException, GoogleMapsApiException {
+    public static Route planRoute(Location startLocation, Location endLocation,String mode) throws APIConnectionException, GoogleMapsApiException, LocationUknownException {
         String routeOption = "&mode="+mode;
         String departureTime = "&departure_time="+ new Date().getTime()/1000;
         String routeString = "origin="+startLocation.toString()+"&destination="+endLocation.toString()+"&sensor=false";
@@ -39,12 +40,12 @@ public abstract class GoogleMapsApi{
                 String result = startHTTPSrequest(url);
                 Route Route = JacksonObjectMapper.getRoute(result);
                 return Route;
-            } catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
                 StringBuilder errorMessage = new StringBuilder();
                 errorMessage.append("Fatal Error in connecting to the URL: ");
                 errorMessage.append(urlString.toString());
                 throw new GoogleMapsApiException("Bad URL request");
-            }
+        }
     }
 
     public static Route getTrainRoute(Station senderStation, Station receiverStation,Date departureTime) throws GoogleMapsApiException, APIConnectionException {
@@ -68,11 +69,14 @@ public abstract class GoogleMapsApi{
             errorMessage.append("Fatal Error in connecting to the URL: ");
             errorMessage.append(urlString.toString());
             throw new GoogleMapsApiException("Bad URL request");
+        } catch (LocationUknownException e) {
+            throw new RuntimeException(e);
+
         }
 
     }
 
-    public static GLocation getLocation(String address) throws GoogleMapsApiException, APIConnectionException {
+    public static GLocation getLocation(String address) throws GoogleMapsApiException, APIConnectionException, LocationUknownException {
         String requestString = "address="+address;
         StringBuilder urlString = new StringBuilder();
         urlString.append(GOOGLE_GEOLOCATION_URL);

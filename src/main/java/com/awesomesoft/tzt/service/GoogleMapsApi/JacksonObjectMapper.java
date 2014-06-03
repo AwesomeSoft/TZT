@@ -3,6 +3,7 @@ package com.awesomesoft.tzt.service.GoogleMapsApi;
 import com.awesomesoft.tzt.service.GoogleMapsApi.exceptions.RouteNotFoundException;
 import com.awesomesoft.tzt.service.GoogleMapsApi.models.*;
 
+import com.awesomesoft.tzt.service.exception.LocationUknownException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -14,8 +15,11 @@ import java.util.List;
  */
 public abstract class JacksonObjectMapper {
 
-    public static Route getRoute(String jsonResult){
+    public static Route getRoute(String jsonResult) throws LocationUknownException {
          //create ObjectMapper instance
+        if(jsonResult.contains("ZERO_RESULTS")){
+            throw new LocationUknownException("Het adres is onbekend");
+        }
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         //convert json string to object
@@ -34,9 +38,11 @@ public abstract class JacksonObjectMapper {
         }
     }
 
-    public static GLocation getLocation(String jsonResult){
+    public static GLocation getLocation(String jsonResult) throws LocationUknownException{
         //create ObjectMapper instance
-
+        if(jsonResult.contains("ZERO_RESULTS")){
+            throw new LocationUknownException("Het adres is onbekend");
+        }
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         //convert json string to object

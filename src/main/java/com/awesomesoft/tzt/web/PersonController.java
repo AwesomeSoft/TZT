@@ -503,8 +503,12 @@ public class PersonController {
         ControllerHelper.redirect("Person with id " + id + " logged out");
     }
 
+
     public Person getPerson() {
-        return person;
+        if(this.person == null){
+            return new Person();
+        }
+        return this.person;
     }
 
     public PersonInfo getPersonInfo() {

@@ -1,9 +1,6 @@
 package com.awesomesoft.tzt.service.domain;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.sql.Time;
 import java.util.Date;
 
@@ -18,27 +15,34 @@ public class TrainTraject extends Traject{
     @ManyToOne
     private TrainCourier trainCourier;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Station startPointStation;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Station endPointStation;
 
     public TrainTraject(){
+       super();
        super.setDepartureTimeAsTime(new Time(new Date().getTime()));;
     }
 
-    public TrainTraject(double distance, double totalCostPriceTraject, double fixedPrice, double pricePerKm, long duration, Location startPoint, Location endPoint) {
-        super(distance, totalCostPriceTraject, fixedPrice, pricePerKm, duration, startPoint, endPoint);
+    public TrainTraject(double distance, long duration, Location startPoint, Location endPoint) {
+        super(distance, duration, startPoint, endPoint);
 
+    }
+
+    public void asignTrajectToCourier(TrainCourier trainCourier){
+        super.increaseCostPrice(trainCourier.calcTotalTrajectPrice(this));
+        super.asignTrainCourier(trainCourier);
+    }
+
+    public Station getEndPointStation() {
+        return endPointStation;
     }
 
     public void planTraject(TrainCourier trainCourier){
         this.trainCourier = trainCourier;
         trainCourier._ownTraject(this);
-    }
-    public Station getEndPointStation() {
-        return endPointStation;
     }
 
     public void setEndPointStation(Station endPointStation) {
@@ -51,5 +55,29 @@ public class TrainTraject extends Traject{
 
     public void setStartPointStation(Station startPointStationName) {
         this.startPointStation = startPointStationName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TrainTraject)) return false;
+        if (!super.equals(o)) return false;
+
+        TrainTraject that = (TrainTraject) o;
+
+        if (endPointStation != null ? !endPointStation.equals(that.endPointStation) : that.endPointStation != null)
+            return false;
+        if (startPointStation != null ? !startPointStation.equals(that.startPointStation) : that.startPointStation != null)
+           return false;
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+       int result = super.hashCode();
+       result = 31 * result + (startPointStation != null ? startPointStation.hashCode() : 0);
+       result = 31 * result + (endPointStation != null ? endPointStation.hashCode() : 0);
+       return result;
     }
 }

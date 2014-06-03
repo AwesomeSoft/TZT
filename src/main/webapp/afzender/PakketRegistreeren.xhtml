@@ -57,9 +57,9 @@
         <h:form id="sendPackageForm">
 
             <legend>Registeren pakket</legend>
+            <h:message errorClass="text-error" for="submitOrder"/>
 
-            <p:watermark for="firstName" value="First name"/>
-            <p:watermark for="lastName" value="Last name"/>
+
 
             <h:panelGrid columns="3">
                     <label>Aanhef:</label>
@@ -124,7 +124,7 @@
                     <h:message errorClass="text-error" for="PakketgegevensGewicht"/>
                 </h:panelGrid>
             <h:commandButton styleClass="btn btn-primary" id="submitOrder" value="Submit" action="#{orderController.createOrder(personController.person)}"/>
-            <h:message errorClass="text-error" for="submitOrder"/>
+
         </h:form>
 
     </ui:define>

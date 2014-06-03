@@ -28,6 +28,7 @@ public class Address {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Location location;
 
+
     public Address(){
 
     }
@@ -94,7 +95,9 @@ public class Address {
             try {
                 GLocation googleLocation = null;
                 googleLocation = GoogleMapsApi.getLocation(street + houseNumber + town);
-                return  new Location(googleLocation.getLng(),googleLocation.getLat());
+                this.location = new Location(googleLocation.getLng(),googleLocation.getLat());
+                location.setAddress(this);
+                return this.location;
             } catch (GoogleMapsApiException e) {
                 throw new LocationUknownException("Het adres is niet gevonden ");
             }
@@ -107,7 +110,9 @@ public class Address {
         try {
             GLocation googleLocation = null;
             googleLocation = GoogleMapsApi.getLocation(street + houseNumber + town);
-            return  new Location(googleLocation.getLng(),googleLocation.getLat());
+            this.location = new Location(googleLocation.getLng(),googleLocation.getLat());
+            location.setAddress(this);
+            return this.location;
         } catch (GoogleMapsApiException e) {
             throw new LocationUknownException("Het adres is niet gevonden ");
         }

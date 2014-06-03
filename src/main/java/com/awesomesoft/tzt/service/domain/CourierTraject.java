@@ -10,18 +10,18 @@ import javax.persistence.*;
 @DiscriminatorValue("CT")
 public class CourierTraject extends Traject{
 
-    @ManyToOne  //Dit defineerd de relatie met de Trajecten.
-    private  CourierCompany courierCompany;
 
     // de rest laten we leeg want dit ben jij nu niet nodig.
     protected CourierTraject() {
     }
 
-    public CourierTraject(double distance, double totalCostPriceTraject, double fixedPrice, double pricePerKm, long duration, Location startPoint, Location endPoint) {
-        super(distance, totalCostPriceTraject, fixedPrice, pricePerKm, duration, startPoint,endPoint);
-
+    public CourierTraject(double distance, long duration, Location startPoint, Location endPoint) {
+        super(distance, duration, startPoint,endPoint);
     }
 
-
-
+    public void asignTrajectToCourier(CourierCompany courierCompany){
+        super.increaseCostPrice(courierCompany.calcTotalTrajectPrice(this));
+        super.asignCourierCompany(courierCompany);
+    }
 }
+

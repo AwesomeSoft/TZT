@@ -79,7 +79,7 @@
 
             <p:watermark for="firstName" value="First name"/>
             <p:watermark for="lastName" value="Last name"/>
-            <p:watermark for="emailAddress" value="Email address"/>
+         
             <p:watermark for="password" value="Password"/>
             <p:watermark for="confirmedPassword" value="Confirm password"/>
             <p:watermark for="dateofBirth" value="Geboorte datum"/>
@@ -150,9 +150,9 @@
                 <h:panelGrid columns="3">
                     <!--   Geboortedatum: <input type="text" id="datepicker"></input>-->
 
-                    <h:commandButton class="Submitbutton" styleClass="btn" id="submitRegistration" value="Opslaan" onstart="showLoading()"
+                    <h:commandButton class="Submitbutton" styleClass="btn" id="submitRegistration" value="Opslaan"
                                      action="#{personController.register}"/>
-                    <h:commandButton style="display:none" class="traincourierSubmitbutton" styleClass="btn" id="submitTrainCourierRegistration" value="Opslaan" onstart="showLoading()"
+                    <h:commandButton style="display:none" class="traincourierSubmitbutton" styleClass="btn" id="submitTrainCourierRegistration" value="Opslaan"
                                      action="#{personController.registerTrainCourier}"/>
                     <h:message errorClass="text-error" for="submitRegistration"/>
             </h:panelGrid>

@@ -1,8 +1,6 @@
 package com.awesomesoft.tzt.service.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by student on 5/26/14.
@@ -20,8 +18,39 @@ public class CourierCompany {
 
     private String name;
 
-    protected CourierCompany(){
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private CourierTraject asignedTraject;
 
+    public CourierCompany(){
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPricePerKm() {
+        return pricePerKm;
+    }
+
+    public void setPricePerKm(double pricePerKm) {
+        this.pricePerKm = pricePerKm;
+    }
+
+    public double getFixedPrice() {
+        return fixedPrice;
+    }
+
+    public void setFixedPrice(double fixedPrice) {
+        this.fixedPrice = fixedPrice;
     }
 
     public CourierCompany(double pricePerKm, String name){
@@ -29,4 +58,13 @@ public class CourierCompany {
         this.pricePerKm = pricePerKm;
     }
 
+    public void planTraject(CourierTraject courierTraject) {
+        asignedTraject = courierTraject;
+        courierTraject.asignCourierCompany(this);
+    }
+
+    public double calcTotalTrajectPrice(Traject traject){
+        double distance = traject.getDistance();
+        return distance*pricePerKm+fixedPrice;
+    }
 }
